@@ -1,0 +1,7 @@
+cd carnivorous-app
+npm start
+http://localhost:3000/
+
+react front end
+sass style
+node or loop backend or next.js or redux
