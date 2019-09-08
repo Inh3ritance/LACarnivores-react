@@ -1,12 +1,46 @@
-.Carousel-Container{
-	max-width:100%;
-	height:600px;
-	
-	img{
-		height:600px;
-		width:100px;
-		width:100%;
-	}
+.parrallax{
+    background-attachment:fixed;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-image:url("Images/Test.jpg");
+}
+
+@keyframes bottomFadeOut {
+    0% {
+        bottom: -5rem;
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.Carousel-Container {
+	z-index:-1;
+    max-width: 100%;
+    height: 600px;
+
+    h1 {
+        margin-top: 0% !important;
+        text-align: center;
+		position:relative;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		animation-name:bottomFadeOut;
+        animation-duration:1.8s;
+    }
+
+    img {
+        height: 600px;
+        width: 100px;
+        width: 100%;
+    }
 }
 
 .Container{
@@ -15,14 +49,14 @@
 }
 
 .Left-Nav{
+	margin-left:1%;
 	height:800px;
-	background-color: #006600;
-	border-right:2px solid black;
+	background-color: white;
 	display:inline-block;
-	text-align:center;
+	text-align:left;
 	width:20%;
 	
-	h1{
+	h2{
 		border-bottom:1px solid black;
 		color:black;
 		margin:0px 0px 0px 0px!important;
@@ -33,13 +67,13 @@
 }
 
 .Left-Nav{
-	h1:hover{
-		background-color:#262626;
-		color:white;
+	h2:hover{
+		cursor: pointer;
 	}
 }
 
 .Content{
+	text-align:center;
 	vertical-align:top;
 	display:inline-block;
 	width:70%;

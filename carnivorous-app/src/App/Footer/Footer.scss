@@ -2,10 +2,19 @@ $primary-color: #404040;
 
 .Footer{
 	background-color: $primary-color;
+	padding-top:3%;
+	padding-bottom:3%;
 	
 	h2{
 		color:white;
 		margin-top:0px !important;
 		margin-bottom:0px !important;
 	}
+	
+}
+
+.Col{
+	width:33%;
+	display:inline-block;
+	text-align:center;
 }

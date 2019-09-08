@@ -1,0 +1,27 @@
+.product-card{
+	width:25%;
+	margin-left:2%;
+	margin-top:2%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	overflow-wrap: break-word;
+}
+
+.product-name{
+	text-align:center;
+}
+
+.price{
+	color:grey;
+}
+
+Button{
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}

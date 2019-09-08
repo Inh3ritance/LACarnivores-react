@@ -1,24 +1,28 @@
 import React from 'react';
 import './Body.scss';
+import ProductCard from './ProductCard/ProductCard.js';
 
-import venus from './Images/Test.jpg'
+import venus from './Images/Test.jpg';
 
 function Body() {
   return (
     <div className="Body">
 		<div className="Carousel-Container parrallax">
-			<img src= {venus} />
+			<h1>Something!</h1>
 		</div>
 		<div className="Container">
 			<div className= "Left-Nav">
-				<h1>Home</h1>
-				<h1>Colas & Hardy</h1>
-				<h1>Tropical</h1>
-				<h1>Byblis</h1>
-				<h1>Nepenthes</h1>
+				<h2>Home</h2>
+				<h2>Cold & Hardy</h2>
+				<h2>Tropical</h2>
+				<h2>Byblis</h2>
+				<h2>Nepenthes</h2>
 			</div>
 			<div className = "Content">
-				<h1>Right</h1>
+				<h1>Welcome!</h1>
+				<div>
+					<ProductCard/>
+				</div>
 			</div>
 		</div>
     </div>
