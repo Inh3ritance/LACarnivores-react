@@ -1,7 +1,11 @@
+$primary-color: #404040;
+
 .Footer{
-	background-color:black;
+	background-color: $primary-color;
 	
 	h2{
+		color:white;
 		margin-top:0px !important;
+		margin-bottom:0px !important;
 	}
 }
