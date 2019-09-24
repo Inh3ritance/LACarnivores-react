@@ -1,27 +1,67 @@
 .product-card{
+	position:relative;
+	text-align:center;
 	width:25%;
 	margin-left:2%;
 	margin-top:2%;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	overflow-wrap: break-word;
+	display:inline-block;
+	transition: transform .2s;
+	min-width:200px;
+}
+
+.product-card:hover{
+	transform: scale(1.1);
+	.product-header{
+       opacity:0.8;
+	 }
+}
+
+.product-header{
+	background-image: url('https://source.unsplash.com/user/erondu/600x400');
+	height:210px;
+	width:100px;
+	width:100%;
 }
 
 .product-name{
-	text-align:center;
+	margin-top:0px !important;
+	padding-top:2%;
 }
 
 .price{
 	color:grey;
 }
 
-Button{
-  border: none;
-  outline: 0;
-  padding: 12px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
+.product-button{
+	display:inline-block;
+	text-align:center;
+	color: white;
+	background-color: black;
+	width:100%;
+	
+	button{
+		text-align:center;
+		width:20%;
+		padding-bottom:4%;
+		padding-top:4%;
+		background:inherit;
+		border:none;
+		color:white;
+		font-size:20px;
+		cursor:pointer;
+		margin-top:0px;
+		margin-bottom:0px;
+	}
+	button:hover{
+		background-color:green;
+		color:white;
+	}
+}
+
+h3{
+	width:60%;
+	display:inline-block;
+	margin:0px;
 }

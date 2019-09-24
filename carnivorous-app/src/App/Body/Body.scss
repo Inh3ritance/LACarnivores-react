@@ -26,11 +26,16 @@
     height: 600px;
 
     h1 {
+		margin-left:0px;
         margin-top: 0% !important;
         text-align: center;
 		position:relative;
 		top: 50%;
 		left: 50%;
+		width:50%;
+		background-color:black;
+		color:white;
+		border-radius:30px;
 		transform: translate(-50%, -50%);
 		animation-name:bottomFadeOut;
         animation-duration:1.8s;
@@ -45,7 +50,8 @@
 
 .Container{
 	height:800px;
-	border-top: 2px solid black;
+	max-height:800px;
+	overflow:hidden;
 }
 
 .Left-Nav{
@@ -54,27 +60,23 @@
 	background-color: white;
 	display:inline-block;
 	text-align:left;
-	width:20%;
-	
-	h2{
-		border-bottom:1px solid black;
-		color:black;
-		margin:0px 0px 0px 0px!important;
-		padding-top:4%;
-		padding-bottom:4%;
-		transition:0.4s;
-	}
-}
-
-.Left-Nav{
-	h2:hover{
-		cursor: pointer;
-	}
+	width:20%;	
 }
 
 .Content{
+	max-height:800px;
+	overflow-y:scroll;
 	text-align:center;
 	vertical-align:top;
 	display:inline-block;
-	width:70%;
+	width:79%;
+	overflow: -moz-scrollbars-none; 
+}
+
+.Product-Cards{
+	text-align:left;
+}
+
+#bottom-space{
+	margin-top:2%;
 }

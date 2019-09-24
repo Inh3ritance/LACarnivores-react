@@ -1,60 +1,29 @@
 import React from 'react';
 import './ProductCard.scss';
+import ToggleSwitch from '../ToggleSwitch/ToggleSwitch.js';
 
-class ProductCardHeader extends React.Component {
-  render() {
-    const { image } = this.props;
-    var style = { 
-        backgroundImage: 'url(' +  image + ')', height:'200px',width:'100px',width:'100%',
-    };
-	
-	//get rid of inline styles
-    return (
-      <div style={style} id={image} className="product-header"> 
-        <h4 className="product-name">Product Name</h4>
-      </div>
-    )
-  }
-}
+const ProductCard = ({id,quantity,type,name,description,img,price,visible,selector}) =>  {
 
-class Button extends React.Component {
-  render() {
-    return (
-      <button>- Add to Cart +</button> //Add button -  p button +
-    )
-  }
-}
-
-class ProductCardBody extends React.Component {
-  render() {
-    return (
-      <div className="product-card-body">
-        
-        <p className="price">{this.props.title}</p>
-        
-        <p className="product-body-content">{this.props.text}</p>
-        
-        <Button/>
-      </div>
-    )
-  }
-}
-
-class ProductCard extends React.Component {	
-
-	constructor(props){
-		super(props);
-		
-	}
-	
-render() {
+    if (type == selector) {
     return (
       <div className="product-card">
-        <ProductCardHeader image={'https://source.unsplash.com/user/erondu/600x400'}/>
-        <ProductCardBody title={'price'} text={'This is an example'}/>
+        
+		<div className="product-header">
+			<h4 className="product-name">{name}</h4>		
+		</div>
+		
+		<div className="product-card-body">
+			<p className="price">{price}$</p>
+			<p className="product-body-content">{description}</p>
+		</div>
+	  
+		<div className = "product-button">
+			<button>-</button><h3> Add to Cart </h3><button>+</button>
+		</div>
+		
       </div>
     )
-  }
+  } return (<span></span>)
 }
 
 export default ProductCard;
