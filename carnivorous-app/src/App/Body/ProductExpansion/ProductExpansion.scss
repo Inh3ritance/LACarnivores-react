@@ -1,0 +1,70 @@
+.model {
+    z-index: 5;
+    left: 0;
+    right: 0;
+    position: fixed;
+    height: 100%;
+    width: 90%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-left: 5%;
+    background-color: white;
+    vertical-align: middle;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 1s; /* Firefox < 16 */
+    -ms-animation: fadein 1s; /* Internet Explorer */
+    -o-animation: fadein 1s; /* Opera < 12.1 */
+    animation: fadein 1s;
+    overflow-y:scroll;
+    top:33px;
+}
+
+
+@keyframes fadein {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.Carousel {
+    height: 600px;
+    background-repeat: no-repeat;
+    /*background-image: url('https://source.unsplash.com/user/erondu/600x400');*/
+    background-size: 100%;
+    background-position: center;
+}
+
+.Close{
+    width:1%;
+    float:right;
+    text-align:right;
+    border-bottom:none;
+    padding-right:10%;
+}
+
+.product-name{
+    text-align:center;
+}
+
+/*Stage{
+    width:100px;
+    background-color:green;
+}*/
