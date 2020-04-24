@@ -1,0 +1,62 @@
+legend{
+    margin-left:10%;
+    padding-left:1%;
+    padding-right:1%;
+    width:auto;
+}
+
+form{
+    margin-left:5%;
+    margin-right:5%;
+    padding-bottom:5%;
+}
+
+fieldset{
+    border:2px solid black;
+}
+
+.p-check{
+    display:inline-block;
+}
+
+.inner{
+    float:left;
+    margin-left:1%;
+    padding:1%;
+    width:95%;
+}
+
+.Checkout_Button{
+    background-color:lightgray;
+    border:1px solid black;
+    color:black;
+    padding-top:1%;
+    padding-bottom:1%;
+    border-radius:10px;
+    width:200px;
+}
+
+.Checkout_Button:hover{
+    color:blue;
+}
+
+.NoMargin{
+    margin-left:0px;
+}
+
+.checkout {
+    display:block;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+/*
+.Left-Form{
+    float:left;
+    width:50%;
+}
+
+.Right-Form{
+    float:right;
+    width:50%;
+}*/

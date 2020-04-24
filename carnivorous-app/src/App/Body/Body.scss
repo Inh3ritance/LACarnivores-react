@@ -1,11 +1,11 @@
 .overlay-model{
     display:none;
-	width:90%;
+	width:100%;
 	overflow: auto; 
 	margin-left:5%;
 	z-index:2;
 	position:fixed;
-	height:700px;
+	height:600px;
 	background-color: #fefefe;
 }
 
@@ -13,7 +13,7 @@
     background-attachment:fixed;
     background-position:center;
     background-repeat:no-repeat;
-    background-image:url("Images/Test.jpg");
+    background-image:url("Images/Main/Test.jpg");
 }
 
 @keyframes bottomFadeOut {
@@ -23,17 +23,16 @@
     }
 
     75% {
-        opacity: 1;
+        opacity: 0.85;
     }
 
     100% {
-        opacity: 1;
+        opacity: 0.85;
     }
 }
 
 .Carousel-Container {
 	z-index:-1;
-    max-width: 100%;
     height: 600px;
 
     h1 {
@@ -46,23 +45,17 @@
 		width:50%;
 		background-color:black;
 		color:white;
-		border-radius:30px;
 		transform: translate(-50%, -50%);
 		animation-name:bottomFadeOut;
         animation-duration:1.8s;
-    }
-
-    img {
-        height: 600px;
-        width: 100px;
-        width: 100%;
+        padding:2%;
+        opacity:0.85;
+        border-radius:10px;
     }
 }
 
-.Container{
-	height:800px;
-	max-height:800px;
-	overflow:hidden;
+.Container {
+    font-family: Arial, Helvetica, sans-serif !important;
 }
 
 .Left-Nav{
@@ -74,14 +67,12 @@
 	width:20%;
 }
 
-.Content{
-	max-height:800px;
-	overflow-y:scroll;
-	text-align:center;
-	vertical-align:top;
-	display:inline-block;
-	width:79%;
-	overflow: -moz-scrollbars-none; 
+.Content {
+    max-height: 800px;
+    text-align: center;
+    vertical-align: top;
+    display: inline-block;
+    width: 79%;
 }
 
 .Product-Cards{

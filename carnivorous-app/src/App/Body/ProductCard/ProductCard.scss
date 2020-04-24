@@ -5,6 +5,7 @@
 }
 
 .product-card {
+    max-width:300px;
     position: relative;
     text-align: center;
     width: 25%;
@@ -26,10 +27,9 @@
 
 .product-header {
     //background-image: url('https://source.unsplash.com/user/erondu/600x400');
-    // change to neccesary dimensions 300 / 200
-    height: 200px;
-    width: 300px;
-    width: 100%;
+    background-repeat: no-repeat;
+    height:200px;
+    background-size:auto;  
 }
 
 .product-header:hover{
@@ -45,30 +45,32 @@
 	color:grey;
 }
 
-.product-button{
-	display:inline-block;
-	text-align:center;
-	color: white;
-	background-color: black;
-	width:100%;
-	
-	.btn{
-		text-align:center;
-		width:20%;
-		padding-bottom:4%;
-		padding-top:4%;
-		background:inherit;
-		border:none;
-		color:white;
-		font-size:20px;
-		cursor:pointer;
-		margin-top:0px;
-		margin-bottom:0px;
-	}
-	button:hover{
-		background-color:green;
-		color:white;
-	}
+.product-button {
+    display: inline-block;
+    text-align: center;
+    color: white;
+    background-color: black;
+    width: 100% !important;
+
+    .btn {
+        border-radius: 0px !important;
+        text-align: center;
+        width: 20%;
+        padding-bottom: 4%;
+        padding-top: 4%;
+        background: inherit;
+        border: none;
+        color: white;
+        font-size: 20px !important;
+        cursor: pointer;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    button:hover {
+        background-color: green;
+        color: white;
+    }
 }
 
 h3{

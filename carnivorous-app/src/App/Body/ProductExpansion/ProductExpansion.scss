@@ -4,16 +4,13 @@
     right: 0;
     position: fixed;
     height: 100%;
-    width: 90%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    margin-left: 5%;
+    width:75%;
+    margin-left: 15%;
     background-color: white;
     vertical-align: middle;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
     -moz-animation: fadein 1s; /* Firefox < 16 */
-    -ms-animation: fadein 1s; /* Internet Explorer */
     -o-animation: fadein 1s; /* Opera < 12.1 */
     animation: fadein 1s;
     overflow-y:scroll;
@@ -44,27 +41,31 @@
     to {opacity: 1;}
 }
 
-.Carousel {
-    height: 600px;
-    background-repeat: no-repeat;
-    /*background-image: url('https://source.unsplash.com/user/erondu/600x400');*/
-    background-size: 100%;
-    background-position: center;
-}
-
 .Close{
+    z-index:7;
+    position:absolute;
     width:1%;
     float:right;
     text-align:right;
     border-bottom:none;
-    padding-right:10%;
+    margin-left:90% !important;
 }
 
 .product-name{
+    padding-top:3%;
     text-align:center;
 }
 
-/*Stage{
-    width:100px;
-    background-color:green;
-}*/
+p{
+    //margin-bottom:2% !important;
+    margin-right:8%;
+    margin-left:8%;
+}
+
+.pad{
+    margin-left:10%;
+}
+
+#end{
+    padding-bottom:5%;
+}

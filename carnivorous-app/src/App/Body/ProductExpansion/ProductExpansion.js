@@ -1,28 +1,51 @@
 import React from 'react';
 import Body from '../Body.js';
 import './ProductExpansion.scss';
+import Carousel from 'react-bootstrap/Carousel';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-//import { Stage, Sprite } from '@inlet/react-pixi';
-/*const BI = () => (
-    <div>
-        <Stage width={1200} height={600} options={{ backgroundColor: 0xeef1f5 }}>
-            <Sprite
-                    image="https://source.unsplash.com/user/erondu/600x400"
-            scale={{ x: 2, y: 2 }}
-            />
-        </Stage>
-     </div>
-);*/
-
-const ProductExpansion = ({ id, quantity, type, name, description, img, price, visible, view, closeView}) => {
+/* Takes information from ProductCard To expand into an individual box model */
+const ProductExpansion = ({ id, quantity, visible, view, closeView, plant_info}) => {
     if (view) {
         return (
             <div className="model">
-                <div className="Carousel" style={{ backgroundImage: 'url(.' + img[1] + ')' }}> {/* <BI/> */}
-                    <button className="Close" onClick={() => closeView({view:false})}><h2>X</h2></button>
-                </div>
-                <h1 className="product-name">Name</h1>
+                <Carousel>
+                    <Carousel.Item>
+                        <button className="Close" onClick={() => closeView({ view: false })}><h2><b>X</b></h2></button>
+                        <img
+                            className="d-block w-100"
+                            src={plant_info[10][1]}
+                        />
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <button className="Close" onClick={() => closeView({ view: false })}><h2><b>X</b></h2></button>
+                        <img
+                            className="d-block w-100"
+                            src={plant_info[10][1]}
+                        />
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <button className="Close" onClick={() => closeView({ view: false })}><h2><b>X</b></h2></button>
+                        <img
+                            className="d-block w-100"
+                            src={plant_info[10][1]}
+                        />
+                    </Carousel.Item>
+                </Carousel>
+
+                <h1 className="product-name">{plant_info[0]}</h1>
+                <p><b>Description: </b></p>
+                <p className="pad">{plant_info[2]}</p>
+                <p><b>What you will recieve: </b></p>
+                <p className="pad">{plant_info[4]}</p>
+                <p><b>Zones: </b></p>
+                <p className="pad">{plant_info[5]}</p>
+                <p><b>Water: </b></p>
+                <p className="pad">{plant_info[6]}</p>
+                <p><b>Soil: </b></p>
+                <p className="pad">{plant_info[7]}</p>
+                <p><b>Lighting: </b></p>
+                <p className="pad" id="end">{plant_info[8]}</p>
             </div>
         )
     } else {

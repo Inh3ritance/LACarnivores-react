@@ -2,24 +2,27 @@ import React from 'react';
 import './Nav.scss';
 
 class Nav extends React.Component {
+
+  /* Constructor */
   constructor(props) {
         super(props);
-
-        this.state = {};
-
+        this.state = { };
         this.handleScroll = this.handleScroll.bind(this);
   }
 
-    handleScroll() {
+  /* Function handling/setting scroll state*/
+  handleScroll() {
         this.setState({scroll: window.scrollY});
   }
-  
+
+  /* Immediatly set the state for scroll */
   componentDidMount() {
         const move = document.querySelector('nav');
         this.setState({top: move.offsetTop, height: move.offsetHeight});
         window.addEventListener('scroll', this.handleScroll);
   }
-  
+
+  /* Update scroll position after mounting */
   componentDidUpdate() {
         this.state.scroll > this.state.top ? 
             document.body.style.paddingTop = `${this.state.height}px` :
@@ -28,12 +31,12 @@ class Nav extends React.Component {
     
   render() {
     return (
-    <nav className={this.state.scroll > this.state.top ? "fixed-nav" : ""}>
-		<h1 id = "Company_Name">LA Carnivores</h1>
-		<div id = "Right_Buttons">
-			<h2>S</h2>
-		</div>
-	</nav>
+        <div>
+            <nav className={this.state.scroll > this.state.top ? "fixed-nav" : ""}>
+		        <h1 id = "Company_Name">LA Carnivores</h1>
+                <div id="Right_Buttons"> <h2>My Cart</h2> </div>
+            </nav>
+        </div>
     );
   }
 
