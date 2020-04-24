@@ -12,7 +12,7 @@ import CheckoutForm from './Body/Checkout/CheckoutForm.js';
 function App() {
   return (
       <div>
-          <StripeProvider apiKey='pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g'>
+          <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
               <Elements>
                   <CheckoutForm />
               </Elements>
