@@ -294,15 +294,15 @@ class Body extends React.Component {
                         <ToggleSwitch Selector={this.onChangeSelector.bind(this)} />
                     </div>
                 <div className="Content">
-                    <h1>{this.state.selector == "Default" ? "Welcome" : ""}</h1>
-                    <p>{this.state.selector == "Default" ? "We are a new starting nursery with a wide variety of carnivorous plants and great service. Since we are new, our selections may have limited quanties,but as we grow together we will grow in product availabilty and hopefully soon a storefront. Here at LA Carnivores we raise and purchase carnivorous plants from quality vendors to make sure you get the most reliable plants in the country." : ""}</p>
+                    <h1>{this.state.selector === "Default" ? "Welcome" : ""}</h1>
+                    <p>{this.state.selector === "Default" ? "We are a new starting nursery with a wide variety of carnivorous plants and great service. Since we are new, our selections may have limited quanties,but as we grow together we will grow in product availabilty and hopefully soon a storefront. Here at LA Carnivores we raise and purchase carnivorous plants from quality vendors to make sure you get the most reliable plants in the country." : ""}</p>
                     <ul>
                         {
-                            /*this.state.cart.map(c => <li>{c.plant_info[0]} | units {c.units}</li>)*/
+                            //this.state.cart.map(c => <li>{c.plant_info[0]} | units {c.units}</li>)
                         }
                     </ul>
 
-                    <h2>{this.state.selector == "Default" ? "" : this.state.selector}</h2>
+                    <h2>{this.state.selector === "Default" ? "" : this.state.selector}</h2>
 
                     <div className="Product-Cards">
                         {products.map(p => <ProductCard key={p.id} {...p} selector={this.state.selector} updateCart={this.updateCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} /*Viewer={this.onChangeViewer.bind(this)}*/ />)}

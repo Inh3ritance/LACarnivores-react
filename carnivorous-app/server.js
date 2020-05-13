@@ -10,6 +10,7 @@ app.post("/charge", async (req, res) => {
             amount: 2000,
             currency: "usd",
             description: "An example charge",
+            metadata: {integration_check: 'accept_a_payment'},
             source: req.body
         });
 
