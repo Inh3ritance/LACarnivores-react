@@ -5,33 +5,37 @@ import {CardElement, injectStripe} from 'react-stripe-elements';
 class CheckoutForm extends Component {
   constructor(props) {
       super(props);
-      this.state = { complete: false };
+      this.state = { complete: false, name: ''};
       this.submit = this.submit.bind(this);
+
   }
 
-    async submit(ev) {
-        let { token } = await this.props.stripe.createToken({ name: "Name" });
-        let response = await fetch("/charge", {
-            method: "POST",
-            headers: { "Content-Type": "text/plain" },
-            body: token.id
-        });
+  async submit(ev) {
+    ev.preventDefault();
+    let { token } = await this.props.stripe.createToken({ name: this.state.name });
+    let response = await fetch("/charge", {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: token.id
+    });
 
-        if (response.ok) console.log("Purchase Complete!")
-        if (response.ok) this.setState({ complete: true });
-    }
+    if (response.ok) console.log("Purchase Complete!")
+    if (response.ok) this.setState({ complete: true });
+}
 
     render() {
         if (this.state.complete) return <h1>Purchase Complete</h1>;
 
         return (
             <div>
-                <form>
+                <form 
+                    onSubmit={(ev: React.ChangeEvent<HTMLFormElement>) => this.submit(ev)}
+                    >
                     <fieldset>
                         <legend><b>Checkout</b></legend>
                         <div className="inner">
                                 <div className = "Left-Form">
-                                    <p className = "p-check">First Name*: </p><input type="text"></input>
+                                    <p className = "p-check">First Name*: </p><input type="text" value={this.state.name} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ name: ev.target.value })}></input>
                                     <p className = "p-check">Last Name*: </p><input type="text"></input>
                                     <p className = "p-check">Email*: </p><input type="text"></input>
                                 </div>
@@ -95,7 +99,9 @@ class CheckoutForm extends Component {
                                     <p className="NoMargin" style={{ display: "inline" }}>Card: </p>
                                 </div>
                                 <CardElement className="checkout" />
-                                <button className = "Checkout_Button" onClick={this.submit}>Purchase</button>
+                                <button 
+                                    className = "Checkout_Button" 
+                                >Purchase</button>
                         </div>
                     </fieldset>
                 </form>
