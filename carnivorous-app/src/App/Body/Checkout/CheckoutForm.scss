@@ -13,17 +13,22 @@ form{
 
 fieldset{
     border:2px solid black;
+    border-radius: 10px;
 }
 
-.p-check{
-    display:inline-block;
+label{
+    display: block;
 }
 
 .inner{
     float:left;
-    margin-left:1%;
+    margin-left:3%;
     padding:1%;
     width:95%;
+}
+
+input{
+    border-radius: 5px;
 }
 
 .Checkout_Button{
@@ -37,7 +42,7 @@ fieldset{
 }
 
 .Checkout_Button:hover{
-    color:blue;
+    color:rgb(45, 81, 201);
 }
 
 .NoMargin{
@@ -50,13 +55,20 @@ fieldset{
     padding-bottom: 1%;
 }
 
-/*
-.Left-Form{
-    float:left;
-    width:50%;
-}
-
-.Right-Form{
-    float:right;
-    width:50%;
-}*/
+input[type=text] {
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid #DDDDDD;
+  }
+   
+  input[type=text]:focus {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid rgba(81, 203, 238, 1);
+  }

@@ -35,7 +35,7 @@
 	z-index:-1;
     height: 600px;
 
-    h1 {
+    h2 {
 		margin-left:0px;
         margin-top: 0% !important;
         text-align: center;
@@ -50,7 +50,8 @@
         animation-duration:1.8s;
         padding:2%;
         opacity:0.85;
-        border-radius:10px;
+        border-radius:10PX;
+        text-overflow: wrap;
     }
 }
 

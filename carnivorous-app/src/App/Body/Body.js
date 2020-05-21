@@ -287,7 +287,7 @@ class Body extends React.Component {
         <div className="Body">
             <ProductExpansion view={this.state.expansion[0].view} plant_info={this.state.expansion[0].plant_info} closeView={this.closeView.bind(this)} />
             <div className="Carousel-Container parrallax">
-                <h1>Preservation Through Cultivation</h1>
+                <h2>Preservation Through Cultivation</h2>
             </div>
             <div className="Container">
                     <div className="Left-Nav">

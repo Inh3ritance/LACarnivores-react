@@ -33,8 +33,12 @@ class Nav extends React.Component {
     return (
         <div>
             <nav className={this.state.scroll > this.state.top ? "fixed-nav" : ""}>
-		        <h1 id = "Company_Name">LA Carnivores</h1>
-                <div id="Right_Buttons"> <h2>My Cart 0</h2> </div>
+		  <h1 id = "Company_Name">LA Carnivores</h1>
+                <div id="Right_Buttons">
+                  <button class="btn btn-info btn-lg">
+                    <span class="glyphicon glyphicon-shopping-cart"> Shopping Cart</span>
+                  </button>
+                </div>
             </nav>
         </div>
     );
