@@ -20,7 +20,7 @@ import Drosera_Capensis_600X400 from './Images/Drosera Capensis/capensis_600X400
 const products = [
 	{
 		id:1,
-        quantity: 1, /*from actual store*/
+        quantity: 0, /*from actual store*/
         visible: true,
 /*
 [0]		name:"Venus Flytrap",

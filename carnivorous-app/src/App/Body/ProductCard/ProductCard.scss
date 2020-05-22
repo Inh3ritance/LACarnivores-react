@@ -79,3 +79,18 @@ h3{
 	display:inline-block;
 	margin:0px;
 }
+
+.sold{
+    filter: grayscale(100%);
+}
+
+.soldout{
+    margin-top:0px !important;
+    font-size: 200% !important;
+    filter:grayscale(0%) !important;
+    color:red;
+}
+
+.reject:hover{
+    background-color:red !important;
+}

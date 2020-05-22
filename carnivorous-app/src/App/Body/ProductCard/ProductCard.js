@@ -24,7 +24,31 @@ const ProductCard = ({ id, quantity, visible, selector, view, updateCart, passTo
 
                 </div>
             )
-        } return (<span></span>)
+        } else if(plant_info[3] === selector && quantity === 0) {
+            return (
+            <div className="product-card">
+
+            <button className="remove-button">
+                <div className="product-header sold" style={{ backgroundImage: 'url(.' + plant_info[10][0] + ')' }}>
+                    <h4 className = "product-name">{plant_info[0]}</h4>
+                </div>
+                <h4 className = "soldout"> <b>Sold Out </b></h4>
+            </button>
+
+            <div className="product-card-body">
+                <p className="price">{plant_info[9]}$</p>
+                <p className="product-body-content">{plant_info[1]}</p>
+            </div>
+
+            <div className="product-button">
+                <button className="btn reject">-</button><h3> Add to Cart </h3><button className="btn reject">+</button>
+            </div>
+
+          </div>
+          )
+        } else {
+            return(<span></span>);
+        }
     }
 
 export default ProductCard;
