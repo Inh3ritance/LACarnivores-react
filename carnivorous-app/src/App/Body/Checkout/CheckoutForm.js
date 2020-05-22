@@ -1,38 +1,57 @@
 import './CheckoutForm.scss';
 import React, { Component } from 'react';
-import {CardElement, injectStripe} from 'react-stripe-elements';
+import { CardElement, injectStripe } from 'react-stripe-elements';
 
 class CheckoutForm extends Component {
-  constructor(props) {
-      super(props);
-      this.state = { 
-          complete: false,
-          First_name: '',
-          Last_Name:'',
-          Adress:'',
-          Email:'',
-          State:'',
-          City:'',
-      };
-      this.submit = this.submit.bind(this);
-  }
-
-  async submit(ev) {
-    ev.preventDefault();
-    try{
-    let { token } = await this.props.stripe.createToken({ name: this.state.First_name });
-    let response = await fetch("/charge", {
-        method: "POST",
-        headers: { "Content-Type": "text/plain" },
-        body: token.id
-    });
-    if (response.ok) console.log("Purchase Complete!")
-    if (response.ok) this.setState({ complete: true });
-    } catch(e){
-        throw (e);
+    constructor(props) {
+        super(props);
+        this.state = {
+            complete: false,
+            fullName: '',
+            Address: '',
+            Email: '',
+            State: '',
+            City: '',
+        };
+        this.submit = this.submit.bind(this);
     }
-  }
 
+    async submit(ev) {
+        ev.preventDefault();
+        //Code below just used for testing create customer call//
+        //this.createCustomer();
+        try {
+            let { token } = await this.props.stripe.createToken({ name: this.state.fullName, });
+            let response = await fetch("/charge", {
+                method: "POST",
+                headers: { "Content-Type": "text/plain" },
+                body: token.id
+            });
+            if (response.ok) console.log("Purchase Complete!")
+            if (response.ok) this.setState({ complete: true });
+        } catch (e) {
+            throw (e);
+        }
+    }
+
+
+    async createCustomer() {
+        let name = this.state.fullName;
+        let email = this.state.Email;
+        let data = { "name": name, "email": email };
+
+        try {
+            let response = await fetch("/createCustomer", {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) console.log("new customer created successfully");
+        } catch (e) {
+            throw (e);
+        }
+    }
     render() {
         if (this.state.complete) return <h1>Purchase Complete!</h1>;
         return (
@@ -41,11 +60,10 @@ class CheckoutForm extends Component {
                     <fieldset>
                         <legend><b>Shipping & Billing</b></legend>
                         <div className="inner">
-                            <label>First Name</label><input className = "glow" required placeholder = "JOHN" autoComplete = "on" type="text" value={this.state.First_name} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ First_name: ev.target.value })}></input>
-                            <label>Last Name</label><input required placeholder = "DOE" autoComplete = "on" type="text"></input>
-                            <label>Email</label><input required placeholder = "email@example.com" autoComplete = "on" type="text"></input>
+                            <label>Full Name</label><input className="glow" required placeholder="JOHN DOE" autoComplete="on" type="text" value={this.state.fullName} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ fullName: ev.target.value })}></input>
+                            <label>Email</label><input required placeholder="email@example.com" autoComplete="on" type="text" value={this.state.Email} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Email: ev.target.value })}></input>
                             <label>State</label>
-                            <select required = "required">
+                            <select required="required">
                                 <option value="AL">Alabama</option>
                                 <option value="AK">Alaska</option>
                                 <option value="AZ">Arizona</option>
@@ -97,18 +115,18 @@ class CheckoutForm extends Component {
                                 <option value="WV">West Virginia</option>
                                 <option value="WI">Wisconsin</option>
                                 <option value="WY">Wyoming</option>
-                            </select>			
-                            <label>City </label><input required placeholder = "City" autoComplete = "on" type="text"></input>
-                            <label>Adress </label><input required placeholder = "123 StreetName Ave." autoComplete = "on" type="text"></input>
+                            </select>
+                            <label>City </label><input required placeholder="City" autoComplete="on" type="text" value={this.state.City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ City: ev.target.value })}></input>
+                            <label>Adress </label><input required placeholder="123 StreetName Ave." autoComplete="on" type="text" value={this.state.Address} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Address: ev.target.value })}></input>
                             <label className="NoMargin">Card: </label>
-                            <CardElement  className="checkout" />
-                            <button className = "Checkout_Button">Submit Payment</button>
+                            <CardElement className="checkout" />
+                            <button className="Checkout_Button">Submit Payment</button>
                         </div>
                     </fieldset>
                 </form>
             </div>
-    );
-  }
+        );
+    }
 }
 
 export default injectStripe(CheckoutForm);
