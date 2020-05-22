@@ -1,5 +1,4 @@
 import React from 'react';
-import Body from '../Body.js';
 import './ProductExpansion.scss';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,6 +12,7 @@ const ProductExpansion = ({ id, quantity, visible, view, closeView, plant_info})
                     <Carousel.Item>
                         <button className="Close" onClick={() => closeView({ view: false })}><h2><b>X</b></h2></button>
                         <img
+                            alt="IMG_01"
                             className="d-block w-100"
                             src={plant_info[10][1]}
                         />
@@ -20,6 +20,7 @@ const ProductExpansion = ({ id, quantity, visible, view, closeView, plant_info})
                     <Carousel.Item>
                         <button className="Close" onClick={() => closeView({ view: false })}><h2><b>X</b></h2></button>
                         <img
+                            alt="IMG_02"
                             className="d-block w-100"
                             src={plant_info[10][1]}
                         />
@@ -27,6 +28,7 @@ const ProductExpansion = ({ id, quantity, visible, view, closeView, plant_info})
                     <Carousel.Item>
                         <button className="Close" onClick={() => closeView({ view: false })}><h2><b>X</b></h2></button>
                         <img
+                            alt="IMG_03"
                             className="d-block w-100"
                             src={plant_info[10][1]}
                         />

@@ -5,7 +5,7 @@ import Footer from './Footer/Footer.js';
 import './App.css';
 
 /* React Components / Stripe payment method */
-import React, {Component} from 'react';
+import React from 'react';
 import {Elements, StripeProvider} from 'react-stripe-elements';
 import CheckoutForm from './Body/Checkout/CheckoutForm.js';
 

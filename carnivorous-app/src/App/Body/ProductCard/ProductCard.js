@@ -1,11 +1,9 @@
 import React from 'react';
 import './ProductCard.scss';
-import ToggleSwitch from '../ToggleSwitch/ToggleSwitch.js';
-import Body from '../Body.js';
 
 /* Takes in information retrieved by Database/Array to render a Product Card */
 const ProductCard = ({ id, quantity, visible, selector, view, updateCart, passToExpansion, plant_info }) => {
-    if (plant_info[3] == selector && quantity != 0) {
+    if (plant_info[3] === selector && quantity !== 0) {
             return (
                 <div className="product-card">
 
