@@ -5,24 +5,29 @@ nav{
 	z-index:1;
 	background-color: $primary-color;
 	box-shadow: 0px 0px 3px 3px black;
-    font-family: Arial, Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
+	padding-top: 0.5%;
+	padding-bottom: 0.5%;
 	
 	#Company_Name{
 		display:inline-block;
 		margin-left:3%;
 		margin-top:0px !important;
 		color: $secondary-color;
+		font-size: 300%;
 	}
 	
-	h1{
+	#cart{
 		color: $secondary-color;
 		margin-top:0px !important;
 		display:inline-block;
+		font-size: 150%;
 	}
 	
-	#Right_Buttons{
+	.Right_Buttons{
 		margin-right:3%;
 		float:right;	
+		text-align: center;
 	}
 }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserView, MobileView } from 'react-device-detect';
 import './Nav.scss';
 
 class Nav extends React.Component {
@@ -28,17 +29,19 @@ class Nav extends React.Component {
             document.body.style.paddingTop = `${this.state.height}px` :
             document.body.style.paddingTop = 0;
   }
-    
+
   render() {
     return (
         <div>
             <nav className={this.state.scroll > this.state.top ? "fixed-nav" : ""}>
 		  <h1 id = "Company_Name">LA Carnivores</h1>
-                <div id="Right_Buttons">
+              <BrowserView viewClassName = "Right_Buttons">
                   <button class="btn btn-info btn-lg">
-                    <span class="glyphicon glyphicon-shopping-cart"> Shopping Cart</span>
+                    <h2 id = "cart"><span class="glyphicon glyphicon-shopping-cart"> 0</span></h2>
                   </button>
-                </div>
+              </BrowserView>
+              <MobileView viewClassName = "Right_Buttons">
+              </MobileView>
             </nav>
         </div>
     );

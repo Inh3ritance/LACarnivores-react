@@ -1,4 +1,6 @@
 legend{
+    border:none;
+    font-size: 300%;
     margin-left:10%;
     padding-left:1%;
     padding-right:1%;
@@ -17,7 +19,12 @@ fieldset{
 }
 
 label{
+    font-size: 150%;
     display: block;
+}
+
+select{
+    font-size: 150%;;
 }
 
 .inner{
@@ -28,17 +35,22 @@ label{
 }
 
 input{
+    font-size: 150%;
     border-radius: 5px;
+    -moz-box-shadow-bottom: 4px 4px 4px gray;
+    -webkit-box-shadow-bottom: 4px 4px 4px gray;
+    box-shadow: 1px 1px 1px gray;
 }
 
 .Checkout_Button{
+    font-size: 150%;
     background-color:lightgray;
     border:1px solid black;
     color:black;
     padding-top:1%;
     padding-bottom:1%;
     border-radius:10px;
-    width:200px;
+    width:140px;
 }
 
 .Checkout_Button:hover{

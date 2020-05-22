@@ -3,6 +3,7 @@ import './Body.scss';
 import ProductCard from './ProductCard/ProductCard.js';
 import ToggleSwitch from './ToggleSwitch/ToggleSwitch.js';
 import ProductExpansion from './ProductExpansion/ProductExpansion.js';
+import { BrowserView} from 'react-device-detect';
 
 import Nepenthes_Glabrata_300X200 from './Images/Nepenthes Glabrata/nepenthes_glabrata_300X200.jpg';
 import Nepenthes_Glabrata_600X400 from './Images/Nepenthes Glabrata/nepenthes_glabrata_600X400.jpg';
@@ -266,7 +267,6 @@ class Body extends React.Component {
             this.setState({
                 cart: [...withoutExistingProduct, updateUnitsProduct]
             });
-
         } else {
             this.setState({
                 cart: [...this.state.cart, product]
@@ -287,12 +287,13 @@ class Body extends React.Component {
         <div className="Body">
             <ProductExpansion view={this.state.expansion[0].view} plant_info={this.state.expansion[0].plant_info} closeView={this.closeView.bind(this)} />
             <div className="Carousel-Container parrallax">
-                <h2>Preservation Through Cultivation</h2>
+                <h1>Preservation Through Cultivation</h1>
             </div>
+            {this.renderContent}
             <div className="Container">
-                    <div className="Left-Nav">
-                        <ToggleSwitch Selector={this.onChangeSelector.bind(this)} />
-                    </div>
+                <BrowserView viewClassName="Left-Nav">
+                    <ToggleSwitch Selector={this.onChangeSelector.bind(this)} />
+                </BrowserView>
                 <div className="Content">
                     <h1>{this.state.selector === "Default" ? "Welcome" : ""}</h1>
                     <p>{this.state.selector === "Default" ? "We are a new starting nursery with a wide variety of carnivorous plants and great service. Since we are new, our selections may have limited quanties,but as we grow together we will grow in product availabilty and hopefully soon a storefront. Here at LA Carnivores we raise and purchase carnivorous plants from quality vendors to make sure you get the most reliable plants in the country." : ""}</p>
@@ -305,7 +306,9 @@ class Body extends React.Component {
                     <h2>{this.state.selector === "Default" ? "" : this.state.selector}</h2>
 
                     <div className="Product-Cards">
-                        {products.map(p => <ProductCard key={p.id} {...p} selector={this.state.selector} updateCart={this.updateCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} /*Viewer={this.onChangeViewer.bind(this)}*/ />)}
+                        {
+                            products.map(p => <ProductCard key={p.id} {...p} selector={this.state.selector} updateCart={this.updateCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} /*Viewer={this.onChangeViewer.bind(this)}*/ />)
+                        }
                     </div>
                 <div id="bottom-space"></div>
                 </div>

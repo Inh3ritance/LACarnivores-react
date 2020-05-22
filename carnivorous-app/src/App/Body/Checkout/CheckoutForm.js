@@ -19,7 +19,8 @@ class CheckoutForm extends Component {
 
   async submit(ev) {
     ev.preventDefault();
-    let { token } = await this.props.stripe.createToken({ name: this.state.name });
+    try{
+    let { token } = await this.props.stripe.createToken({ name: this.state.First_name });
     let response = await fetch("/charge", {
         method: "POST",
         headers: { "Content-Type": "text/plain" },
@@ -27,17 +28,20 @@ class CheckoutForm extends Component {
     });
     if (response.ok) console.log("Purchase Complete!")
     if (response.ok) this.setState({ complete: true });
+    } catch(e){
+        throw (e);
+    }
   }
 
     render() {
         if (this.state.complete) return <h1>Purchase Complete!</h1>;
         return (
             <div>
-                <form action="#" method="post" onSubmit={(ev: React.ChangeEvent<HTMLFormElement>) => this.submit(ev)}>
+                <form method="post" onSubmit={(ev: React.ChangeEvent<HTMLFormElement>) => this.submit(ev)}>
                     <fieldset>
-                        <legend><b>Checkout</b></legend>
+                        <legend><b>Shipping & Billing</b></legend>
                         <div className="inner">
-                            <label>First Name</label><input className = "glow" required placeholder = "JOHN" autoComplete = "on" type="text" value={this.state.name} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ name: ev.target.value })}></input>
+                            <label>First Name</label><input className = "glow" required placeholder = "JOHN" autoComplete = "on" type="text" value={this.state.First_name} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ First_name: ev.target.value })}></input>
                             <label>Last Name</label><input required placeholder = "DOE" autoComplete = "on" type="text"></input>
                             <label>Email</label><input required placeholder = "email@example.com" autoComplete = "on" type="text"></input>
                             <label>State</label>
@@ -98,7 +102,7 @@ class CheckoutForm extends Component {
                             <label>Adress </label><input required placeholder = "123 StreetName Ave." autoComplete = "on" type="text"></input>
                             <label className="NoMargin">Card: </label>
                             <CardElement  className="checkout" />
-                            <button className = "Checkout_Button">Purchase</button>
+                            <button className = "Checkout_Button">Submit Payment</button>
                         </div>
                     </fieldset>
                 </form>

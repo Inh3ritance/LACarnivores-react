@@ -6,16 +6,16 @@ function Footer() {
   return (
     <div className="Footer">
 		<div className="Col">
-			<h5>LACarnivores@gmail.com</h5>
-			<h5>Phone:(323)-123-4567</h5>
+			<h2>LACarnivores@gmail.com</h2>
+			<h2>Phone:(323)-123-4567</h2>
 		</div>
 		<div className="Col">
-			<h5>Privacy Policy</h5>
-			<h5>Facebook/Twitter...</h5>
+			<h2>Privacy Policy</h2>
+			<h2>Facebook/Twitter...</h2>
 		</div>
 		<div className="Col">
-			<h5>Terms Conditions</h5>
-			<h5>Visa Pay .....</h5>
+			<h2>Terms Conditions</h2>
+			<h2>Visa Pay .....</h2>
 		</div>
     </div>
   );

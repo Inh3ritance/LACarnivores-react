@@ -35,23 +35,24 @@
 	z-index:-1;
     height: 600px;
 
-    h2 {
+    h1 {
 		margin-left:0px;
         margin-top: 0% !important;
         text-align: center;
 		position:relative;
 		top: 50%;
 		left: 50%;
-		width:50%;
+		width:40%;
 		background-color:black;
 		color:white;
 		transform: translate(-50%, -50%);
 		animation-name:bottomFadeOut;
         animation-duration:1.8s;
-        padding:2%;
+        padding:1.5%;
         opacity:0.85;
-        border-radius:10PX;
+        border-radius:10px;
         text-overflow: wrap;
+        font-size: 250%;
     }
 }
 
@@ -74,6 +75,32 @@
     vertical-align: top;
     display: inline-block;
     width: 79%;
+    h1{
+        font-size: 400% !important;
+    }
+    p{
+        font-size: 200%;
+    }
+    h2{
+        font-size: 300% !important;
+    }
+}
+
+.Mobile_Content {
+    max-height: 800px;
+    text-align: center;
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+    h1{
+        font-size: 400% !important;
+    }
+    p{
+        font-size: 200%;
+    }
+    h2{
+        font-size: 300% !important;
+    }
 }
 
 .Product-Cards{
