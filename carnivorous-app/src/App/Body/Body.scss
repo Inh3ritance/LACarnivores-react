@@ -86,27 +86,29 @@
     }
 }
 
-.Mobile_Content {
-    max-height: 800px;
-    text-align: center;
-    vertical-align: top;
-    display: inline-block;
-    width: 100%;
-    h1{
-        font-size: 400% !important;
-    }
-    p{
-        font-size: 200%;
-    }
-    h2{
-        font-size: 300% !important;
-    }
-}
-
 .Product-Cards{
 	text-align:left;
 }
 
 #bottom-space{
 	margin-top:2%;
+}
+
+@media only screen and (max-device-width: 768px) {
+    .Content{
+        max-height: 800px;
+        text-align: center;
+        vertical-align: top;
+        display: inline-block;
+        width: 100%;
+        h1{
+            font-size: 400% !important;
+        }
+        p{
+            font-size: 200%;
+        }
+        h2{
+            font-size: 300% !important;
+        }
+    }
 }
