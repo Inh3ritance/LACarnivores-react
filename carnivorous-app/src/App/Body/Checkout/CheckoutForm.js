@@ -1,6 +1,8 @@
 import './CheckoutForm.scss';
 import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class CheckoutForm extends Component {
     constructor(props) {
@@ -21,37 +23,40 @@ class CheckoutForm extends Component {
         //Code below just used for testing create customer call//
         //this.createCustomer();
         try {
-            let { token } = await this.props.stripe.createToken({ name: this.state.fullName, });
+            let { token } = await this.props.stripe.createToken({ name: this.state.fullName });
             let response = await fetch("/charge", {
                 method: "POST",
                 headers: { "Content-Type": "text/plain" },
                 body: token.id
             });
-            if (response.ok) console.log("Purchase Complete!")
             if (response.ok) this.setState({ complete: true });
+            console.log("Success");
+            toast("Purchase Succesfull!",
+            { type: 'Success'})
         } catch (e) {
+            console.log("Failure");
+            toast("Oopsie, something went wrong!",
+            { type: 'error'})
             throw (e);
         }
     }
-
 
     async createCustomer() {
         let name = this.state.fullName;
         let email = this.state.Email;
         let data = { "name": name, "email": email };
-
         try {
             let response = await fetch("/createCustomer", {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             });
-
             if (response.ok) console.log("new customer created successfully");
         } catch (e) {
             throw (e);
         }
     }
+
     render() {
         if (this.state.complete) return <h1>Purchase Complete!</h1>;
         return (
@@ -116,11 +121,12 @@ class CheckoutForm extends Component {
                                 <option value="WI">Wisconsin</option>
                                 <option value="WY">Wyoming</option>
                             </select>
-                            <label>City </label><input required placeholder="City" autoComplete="on" type="text" value={this.state.City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ City: ev.target.value })}></input>
+                            <label>City </label><input required placeholder="New Pork City" autoComplete="on" type="text" value={this.state.City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ City: ev.target.value })}></input>
                             <label>Adress </label><input required placeholder="123 StreetName Ave." autoComplete="on" type="text" value={this.state.Address} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Address: ev.target.value })}></input>
                             <label className="NoMargin">Card: </label>
-                            <CardElement className="checkout" />
-                            <button className="Checkout_Button">Submit Payment</button>
+                            <CardElement className="checkout" required />
+                            <button className="Checkout_Button"><b>Submit Payment</b></button>
+                            <ToastContainer className="toasty" limit = "1"/>
                         </div>
                     </fieldset>
                 </form>

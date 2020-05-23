@@ -44,17 +44,20 @@ input{
 
 .Checkout_Button{
     font-size: 150%;
-    background-color:lightgray;
-    border:1px solid black;
-    color:black;
+    background-color:rgb(119, 174, 247);
+    border:1px solid rgb(88, 23, 163);
+    color:white;
     padding-top:1%;
     padding-bottom:1%;
     border-radius:10px;
     width:140px;
+    -moz-box-shadow-bottom: 4px 4px 4px gray;
+    -webkit-box-shadow-bottom: 4px 4px 4px gray;
+    box-shadow: 1px 1px 1px gray;
 }
 
 .Checkout_Button:hover{
-    color:rgb(45, 81, 201);
+    color: white;
 }
 
 .NoMargin{
@@ -63,8 +66,16 @@ input{
 
 .checkout {
     display:block;
+    margin-bottom: 1%;
     padding-top: 1%;
     padding-bottom: 1%;
+    width:40%;
+    border-radius: 5px;
+    border: 1px solid #DDDDDD;
+    -moz-box-shadow-bottom: 4px 4px 4px gray;
+    -webkit-box-shadow-bottom: 4px 4px 4px gray;
+    box-shadow: 1px 1px 1px gray;
+    padding-left: 1%;
 }
 
 input[type=text] {
@@ -76,11 +87,19 @@ input[type=text] {
     padding: 3px 0px 3px 3px;
     margin: 5px 1px 3px 0px;
     border: 1px solid #DDDDDD;
-  }
+}
    
-  input[type=text]:focus {
+input[type=text]:focus {
     box-shadow: 0 0 5px rgba(81, 203, 238, 1);
     padding: 3px 0px 3px 3px;
     margin: 5px 1px 3px 0px;
     border: 1px solid rgba(81, 203, 238, 1);
-  }
+}
+
+.toasty{
+      font-weight: bold;
+      font-size: 150%;
+      button{
+          width:30px !important;
+      }
+}
