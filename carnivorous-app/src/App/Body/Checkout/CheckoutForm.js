@@ -32,7 +32,7 @@ class CheckoutForm extends Component {
             if (response.ok) this.setState({ complete: true });
             console.log("Success");
             toast("Purchase Succesfull!",
-            { type: 'Success'})
+            { type: 'success'})
         } catch (e) {
             console.log("Failure");
             toast("Oopsie, something went wrong!",

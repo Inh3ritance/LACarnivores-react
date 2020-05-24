@@ -16,7 +16,7 @@ app.get("/charge", (req, res) => {
 
 app.post("/charge", async (req, res) => {
     try {
-        const idempotency_key = uuid(); // Prevent charging twice
+        const idempotencyKey = uuid(); // Prevent charging twice
         //Update with cart
         let { status } = await stripe.charges.create({
             amount: 2000,
@@ -25,7 +25,7 @@ app.post("/charge", async (req, res) => {
             metadata: { integration_check: 'accept_a_payment' },
             source: req.body,
         },{
-            idempotency_key
+            idempotencyKey
         });
         res.json({ status });
     } catch (err) {
