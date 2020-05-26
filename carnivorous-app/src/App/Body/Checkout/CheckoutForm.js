@@ -21,24 +21,25 @@ class CheckoutForm extends Component {
     async submit(ev) {
         ev.preventDefault();
         //Code below just used for testing create customer call//
-        //this.createCustomer();
-        try {
-            let { token } = await this.props.stripe.createToken({ name: this.state.fullName });
-            let response = await fetch("/charge", {
-                method: "POST",
-                headers: { "Content-Type": "text/plain" },
-                body: token.id
-            });
+        let { token } = await this.props.stripe.createToken({ 
+            name: this.state.fullName,
+            email: this.state.Email
+         });
+        return await fetch("https://localhost:9000/charge", {
+            method: "POST",
+            headers: { "Content-Type": "text/plain" },
+            body: token.id
+        }).then(response => {
             if (response.ok) this.setState({ complete: true });
             console.log("Success");
             toast("Purchase Succesfull!",
             { type: 'success'})
-        } catch (e) {
+        }).catch (e => {
             console.log("Failure");
             toast("Oopsie, something went wrong!",
             { type: 'error'})
             throw (e);
-        }
+        })
     }
 
     async createCustomer() {

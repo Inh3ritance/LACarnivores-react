@@ -36,8 +36,8 @@ class Nav extends React.Component {
             <nav className={this.state.scroll > this.state.top ? "fixed-nav" : ""}>
 		  <h1 id = "Company_Name">LA Carnivores</h1>
               <BrowserView viewClassName = "Right_Buttons">
-                  <button className="btn btn-info btn-lg">
-                    <h2 id = "cart"><span className="glyphicon glyphicon-shopping-cart"> 0</span></h2>
+                  <button className="btn btn-info btn-lg" id="cart-overlay">
+                    <h2 id = "cart"><span className="glyphicon glyphicon-shopping-cart"> Cart 0</span></h2>
                   </button>
               </BrowserView>
               <MobileView viewClassName = "Right_Buttons">

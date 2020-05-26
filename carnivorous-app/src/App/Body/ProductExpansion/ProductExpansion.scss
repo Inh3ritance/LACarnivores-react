@@ -8,15 +8,21 @@
     margin-left: 15%;
     background-color: white;
     vertical-align: middle;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
     -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
     -moz-animation: fadein 1s; /* Firefox < 16 */
     -o-animation: fadein 1s; /* Opera < 12.1 */
     animation: fadein 1s;
     overflow-y:scroll;
     top:33px;
-}
+    border:2px solid black;
 
+    .product-name{
+        padding-top:3%;
+        text-align:center;
+        font-size: 400% !important;
+    }
+}
 
 @keyframes fadein {
     from {opacity: 0;}
@@ -54,22 +60,31 @@
     }
 }
 
-.product-name{
-    padding-top:3%;
-    text-align:center;
-    font-size: 300% !important;
-}
-
-p{
-    font-size: 150%;
-    margin-right:8%;
-    margin-left:8%;
-}
-
 .pad{
     margin-left:10%;
 }
 
 #end{
     padding-bottom:5%;
+}
+
+p{
+    font-size: 200%;
+    margin-right:8%;
+    margin-left:8%;
+}
+
+.carousel-indicators li{
+    display:none;
+}
+
+.carousel-control-next{
+    height:70%;
+    color:black;
+    margin-top: 15%;
+}
+
+.carousel-control-prev{
+    height:70%;
+    margin-top: 15%;
 }

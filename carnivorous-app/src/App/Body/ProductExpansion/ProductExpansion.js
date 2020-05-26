@@ -8,7 +8,7 @@ const ProductExpansion = ({ id, quantity, visible, view, closeView, plant_info})
     if (view) {
         return (
             <div className="model">
-                <Carousel>
+                <Carousel className = "carousel-fade">
                     <Carousel.Item>
                         <button className="Close" onClick={() => closeView({ view: false })}><h2><b>X</b></h2></button>
                         <img

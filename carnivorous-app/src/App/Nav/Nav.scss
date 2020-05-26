@@ -21,7 +21,16 @@ nav{
 		color: $secondary-color;
 		margin-top:0px !important;
 		display:inline-block;
-		font-size: 150%;
+		font-size: 175%;
+	}
+
+	#cart:hover{
+		color:green;
+	}
+
+	#cart-overlay{
+		background-color: black;
+		border:0px !important;
 	}
 	
 	.Right_Buttons{

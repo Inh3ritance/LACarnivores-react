@@ -15,7 +15,8 @@
     overflow-wrap: break-word;
     display: inline-block;
     transition: transform .2s;
-    min-width:300px;
+    width:27%;
+    //width:300px;
 }
 
 .product-card:hover{
@@ -28,7 +29,8 @@
 .product-header {
     //background-image: url('https://source.unsplash.com/user/erondu/600x400');
     background-repeat: no-repeat;
-    height:200px;
+    min-height:200px;
+    //height:200px
     background-size:auto;  
 }
 
@@ -39,7 +41,7 @@
 .product-name{
 	margin-top:0px !important;
     padding-top:2%;
-    font-size: 200% !important;
+    font-size: 250% !important;
 }
 
 .price{

@@ -3,7 +3,7 @@ const stripe = require("stripe")("sk_test_NEQdDYQEGCNzJ01s8oW3njZq00eNYSwGJo");
 const bodyParser = require('body-parser');
 const cors = require('cors')({origin: true});
 const { uuid } = require('uuidv4');
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(bodyParser.text())
 app.use(cors);
@@ -15,23 +15,28 @@ app.get("/charge", (req, res) => {
 });
 
 app.post("/charge", async (req, res) => {
-    try {
-        const idempotencyKey = uuid(); // Prevent charging twice
-        //Update with cart
-        let { status } = await stripe.charges.create({
-            amount: 2000,
-            currency: "usd",
-            description: "An example charge",
-            metadata: { integration_check: 'accept_a_payment' },
-            source: req.body,
-        },{
+    const {product, token} = req.body;
+    console.log(product,token);
+    const idempotencyKey = uuid(); // Prevent charging twice
+    return stripe.customer.create({
+        name: req.body.email,
+        email: req.body.email
+    }).then(customer => {
+        stripe.charges.create({
+            amount:1000,
+            currency: 'usd',
+            customer: customer.id,
+            reciept_email: req.body.email,
+            description: "test"
+        },
+        {
             idempotencyKey
-        });
-        res.json({ status });
-    } catch (err) {
+        })
+    }).then(result =>{
+        res.status(200).json(result);
+    }).catch(err =>{
         console.log(err);
-        res.status(500).end();
-    }
+    })
 });
 
 app.post('/createCustomer', (req, res) => {
@@ -50,4 +55,6 @@ app.post('/createCustomer', (req, res) => {
     }
 });
 
-app.listen(9000, () => console.log("Listening on port 9000"));
+const port = process.env.PORT || 9000;
+
+app.listen(port, () => console.log("Server is running..."));
