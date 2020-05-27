@@ -5,17 +5,22 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 class CheckoutForm extends Component {
+
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = this.initialState();
+        this.submit = this.submit.bind(this);
+    }
+
+    initialState() {
+        return {
             complete: false,
             fullName: '',
             Address: '',
             Email: '',
             State: '',
             City: '',
-        };
-        this.submit = this.submit.bind(this);
+        }
     }
 
     async submit(ev) {
@@ -56,8 +61,8 @@ class CheckoutForm extends Component {
                     <fieldset>
                         <legend><b>Shipping & Billing</b></legend>
                         <div className="inner">
-                            <label>Full Name</label><input className="glow" required placeholder="John Smith" autoComplete="on" type="text" value={this.state.fullName} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ fullName: ev.target.value })}></input>
-                            <label>Email</label><input required placeholder="email@example.com" autoComplete="on" type="text" value={this.state.Email} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Email: ev.target.value })}></input>
+                            <label htmlFor="name">Full Name</label><input className="glow" required placeholder="John Smith" autoComplete="name" name = "name" type="text" value={this.state.fullName} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ fullName: ev.target.value })}></input>
+                            <label htmlFor="email">Email</label><input required placeholder="email@example.com" autoComplete="email" name="email" type="text" value={this.state.Email} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Email: ev.target.value })}></input>
                             <label>State</label>
                             <select required="required">
                                 <option value="AL">Alabama</option>
@@ -112,8 +117,8 @@ class CheckoutForm extends Component {
                                 <option value="WI">Wisconsin</option>
                                 <option value="WY">Wyoming</option>
                             </select>
-                            <label>City </label><input required placeholder="New Pork City" autoComplete="on" type="text" value={this.state.City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ City: ev.target.value })}></input>
-                            <label>Adress </label><input required placeholder="123 StreetName Ave." autoComplete="on" type="text" value={this.state.Address} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Address: ev.target.value })}></input>
+                            <label htmlFor="city">City </label><input required placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ City: ev.target.value })}></input>
+                            <label htmlFor="street-address">Adress </label><input required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Address} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Address: ev.target.value })}></input>
                             <label className="NoMargin">Card: </label>
                             <CardElement className="checkout" required />
                             <button className="Checkout_Button"><b>Submit Payment</b></button>
