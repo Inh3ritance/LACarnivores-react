@@ -20,42 +20,32 @@ class CheckoutForm extends Component {
 
     async submit(ev) {
         ev.preventDefault();
-        //Code below just used for testing create customer call//
-        let { token } = await this.props.stripe.createToken({ 
-            name: this.state.fullName,
-            email: this.state.Email
-         });
-        return await fetch("https://localhost:9000/charge", {
+
+        let name = this.state.fullName;
+        let email = this.state.Email;
+        let data = {
+            name: name,
+            email: email,
+        }
+        this.props.stripe.createToken({
+            name: name,
+            email: email,
+        });
+        return await fetch("/charge", {
             method: "POST",
-            headers: { "Content-Type": "text/plain" },
-            body: token.id
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
         }).then(response => {
             if (response.ok) this.setState({ complete: true });
             console.log("Success");
             toast("Purchase Succesfull!",
-            { type: 'success'})
-        }).catch (e => {
+                { type: 'success' })
+        }).catch(e => {
             console.log("Failure");
             toast("Oopsie, something went wrong!",
-            { type: 'error'})
+                { type: 'error' })
             throw (e);
         })
-    }
-
-    async createCustomer() {
-        let name = this.state.fullName;
-        let email = this.state.Email;
-        let data = { "name": name, "email": email };
-        try {
-            let response = await fetch("/createCustomer", {
-                method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            });
-            if (response.ok) console.log("new customer created successfully");
-        } catch (e) {
-            throw (e);
-        }
     }
 
     render() {
@@ -66,7 +56,7 @@ class CheckoutForm extends Component {
                     <fieldset>
                         <legend><b>Shipping & Billing</b></legend>
                         <div className="inner">
-                            <label>Full Name</label><input className="glow" required placeholder="JOHN DOE" autoComplete="on" type="text" value={this.state.fullName} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ fullName: ev.target.value })}></input>
+                            <label>Full Name</label><input className="glow" required placeholder="John Smith" autoComplete="on" type="text" value={this.state.fullName} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ fullName: ev.target.value })}></input>
                             <label>Email</label><input required placeholder="email@example.com" autoComplete="on" type="text" value={this.state.Email} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Email: ev.target.value })}></input>
                             <label>State</label>
                             <select required="required">
@@ -127,7 +117,7 @@ class CheckoutForm extends Component {
                             <label className="NoMargin">Card: </label>
                             <CardElement className="checkout" required />
                             <button className="Checkout_Button"><b>Submit Payment</b></button>
-                            <ToastContainer className="toasty" limit = "1"/>
+                            <ToastContainer className="toasty" limit="1" />
                         </div>
                     </fieldset>
                 </form>
