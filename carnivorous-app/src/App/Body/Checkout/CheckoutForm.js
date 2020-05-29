@@ -16,10 +16,18 @@ class CheckoutForm extends Component {
         return {
             complete: false,
             fullName: '',
-            Address: '',
             Email: '',
-            State: '',
-            City: '',
+            Phone: '',
+            Billing: {
+                Address: '',
+                State: '',
+                City: '',
+            },
+            Shipping: {
+                Address: '',
+                State: '',
+                City: '',
+            }
         }
     }
 
@@ -61,8 +69,11 @@ class CheckoutForm extends Component {
                     <fieldset>
                         <legend><b>Shipping & Billing</b></legend>
                         <div className="inner">
-                            <label htmlFor="name">Full Name</label><input className="glow" required placeholder="John Smith" autoComplete="name" name = "name" type="text" value={this.state.fullName} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ fullName: ev.target.value })}></input>
-                            <label htmlFor="email">Email</label><input required placeholder="email@example.com" autoComplete="email" name="email" type="text" value={this.state.Email} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Email: ev.target.value })}></input>
+                        <label style={{display:"inline"}}>Shipping & Billing The Same? </label><input type="checkbox" defaultChecked="true"/>
+                        <hr/>
+                            <h1><b>Billing</b></h1>
+                            <label htmlFor="name">Full Name</label><input className="glow" required placeholder="John Smith" autoComplete="name" name = "name" type="text" value={this.state.fullName} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ fullName: ev.target.value })}/>
+                            <label htmlFor="email">Email</label><input required placeholder="email@example.com" autoComplete="email" name="email" type="text" value={this.state.Email} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Email: ev.target.value })}/>
                             <label>State</label>
                             <select required="required">
                                 <option value="AL">Alabama</option>
@@ -117,10 +128,13 @@ class CheckoutForm extends Component {
                                 <option value="WI">Wisconsin</option>
                                 <option value="WY">Wyoming</option>
                             </select>
-                            <label htmlFor="city">City </label><input required placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ City: ev.target.value })}></input>
-                            <label htmlFor="street-address">Adress </label><input required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Address} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Address: ev.target.value })}></input>
-                            <label className="NoMargin">Card: </label>
-                            <CardElement className="checkout" required />
+                            <label htmlFor="city">City </label><input required placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ City: ev.target.value })}/>
+                            <label htmlFor="street-address">Adress </label><input required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Address} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Address: ev.target.value })}/>
+                            <hr/>
+                            
+                            <hr/>
+                            <label className="NoMargin">Card Details: </label>
+                            <CardElement className="checkout" />
                             <button className="Checkout_Button"><b>Submit Payment</b></button>
                             <ToastContainer className="toasty" limit="1" />
                         </div>
