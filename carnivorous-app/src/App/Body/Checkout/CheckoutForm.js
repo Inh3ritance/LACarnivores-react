@@ -18,16 +18,14 @@ class CheckoutForm extends Component {
             fullName: '',
             Email: '',
             Phone: '',
-            Billing: {
-                Address: '',
-                State: '',
-                City: '',
-            },
-            Shipping: {
-                Address: '',
-                State: '',
-                City: '',
-            }
+            Billing_Address: '',
+            Billing_State: 'AL',
+            Billing_Zip: '',
+            Billing_City: '',
+            Shipping_Address: '',
+            Shipping_State: 'AL',
+            Shipping_Zip: '',
+            Shipping_City: '',
         }
     }
 
@@ -36,9 +34,17 @@ class CheckoutForm extends Component {
 
         let name = this.state.fullName;
         let email = this.state.Email;
+        let city = this.state.Billing_City;
+        let address = this.state.Billing_Address;
+        let state = this.state.Billing_State;
+
+        // Data that gets sent to the backend
         let data = {
             name: name,
             email: email,
+            city: city,
+            line1: address,
+            state: state,
         }
         this.props.stripe.createToken({
             name: name,
@@ -69,13 +75,15 @@ class CheckoutForm extends Component {
                     <fieldset>
                         <legend><b>Shipping & Billing</b></legend>
                         <div className="inner">
-                        <label style={{display:"inline"}}>Shipping & Billing The Same? </label><input type="checkbox" defaultChecked="true"/>
-                        <hr/>
+                            <label style={{ display: "inline" }}>Shipping & Billing The Same? </label><input type="checkbox" defaultChecked="true" />
+                            <hr />
                             <h1><b>Billing</b></h1>
-                            <label htmlFor="name">Full Name</label><input className="glow" required placeholder="John Smith" autoComplete="name" name = "name" type="text" value={this.state.fullName} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ fullName: ev.target.value })}/>
-                            <label htmlFor="email">Email</label><input required placeholder="email@example.com" autoComplete="email" name="email" type="text" value={this.state.Email} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Email: ev.target.value })}/>
+                            <label htmlFor="name">Full Name</label><input className="glow" required placeholder="John Smith" autoComplete="name" name="name" type="text" value={this.state.fullName}
+                                onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ fullName: ev.target.value })} />
+                            <label htmlFor="email">Email</label><input required placeholder="email@example.com" autoComplete="email" name="email" type="text" value={this.state.Email}
+                                onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Email: ev.target.value })} />
                             <label>State</label>
-                            <select required="required">
+                            <select required="required" value={this.state.Billing_State} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Billing_State: ev.target.value })}>
                                 <option value="AL">Alabama</option>
                                 <option value="AK">Alaska</option>
                                 <option value="AZ">Arizona</option>
@@ -128,11 +136,13 @@ class CheckoutForm extends Component {
                                 <option value="WI">Wisconsin</option>
                                 <option value="WY">Wyoming</option>
                             </select>
-                            <label htmlFor="city">City </label><input required placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ City: ev.target.value })}/>
-                            <label htmlFor="street-address">Adress </label><input required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Address} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Address: ev.target.value })}/>
-                            <hr/>
-                            
-                            <hr/>
+                            <label htmlFor="city">City </label><input required placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.Billing_City}
+                                onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Billing_City: ev.target.value })} />
+                            <label htmlFor="street-address">Adress </label><input required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Billing_Address}
+                                onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Billing_Address: ev.target.value })} />
+                            <hr />
+
+                            <hr />
                             <label className="NoMargin">Card Details: </label>
                             <CardElement className="checkout" />
                             <button className="Checkout_Button"><b>Submit Payment</b></button>
