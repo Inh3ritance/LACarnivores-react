@@ -7,57 +7,13 @@ app.use(cors);
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());
 
-// Just Testing out API with this GET method.
-app.get("/charge", (req, res) => {
-    res.send("Hello The GET request worked if u see this");
-});
-
-
-app.post("/charge", async (req, res) => {
-    const idempotencyKey = uuid(); // Prevent charging twice
-    /*
-    let data = {
-        name = req.body.name,
-        email = req.body.email,
-        city = req.body.city,
-        address = req.body.line1,
-        state = req.body.state,
-    
-        shippingCity = req.body.shippingCity,
-        shippingAddy = req.body.shippingAddy,
-        shippingState = req.body.shippingState,
-    }*/
-
-    let name = req.body.name;
-    let email = req.body.email;
-    let city = req.body.city;
-    let address = req.body.line1;
-    let state = req.body.state;
-
-    let shippingCity = req.body.shippingCity;
-    let shippingAddy = req.body.shippingAddy;
-    let shippingState = req.body.shippingState;
-
-    console.log("Body name: ", name);
-    console.log("Body email: ", email);
-    console.log("Body city: ", city);
-    console.log("Body address: ", address);
-    console.log("Body state: ", state);
-
-    // Check if the customer email already in our Stripe customer database
-
-
+// Creates Customer => creates source => creates charge
+function CreateCustomer(data,idempotencyKey){
     stripe.customers.create({
-        name: name,
-        email: email,
-        address: {
-            city: city,
-            line1: address,
-            state: state,
-
-        },
-        phone: 8008008888,
-
+        name: data.personal_info.name,
+        email: data.personal_info.email,
+        address: data.billing_address,
+        phone: data.personal_info.phone,
     },
         (err, customer) => {
             stripe.customers.createSource(
@@ -70,18 +26,14 @@ app.post("/charge", async (req, res) => {
                         amount: 1000,
                         currency: 'usd',
                         customer: customer.id,
-                        receipt_email: req.body.email,
+                        receipt_email: data.personal_info.email,
                         description: "test",
                         metadata: { integration_check: 'accept_a_payment' },
                         shipping: {
-                            address: {
-                                line1: shippingAddy,
-                                city: shippingCity,
-                                state: shippingState,
-                            },
-                            name: name,
+                            address: data.shipping_address,
+                            name: data.personal_info.name,
                             carrier: 'USPS',
-                            phone: '8008888000',
+                            phone: data.personal_info.phone,
                         },
                     },
                         {
@@ -96,8 +48,33 @@ app.post("/charge", async (req, res) => {
         }).catch(e => {
             throw (e)
         });
-});
+}
 
+app.post("/charge", async (req, res) => {
+    const idempotencyKey = uuid(); // Prevent charging twice
+    let data = {
+        personal_info:{
+            name: req.body.name,
+            email: req.body.email,
+            phone: '8008008888',
+        },
+        billing_address:{
+            city: req.body.city,
+            line1: req.body.line1,
+            state: req.body.state,
+        },
+        shipping_address: {
+            city: req.body.shippingCity,
+            line1: req.body.shippingAddy,
+            state: req.body.shippingState,
+        }
+    }
+    console.log(data);
+    // Check if the customer email already in our Stripe customer database
+    
+    //Create Customer is no email is linked
+    CreateCustomer(data,idempotencyKey);    
+});
 
 function listAllCustomers(email) {
     console.log("");
@@ -113,14 +90,12 @@ function listAllCustomers(email) {
             console.log("Customer email: ", customer.email);
             console.log("Customer uid: ", customer.id);
             console.log("");
-            if (customer.email == email) {
+            if (customer.email === email) {
                 console.log(true);
                 console.log("Matching customer");
                 console.log("Customer name: ", customer.name);
                 console.log("Customer email: ", customer.email);
                 console.log("Customer uid: " + customer.id + "\n");
-                custo = customer.id;
-                condi = true;
                 // If true then we use the customers email and cus_id
             }
             else {
@@ -132,16 +107,10 @@ function listAllCustomers(email) {
     return [condition, id];
 };
 
-console.log("Calling the function");
-console.log(listAllCustomers("JamesKingston@email.com"));
-
-function display(data) {
-    console.log("Body name: ", name);
-    console.log("Body email: ", email);
-    console.log("Body city: ", city);
-    console.log("Body address: ", address);
-    console.log("Body state: ", state);
-}
+// Just Testing out API with this GET method.
+app.get("/charge", (req, res) => {
+    res.send("Hello The GET request worked if u see this");
+});
 
 const port = process.env.PORT || 9000;
 
