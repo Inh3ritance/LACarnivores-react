@@ -39,6 +39,9 @@ class CheckoutForm extends Component {
         let address = this.state.Billing_Address;
         let state = this.state.Billing_State;
 
+        let shippingCity = this.state.Shipping_City;
+        let shippingAddy = this.state.Shipping_Address;
+        let shippingState = this.state.Shipping_State;
         // Data that gets sent to the backend
         let data = {
             name: name,
@@ -46,6 +49,9 @@ class CheckoutForm extends Component {
             city: city,
             line1: address,
             state: state,
+            shippingCity: shippingCity,
+            shippingAddy: shippingAddy,
+            shippingState: shippingState,
         }
         this.props.stripe.createToken({
             name: name,

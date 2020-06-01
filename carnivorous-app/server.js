@@ -21,6 +21,10 @@ app.post("/charge", async (req, res) => {
     let address = req.body.line1;
     let state = req.body.state;
 
+    let shippingCity = req.body.shippingCity;
+    let shippingAddy = req.body.shippingAddy;
+    let shippingState = req.body.shippingState;
+
     console.log("Body name: ", name);
     console.log("Body email: ", email);
     console.log("Body city: ", city);
@@ -53,6 +57,16 @@ app.post("/charge", async (req, res) => {
                         receipt_email: req.body.email,
                         description: "test",
                         metadata: { integration_check: 'accept_a_payment' },
+                        shipping: {
+                            address: {
+                                line1: shippingAddy,
+                                city: shippingCity,
+                                state: shippingState,
+                            },
+                            name: name,
+                            carrier: 'USPS',
+                            phone: '8008888000',
+                        },
                     },
                         {
                             idempotencyKey
@@ -66,6 +80,12 @@ app.post("/charge", async (req, res) => {
         }).catch(e => {
             throw (e)
         });
+});
+
+app.get("/list", async (req, res) => {
+    stripe.customers.list(
+        {limit: 100},
+    )
 });
 
 const port = process.env.PORT || 9000;
