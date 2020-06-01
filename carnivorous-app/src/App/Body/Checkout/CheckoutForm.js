@@ -33,30 +33,54 @@ class CheckoutForm extends Component {
     async submit(ev) {
         ev.preventDefault();
 
+        // Personal Information
         let name = this.state.fullName;
         let email = this.state.Email;
+        let phone = this.state.Phone;
+
+        // Billing Information
         let city = this.state.Billing_City;
         let address = this.state.Billing_Address;
         let state = this.state.Billing_State;
 
+        // Shipping Information
         let shippingCity = this.state.Shipping_City;
         let shippingAddy = this.state.Shipping_Address;
         let shippingState = this.state.Shipping_State;
+
         // Data that gets sent to the backend
-        let data = {
-            name: name,
-            email: email,
-            city: city,
-            line1: address,
-            state: state,
-            shippingCity: shippingCity,
-            shippingAddy: shippingAddy,
-            shippingState: shippingState,
+        let data = {};
+        if(this.state.check){
+            data = {
+                name: name,
+                email: email,
+                city: city,
+                line1: address,
+                state: state,
+                shippingCity: city,
+                shippingAddy: address,
+                shippingState: state,
+            }
+        } else {
+            data = {
+                name: name,
+                email: email,
+                city: city,
+                line1: address,
+                state: state,
+                shippingCity: shippingCity,
+                shippingAddy: shippingAddy,
+                shippingState: shippingState,
+            }
         }
+
+        // Create customer token
         this.props.stripe.createToken({
             name: name,
             email: email,
         });
+
+        // Charge 
         return await fetch("/charge", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
