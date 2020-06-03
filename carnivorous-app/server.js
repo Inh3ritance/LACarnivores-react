@@ -37,13 +37,13 @@ async function createSource(data, customerID) {
             source: 'tok_visa',
         },
         (err, card) => {
-            createCharge(customerID, card, data);
+            createCharge(customerID, data);
         }).catch(e => {
             console.log(e);
         })
     };
 
-async function createCharge(customerID, card, data) {
+async function createCharge(customerID, data) {
     const idempotencyKey = uuid(); // Prevent charging twice
     await stripe.charges.create({
         amount: 1000,
@@ -58,6 +58,8 @@ async function createCharge(customerID, card, data) {
             carrier: 'USPS',
             phone: data.personal_info.phone,
         },
+        payment_method_details: data.card,
+        ip: "123.128.1.25",
     },
         {
             idempotencyKey
@@ -65,8 +67,6 @@ async function createCharge(customerID, card, data) {
             throw (e)
         })
 };
-
-
 
 app.post("/charge", async (req, res) => {
     //const idempotencyKey = uuid(); // Prevent charging twice

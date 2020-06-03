@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 class CheckoutForm extends Component {
-
+    
     constructor(props) {
         super(props);
         this.state = this.initialState();
@@ -13,6 +13,7 @@ class CheckoutForm extends Component {
     }
 
     initialState() {
+        
         return {
             complete: false,
             check: true,
@@ -33,9 +34,14 @@ class CheckoutForm extends Component {
     async submit(ev) {
         ev.preventDefault();
 
+        // Get Card Token
+        /* Temporary solution */
+        const card = document.getElementsByTagName(CardElement);
+        const result = await this.props.stripe.createToken(card);
         // Personal Information
         let name = this.state.fullName;
         let email = this.state.Email;
+        // eslint-disable-next-line
         let phone = this.state.Phone;
 
         // Billing Information
@@ -47,7 +53,8 @@ class CheckoutForm extends Component {
         let shippingCity = this.state.Shipping_City;
         let shippingAddy = this.state.Shipping_Address;
         let shippingState = this.state.Shipping_State;
-
+    
+        console.log(result);
         // Data that gets sent to the backend
         let data = {};
         if(this.state.check){
@@ -60,6 +67,7 @@ class CheckoutForm extends Component {
                 shippingCity: city,
                 shippingAddy: address,
                 shippingState: state,
+                card: result,
             }
         } else {
             data = {
@@ -71,13 +79,17 @@ class CheckoutForm extends Component {
                 shippingCity: shippingCity,
                 shippingAddy: shippingAddy,
                 shippingState: shippingState,
+                card: result,
             }
         }
 
-        // Create customer token
-        this.props.stripe.createToken({
-            name: name,
-            email: email,
+        this.props.stripe.createPaymentMethod({
+            type: 'card',
+            card: card,
+            billing_details: {name: 'James Rosen'},
+        })
+        .then(({paymentMethod}) => {
+            console.log("recieved Stripe paymentMethod:", paymentMethod);
         });
 
         // Charge 
