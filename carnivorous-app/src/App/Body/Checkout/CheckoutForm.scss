@@ -4,30 +4,35 @@
 
 legend{
     border: none;
-    margin-left: 4%;
-    padding-left:1%;
-    padding-right:1%;
-    margin-top: 5%;
-    width:auto;
-    display: block;
+    margin-left: 4% !important;
+    padding-left:1% !important;
+    padding-right:1% !important;
+    margin-top: 1% !important;
+    width:auto !important;
+    display: block !important;
     font-size: 300% !important;
 }
 
 form{
-    margin-left:5%;
-    margin-right:5%;
-    padding-bottom:5%;
+    margin-left:5% !important;
+    margin-right:5% !important;
+    padding-bottom:5% !important;
 }
 
 fieldset{
-    border:2px solid black;
-    border-radius: 10px;
+    border:2px solid black !important;
+    border-radius: 10px !important;
 }
 
 label{
-    font-size: 150%;
-    font-weight: bolder;
+    font-size: 120%;
+    font-weight: bold;
     display: block;
+}
+
+#chlbl{
+    margin-left:1%;
+    display: inline !important;
 }
 
 select{
@@ -44,19 +49,13 @@ select{
 }
 
 input{
-    font-size: 150%;
     border-radius: 5px;
     -moz-box-shadow-bottom: 4px 4px 4px gray;
     -webkit-box-shadow-bottom: 4px 4px 4px gray;
     box-shadow: 1px 1px 1px gray;
-    display: block;
-    transition: 0.25s;
+    display: block !important;
+    transition: 0.25s !important;
 }
-
-input:focus{
-    width: 280px;
-    border-color: #2ecc71;
-  }
 
 select {
     display: block;
@@ -82,12 +81,12 @@ select {
 }
 
 .NoMargin{
-    margin-left:0px;
+    margin-left:0px !important;
 }
 
 .checkout {
-    display:block;
-    margin-bottom: 1%;
+    display:block !important;
+    margin-bottom: 1% !important;
     width:100%;
     border-radius: 5px;
     padding-top:1.5%;
@@ -119,7 +118,7 @@ input[type=text]:focus {
 
 .toasty{
       font-weight: bold;
-      font-size: 150%;
+      font-size: 150% !important;
       button{
           width:30px !important;
       }

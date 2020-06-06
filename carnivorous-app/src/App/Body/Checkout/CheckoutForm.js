@@ -117,7 +117,7 @@ class CheckoutForm extends Component {
                     <fieldset>
                         <legend><b>Shipping & Billing</b></legend>
                         <div className="inner">
-                            <label style={{ display: "inline" }}>Shipping & Billing The Same? </label><input type="checkbox" defaultChecked="true" onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ check: !this.state.check })}/>
+                            <label >Shipping & Billing The Same? </label><input id="chlbl" type="checkbox" defaultChecked="true" onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ check: !this.state.check })}/>
                             <hr />
                             <h1><b>Billing</b></h1>
                             <label htmlFor="name">Full Name</label><input className="glow" required placeholder="John Smith" autoComplete="name" name="name" type="text" value={this.state.fullName}
@@ -180,7 +180,7 @@ class CheckoutForm extends Component {
                             </select>
                             <label htmlFor="city">City </label><input required placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.Billing_City}
                                 onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Billing_City: ev.target.value })} />
-                            <label htmlFor="street-address">Adress </label><input required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Billing_Address}
+                            <label htmlFor="street-address">Address </label><input required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Billing_Address}
                                 onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Billing_Address: ev.target.value })} />
                             <hr />
                             {
