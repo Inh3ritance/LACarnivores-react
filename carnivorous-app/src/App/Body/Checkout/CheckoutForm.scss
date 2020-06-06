@@ -1,10 +1,16 @@
+.glyphicon glyphicon-shopping-cart{
+    display: block;
+}
+
 legend{
-    border:none;
-    font-size: 300%;
-    margin-left:10%;
+    border: none;
+    margin-left: 4%;
     padding-left:1%;
     padding-right:1%;
+    margin-top: 5%;
     width:auto;
+    display: block;
+    font-size: 300% !important;
 }
 
 form{
@@ -20,11 +26,13 @@ fieldset{
 
 label{
     font-size: 150%;
+    font-weight: bolder;
     display: block;
 }
 
 select{
-    font-size: 150%;;
+    font-size: 150%;
+    width: 210px;
 }
 
 .inner{
@@ -32,6 +40,7 @@ select{
     margin-left:3%;
     padding:1%;
     width:95%;
+    font-size: 160%;
 }
 
 input{
@@ -40,23 +49,35 @@ input{
     -moz-box-shadow-bottom: 4px 4px 4px gray;
     -webkit-box-shadow-bottom: 4px 4px 4px gray;
     box-shadow: 1px 1px 1px gray;
+    display: block;
+    transition: 0.25s;
+}
+
+input:focus{
+    width: 280px;
+    border-color: #2ecc71;
+  }
+
+select {
+    display: block;
 }
 
 .Checkout_Button{
-    font-size: 150%;
-    background-color:rgb(119, 174, 247);
+    font-size: 100% !important;
+    background-color:rgb(63, 133, 226);
     border:1px solid rgb(88, 23, 163);
     color:white;
     padding-top:1%;
     padding-bottom:1%;
     border-radius:10px;
-    width:140px;
+    width:150px;
     -moz-box-shadow-bottom: 4px 4px 4px gray;
     -webkit-box-shadow-bottom: 4px 4px 4px gray;
     box-shadow: 1px 1px 1px gray;
 }
 
 .Checkout_Button:hover{
+    background-color: rgb(39, 216, 77);
     color: white;
 }
 

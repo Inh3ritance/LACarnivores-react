@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 class CheckoutForm extends Component {
     
     constructor(props) {
@@ -242,8 +241,8 @@ class CheckoutForm extends Component {
                                 <option value="WI">Wisconsin</option>
                                 <option value="WY">Wyoming</option>
                             </select>
-                            <label htmlFor="city">City </label><input required placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.Shipping_City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_City: ev.target.value})}/>
-                            <label htmlFor="street-address">Adress </label><input required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Shipping_Address} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_Address: ev.target.value })}/>
+                            <label htmlFor="city">City</label><input required placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.Shipping_City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_City: ev.target.value})}/>
+                            <label htmlFor="street-address">Address</label><input required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Shipping_Address} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_Address: ev.target.value })}/>
                             <hr/>
                             </div>
                             }

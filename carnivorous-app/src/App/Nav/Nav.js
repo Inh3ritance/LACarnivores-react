@@ -1,6 +1,17 @@
 import React from 'react';
 import { BrowserView, MobileView } from 'react-device-detect';
 import './Nav.scss';
+import {Elements, StripeProvider} from 'react-stripe-elements';
+import CheckoutForm from '../Body/Checkout/CheckoutForm.js';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Body from '../Body/Body.js';
+import Footer from '../Footer/Footer.js';
+
 
 class Nav extends React.Component {
 
@@ -33,16 +44,33 @@ class Nav extends React.Component {
   render() {
     return (
         <div>
+          <Router>
             <nav className={this.state.scroll > this.state.top ? "fixed-nav" : ""}>
-		  <h1 id = "Company_Name">LA Carnivores</h1>
+              <Link to = '/Home'><h1 id = "Company_Name">LA Carnivores</h1></Link>
               <BrowserView viewClassName = "Right_Buttons">
-                  <button className="btn btn-info btn-lg" id="cart-overlay">
-                    <h2 id = "cart"><span className="glyphicon glyphicon-shopping-cart"> Cart 0</span></h2>
-                  </button>
+                  <Link to = '/Checkout'>
+                    <button className="btn btn-info btn-lg" id="cart-overlay">
+                      <h2 id = "cart"><span className="glyphicon glyphicon-shopping-cart"> Cart 0</span></h2>
+                    </button>
+                  </Link>
               </BrowserView>
               <MobileView viewClassName = "Right_Buttons">
               </MobileView>
             </nav>
+            <Switch>
+                <Route path='/Home'><div><Body/><Footer/></div></Route>
+                <Route path='/Checkout'>
+                  <div>
+                  <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
+                    <Elements>
+                      <CheckoutForm />
+                    </Elements>
+                  </StripeProvider>
+                  <Footer/>
+                  </div>
+                </Route>
+            </Switch>
+          </Router>
         </div>
     );
   }
