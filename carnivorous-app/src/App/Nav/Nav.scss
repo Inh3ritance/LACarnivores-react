@@ -1,52 +1,107 @@
+@import url('https://use.fontawesome.com/releases/v5.6.1/css/all.css');
 $primary-color: black;
 $secondary-color: white;
-
-nav{
-	z-index:1;
-	background-color: $primary-color;
-	box-shadow: 0px 0px 3px 3px black;
-	font-family: Arial, Helvetica, sans-serif;
-	padding-top: 0.5%;
-	padding-bottom: 0.5%;
-	
-	#Company_Name{
-		display:inline-block;
-		margin-left:3%;
-		margin-top:0px !important;
-		color: $secondary-color;
-		font-size: 300%;
-	}
-	
-	#cart{
-		color: $secondary-color;
-		margin-top:0px !important;
-		display:inline-block;
-		font-size: 175%;
-	}
-
-	#cart:hover{
-		color:green;
-	}
-
-	#cart-overlay{
-		background-color: black;
-		border:0px !important;
-	}
-	
-	.Right_Buttons{
-		margin-right:3%;
-		float:right;	
-		text-align: center;
-	}
+nav {
+    z-index: 1;
+    background-color: $primary-color;
+    box-shadow: 0px 0px 3px 3px black;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    #Company_Name {
+        display: inline-block;
+        margin-left: 3%;
+        margin-top: 0px !important;
+        color: $secondary-color;
+        font-size: 300%;
+    }
+    #cart {
+        color: $secondary-color;
+        margin-top: 0px !important;
+        display: inline-block;
+        font-size: 175%;
+    }
+    #cart:hover {
+        color: green;
+    }
+    #cart-overlay {
+        background-color: black;
+        border: 0px !important;
+    }
+    .Right_Buttons {
+        margin: 0;
+        padding: 0;
+        a {
+            font-size: 27px;
+            color: white;
+            text-decoration: none;
+        }
+        /* Position and sizing of burger button */
+        .bm-burger-button {
+            position: fixed;
+            width: 36px;
+            height: 30px;
+            right: 30px;
+            top: 8px;
+        }
+        /* Color/shape of burger icon bars */
+        .bm-burger-bars {
+            background: #373a47;
+        }
+        /* Color/shape of burger icon bars on hover*/
+        .bm-burger-bars-hover {
+            background: #04631b;
+        }
+        /* Position and sizing of clickable cross button */
+        .bm-cross-button {
+            height: 24px;
+            width: 24px;
+        }
+        /* Color/shape of close button cross */
+        .bm-cross {
+            background: #bdc3c7;
+        }
+        /*
+  Sidebar wrapper styles
+  Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+  */
+        .bm-menu-wrap {
+            position: fixed;
+            height: 100%;
+        }
+        /* General sidebar styles */
+        .bm-menu {
+            background: #373a47;
+            padding: 2.5em 1.5em 0;
+            font-size: 1.15em;
+        }
+        /* Morph shape necessary with bubble or elastic */
+        .bm-morph-shape {
+            fill: #373a47;
+        }
+        /* Wrapper for item list */
+        .bm-item-list {
+            color: #b8b7ad;
+            padding: 0.8em;
+        }
+        /* Individual item */
+        .bm-item {
+            display: inline-block;
+        }
+        /* Styling of overlay */
+        .bm-overlay {
+            background: rgba(0, 0, 0, 0.3);
+        }
+    }
 }
 
 .fixed-nav {
-	z-index:1;
-	top:0;
-	position: fixed;
-	width:100%;
+    z-index: 1;
+    top: 0;
+    position: fixed;
+    width: 100%;
 }
 
-.checkout_render{
-	display:none;
+.checkout_render {
+    display: none;
 }
