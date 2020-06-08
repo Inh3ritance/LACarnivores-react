@@ -1,5 +1,5 @@
 import React from 'react';
-import { pushRotate as Menu } from 'react-burger-menu';
+import { slide as Menu } from 'react-burger-menu';
 import { BrowserView, MobileView } from 'react-device-detect';
 import './Nav.scss';
 import { Elements, StripeProvider } from 'react-stripe-elements';
@@ -23,7 +23,7 @@ class Nav extends React.Component {
     this.handleScroll = this.handleScroll.bind(this);
   }
 
-  showSettings (event) {
+  showSettings(event) {
     event.preventDefault();
   }
 
@@ -59,10 +59,11 @@ class Nav extends React.Component {
                 </button>
               </NavLink>
             </BrowserView>
-            <MobileView viewClassName="Right_Buttons">
-            <Menu right>
+            <MobileView viewClassName="Right_Buttons_mobile">
+              <Menu right className="checkout_render_mobile">
                 <a id="home" className="menu-item" href="/">Home</a>
-                <a id="checkout" className="menu-item" href="/Checkout">Checkout</a>
+                  <a id="cart" className="menu-item" href="/Checkout">Checkout
+                  </a>
               </Menu>
             </MobileView>
           </nav>
