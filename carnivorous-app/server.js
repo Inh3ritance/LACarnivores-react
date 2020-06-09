@@ -9,38 +9,38 @@ app.use(bodyParser.json());
 
 // Creates Customer => creates source => creates charge
 async function CreateCustomer(data) {
-    let existingCustomers = await stripe.customers.list({ email: data.personal_info.email });
-    if (existingCustomers.data.length) {
-        console.log("Not creating new customer");
-        /*Use existing customerUID and pass in rest of data to create charge*/
-        console.log(existingCustomers.data[0].id);
-        createSource(data, existingCustomers.data[0].id);
-    } else {
-        stripe.customers.create({
-            name: data.personal_info.name,
-            email: data.personal_info.email,
-            address: data.billing_address,
-            phone: data.personal_info.phone,
-        }, (err, customer) => {
-            createSource(data, customer.id);
-        }).catch(e => {
-            console.log(e);
-        });
-        
-    } // end else
-} // end CreateCustomer
+        let existingCustomers = await stripe.customers.list({ email: data.personal_info.email });
+        if (existingCustomers.data.length) {
+            console.log("Not creating new customer");
+            /*Use existing customerUID and pass in rest of data to create charge*/
+            console.log(existingCustomers.data[0].id);
+            createSource(data, existingCustomers.data[0].id);
+        } else {
+            stripe.customers.create({
+                name: data.personal_info.name,
+                email: data.personal_info.email,
+                address: data.billing_address,
+                phone: data.personal_info.phone,
+            }, (err, customer) => {
+                createSource(data, customer.id);
+            }).catch(e => {
+                console.log(e);
+            });
+
+        } // end else
+    } // end CreateCustomer
 
 async function createSource(data, customerID) {
-    await stripe.customers.createSource(
-        customerID,
-        {
-            source: 'tok_visa',
-        },
-        (err, card) => {
-            createCharge(customerID, data);
-        }).catch(e => {
-            console.log(e);
-        })
+        await stripe.customers.createSource(
+            customerID,
+            {
+                source: 'tok_visa',
+            },
+            (err, card) => {
+                createCharge(customerID, data);
+            }).catch(e => {
+                console.log(e);
+            })
     };
 
 async function createCharge(customerID, data) {
@@ -67,6 +67,14 @@ async function createCharge(customerID, data) {
             throw (e)
         })
 };
+
+app.get("/products", async (request, response) => {
+    stripe.products.list(
+        function (err, list) {
+            response.json(list);
+        }
+    )
+});
 
 app.post("/charge", async (req, res) => {
     //const idempotencyKey = uuid(); // Prevent charging twice

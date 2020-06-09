@@ -4,14 +4,15 @@ import ProductCard from './ProductCard/ProductCard.js';
 import ToggleSwitch from './ToggleSwitch/ToggleSwitch.js';
 import ProductExpansion from './ProductExpansion/ProductExpansion.js';
 import { BrowserView} from 'react-device-detect';
-import Products from "./Products/Products.jsx";
 
 class Body extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            data: [],
             selector: 'Tropical',
+            
             cart: [
                 {
                     id: -1,
@@ -31,6 +32,12 @@ class Body extends React.Component {
                 }
             ]
         };
+    }
+
+    componentDidMount() {
+        fetch('/products')
+          .then(response => response.json())
+          .then(data => this.setState({ data: Array.from(data.data) }));
     }
 
     /**Closes model*/
@@ -77,6 +84,8 @@ class Body extends React.Component {
     }
 
     render() {
+        const { data } =  this.state;
+
         return (
         <div className="Body">
             <ProductExpansion view={this.state.expansion[0].view} plant_info={this.state.expansion[0].plant_info} closeView={this.closeView.bind(this)} />
@@ -101,7 +110,7 @@ class Body extends React.Component {
 
                     <div className="Product-Cards">
                         {
-                            Products.map(p => <ProductCard key={p.id} {...p} selector={this.state.selector} updateCart={this.updateCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} /*Viewer={this.onChangeViewer.bind(this)}*/ />)
+                            data.map(p => <ProductCard key={p.id} {...p} selector={this.state.selector} updateCart={this.updateCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} /*Viewer={this.onChangeViewer.bind(this)}*/ />)
                         }
                     </div>
                 <div id="bottom-space"></div>
