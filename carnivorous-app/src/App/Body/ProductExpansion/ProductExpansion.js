@@ -4,7 +4,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 /* Takes information from ProductCard To expand into an individual box model */
-const ProductExpansion = ({ id, visible, view, closeView, images, metadata, name}) => {
+const ProductExpansion = ({ id, view, closeView, meta}) => {
+    //console.log(meta);
     if (view) {
         return (
             <div className="model">
@@ -14,7 +15,7 @@ const ProductExpansion = ({ id, visible, view, closeView, images, metadata, name
                         <img
                             alt="IMG_01"
                             className="d-block w-100"
-                            src={images[0]}//should be [1][2][3] 
+                            src={meta.images[1]}//should be [1][2][3] 
                         />
                     </Carousel.Item>
                     <Carousel.Item>
@@ -22,7 +23,7 @@ const ProductExpansion = ({ id, visible, view, closeView, images, metadata, name
                         <img
                             alt="IMG_02"
                             className="d-block w-100"
-                            src={images}
+                            src={meta.images}
                         />
                     </Carousel.Item>
                     <Carousel.Item>
@@ -30,14 +31,14 @@ const ProductExpansion = ({ id, visible, view, closeView, images, metadata, name
                         <img
                             alt="IMG_03"
                             className="d-block w-100"
-                            src={images}
+                            src={meta.images}
                         />
                     </Carousel.Item>
                 </Carousel>
 
-                <h1 className="product-name">{name}</h1>
+                <h1 className="product-name">{meta.name}</h1>
                 <p><b>Description: </b></p>
-                <p className="pad">{""}</p>
+                <p className="pad">{meta.quantity}</p>
                 <p><b>What you will recieve: </b></p>
                 <p className="pad">{""}</p>
                 <p><b>Zones: </b></p>

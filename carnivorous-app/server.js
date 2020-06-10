@@ -46,7 +46,7 @@ async function createSource(data, customerID) {
 async function createCharge(customerID, data) {
     const idempotencyKey = uuid(); // Prevent charging twice
     await stripe.charges.create({
-        amount: 1000,
+        amount: 1000, // Update amount
         currency: 'usd',
         customer: customerID,
         receipt_email: data.personal_info.email,
@@ -58,8 +58,9 @@ async function createCharge(customerID, data) {
             carrier: 'USPS',
             phone: data.personal_info.phone,
         },
+        //Need to specify Card from data
         payment_method_details: data.card,
-        ip: "123.128.1.25",
+        ip: "123.128.1.25", // Figure out how to get IP adress
     },
         {
             idempotencyKey
@@ -71,14 +72,24 @@ async function createCharge(customerID, data) {
 // Get all products
 app.get("/products", async (request, response) => {
     stripe.products.list(
-        function (err, list) {
+        {active:true},
+        (err, list) => {
             response.json(list);
         }
     )
 });
 
+//Get Price of Object
+app.post("/prices", async (req,res) => {
+    stripe.prices.retrieve(
+        req.body.id,
+        (err, price) => {
+           res.send(price);
+        }
+    );
+});
+
 app.post("/charge", async (req, res) => {
-    //const idempotencyKey = uuid(); // Prevent charging twice
     let data = {
         personal_info: {
             name: req.body.name,
@@ -97,9 +108,7 @@ app.post("/charge", async (req, res) => {
         }
     }
     console.log(data);
-    // Check if the customer email already in our Stripe customer database
-
-    //Create Customer is no email is linked
+    // Check if the customer email already in our Stripe customer database, Create Customer if no email is linked
     CreateCustomer(data);
 });
 

@@ -15,25 +15,21 @@ class Body extends React.Component {
             cart: [
                 {
                     id: -1,
-                    visible: true,
-                    images: [],
+                    units: 0,
                     metadata: [],
-                    name: "",
                 }
             ],
             expansion: [
                 {
                     id: -1,
-                    visible: true,
                     view: false,
-                    images: [],
-                    metadata: [],
-                    name: "",
+                    meta: []
                 }
             ]
         };
     }
 
+    /**Onload Products from Backend , Write conde that protexts when FAIL*/
     componentDidMount() {
         fetch('/products')
           .then(response => response.json())
@@ -50,8 +46,7 @@ class Body extends React.Component {
     /**Passes infromartion from ProductCard->ProductCardExpansion*/
     passToExpansion(product) {
         this.setState({
-            expansion: [{ view: product.view, name: product.name, images: product.images, metadata: product.metadata }]
-            /*expansion: [...this.state.expansion, product]*/
+            expansion: [{ view: product.view, meta: product.meta}]
         });
     }
 
@@ -86,7 +81,7 @@ class Body extends React.Component {
     render() {
         return (
         <div className="Body">
-            <ProductExpansion view={this.state.expansion[0].view} images={this.state.expansion[0].images} metadata={this.state.expansion[0].metadata} name={this.state.expansion[0].name} closeView={this.closeView.bind(this)} />
+            <ProductExpansion view={this.state.expansion[0].view} meta={this.state.expansion[0].meta} closeView={this.closeView.bind(this)} />
             <div className="Carousel-Container parrallax">
                 <h1>Preservation Through Cultivation</h1>
             </div>
@@ -108,7 +103,7 @@ class Body extends React.Component {
 
                     <div className="Product-Cards">
                         {
-                            this.state.data.map(p => <ProductCard key={p.id} {...p} selector={this.state.selector} updateCart={this.updateCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} /*Viewer={this.onChangeViewer.bind(this)}*/ />)
+                            this.state.data.map(p => <ProductCard key={p.id} {...p} selector={this.state.selector} updateCart={this.updateCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} />)
                         }
                     </div>
                 <div id="bottom-space"></div>

@@ -82,15 +82,6 @@ class CheckoutForm extends Component {
             }
         }
 
-        this.props.stripe.createPaymentMethod({
-            type: 'card',
-            card: card,
-            billing_details: {name: 'James Rosen'},
-        })
-        .then(({paymentMethod}) => {
-            console.log("recieved Stripe paymentMethod:", paymentMethod);
-        });
-
         // Charge 
         return await fetch("/charge", {
             method: "POST",
@@ -99,6 +90,7 @@ class CheckoutForm extends Component {
         }).then(response => {
             if (response.ok) this.setState({ complete: true });
             console.log("Success");
+            //Clear Cart + Form
             toast("Purchase Succesfull!",
                 { type: 'success' })
         }).catch(e => {
