@@ -4,7 +4,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 /* Takes information from ProductCard To expand into an individual box model */
-const ProductExpansion = ({ id, quantity, visible, view, closeView, plant_info}) => {
+const ProductExpansion = ({ id, visible, view, closeView, images, metadata, name}) => {
     if (view) {
         return (
             <div className="model">
@@ -14,7 +14,7 @@ const ProductExpansion = ({ id, quantity, visible, view, closeView, plant_info})
                         <img
                             alt="IMG_01"
                             className="d-block w-100"
-                            src={plant_info[10][1]}
+                            src={images[0]}//should be [1][2][3] 
                         />
                     </Carousel.Item>
                     <Carousel.Item>
@@ -22,7 +22,7 @@ const ProductExpansion = ({ id, quantity, visible, view, closeView, plant_info})
                         <img
                             alt="IMG_02"
                             className="d-block w-100"
-                            src={plant_info[10][1]}
+                            src={images}
                         />
                     </Carousel.Item>
                     <Carousel.Item>
@@ -30,24 +30,24 @@ const ProductExpansion = ({ id, quantity, visible, view, closeView, plant_info})
                         <img
                             alt="IMG_03"
                             className="d-block w-100"
-                            src={plant_info[10][1]}
+                            src={images}
                         />
                     </Carousel.Item>
                 </Carousel>
 
-                <h1 className="product-name">{plant_info[0]}</h1>
+                <h1 className="product-name">{name}</h1>
                 <p><b>Description: </b></p>
-                <p className="pad">{plant_info[2]}</p>
+                <p className="pad">{""}</p>
                 <p><b>What you will recieve: </b></p>
-                <p className="pad">{plant_info[4]}</p>
+                <p className="pad">{""}</p>
                 <p><b>Zones: </b></p>
-                <p className="pad">{plant_info[5]}</p>
+                <p className="pad">{""}</p>
                 <p><b>Water: </b></p>
-                <p className="pad">{plant_info[6]}</p>
+                <p className="pad">{""}</p>
                 <p><b>Soil: </b></p>
-                <p className="pad">{plant_info[7]}</p>
+                <p className="pad">{""}</p>
                 <p><b>Lighting: </b></p>
-                <p className="pad" id="end">{plant_info[8]}</p>
+                <p className="pad" id="end">{""}</p>
             </div>
         )
     } else {

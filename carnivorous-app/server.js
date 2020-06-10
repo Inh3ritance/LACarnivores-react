@@ -68,6 +68,7 @@ async function createCharge(customerID, data) {
         })
 };
 
+// Get all products
 app.get("/products", async (request, response) => {
     stripe.products.list(
         function (err, list) {

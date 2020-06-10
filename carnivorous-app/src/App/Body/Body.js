@@ -11,24 +11,24 @@ class Body extends React.Component {
         super(props);
         this.state = {
             data: [],
-            selector: 'Tropical',
-            
+            selector: 'Default',
             cart: [
                 {
                     id: -1,
-                    quantity: 0,
                     visible: true,
-                    units: 0,
-                    plant_info:[]
+                    images: [],
+                    metadata: [],
+                    name: "",
                 }
             ],
             expansion: [
                 {
                     id: -1,
-                    quantity: 0,
                     visible: true,
                     view: false,
-                    plant_info: [],
+                    images: [],
+                    metadata: [],
+                    name: "",
                 }
             ]
         };
@@ -50,7 +50,7 @@ class Body extends React.Component {
     /**Passes infromartion from ProductCard->ProductCardExpansion*/
     passToExpansion(product) {
         this.setState({
-            expansion: [{ view: product.view, plant_info: product.plant_info }]
+            expansion: [{ view: product.view, name: product.name, images: product.images, metadata: product.metadata }]
             /*expansion: [...this.state.expansion, product]*/
         });
     }
@@ -84,11 +84,9 @@ class Body extends React.Component {
     }
 
     render() {
-        const { data } =  this.state;
-
         return (
         <div className="Body">
-            <ProductExpansion view={this.state.expansion[0].view} plant_info={this.state.expansion[0].plant_info} closeView={this.closeView.bind(this)} />
+            <ProductExpansion view={this.state.expansion[0].view} images={this.state.expansion[0].images} metadata={this.state.expansion[0].metadata} name={this.state.expansion[0].name} closeView={this.closeView.bind(this)} />
             <div className="Carousel-Container parrallax">
                 <h1>Preservation Through Cultivation</h1>
             </div>
@@ -110,7 +108,7 @@ class Body extends React.Component {
 
                     <div className="Product-Cards">
                         {
-                            data.map(p => <ProductCard key={p.id} {...p} selector={this.state.selector} updateCart={this.updateCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} /*Viewer={this.onChangeViewer.bind(this)}*/ />)
+                            this.state.data.map(p => <ProductCard key={p.id} {...p} selector={this.state.selector} updateCart={this.updateCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} /*Viewer={this.onChangeViewer.bind(this)}*/ />)
                         }
                     </div>
                 <div id="bottom-space"></div>
