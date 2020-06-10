@@ -8,7 +8,6 @@
     max-width:300px;
     position: relative;
     text-align: center;
-    width: 25%;
     margin-left: 2%;
     margin-top: 2%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -16,7 +15,12 @@
     display: inline-block;
     transition: transform .2s;
     width:27%;
-    //width:300px;
+}
+
+@media only screen and (max-width: 600px) {
+    .product-card {
+      width: 85%;
+    }
 }
 
 .product-card:hover{

@@ -11,7 +11,7 @@ class Body extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selector: 'Default',
+            selector: 'Tropical',
             cart: [
                 {
                     id: -1,

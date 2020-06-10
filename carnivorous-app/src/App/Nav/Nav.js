@@ -1,7 +1,9 @@
 import React from 'react';
+import Body from '../Body/Body.js';
+import Footer from '../Footer/Footer.js';
+import './Nav.scss';
 import { slide as Menu } from 'react-burger-menu';
 import { BrowserView, MobileView } from 'react-device-detect';
-import './Nav.scss';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import CheckoutForm from '../Body/Checkout/CheckoutForm.js';
 import {
@@ -11,8 +13,6 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Body from '../Body/Body.js';
-import Footer from '../Footer/Footer.js';
 
 class Nav extends React.Component {
 
@@ -59,11 +59,14 @@ class Nav extends React.Component {
                 </button>
               </NavLink>
             </BrowserView>
-            <MobileView viewClassName="Right_Buttons_mobile">
+            <MobileView viewClassName="Right_Buttons_mobile" activeClassName="checkout_render">
               <Menu right className="checkout_render_mobile">
-                <a id="home" className="menu-item" href="/">Home</a>
-                  <a id="cart" className="menu-item" href="/Checkout">Checkout
-                  </a>
+                <Link id="home" className="menu-item" to="/">Home</Link>
+                <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout">
+                <button className="btn btn-info btn-lg" id="cart-overlay">
+                  <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart 0</span></h2>
+                </button>
+                </NavLink>
               </Menu>
             </MobileView>
           </nav>

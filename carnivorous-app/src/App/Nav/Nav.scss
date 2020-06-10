@@ -27,16 +27,13 @@ nav {
         border: 0px !important;
     }
 
-
     .Right_Buttons {
         margin-right:3%;
 		float:right;	
 		text-align: center;
     }
     .Right_Buttons_mobile {
-        margin: 0;
-        padding: 0;
-        a {
+        a, Link {
             font-size: 27px;
             color: white;
             text-decoration: none;
@@ -57,11 +54,7 @@ nav {
         .bm-burger-bars-hover {
             background: #009225;
         }
-        /* Position and sizing of clickable cross button */
-        .bm-cross-button {
-            height: 50px;
-            width: 50px;
-        }
+
         /* Color/shape of close button cross */
         .bm-cross {
             display: none;
@@ -76,8 +69,7 @@ nav {
         }
         /* General sidebar styles */
         .bm-menu {
-            background: #000000;
-            padding: 2.5em 1.5em 0;
+            background-color: black;
             font-size: 1.15em;
         }
         /* Morph shape necessary with bubble or elastic */
@@ -86,21 +78,12 @@ nav {
         }
         /* Wrapper for item list */
         .bm-item-list {
-            color: #b8b7ad;
-            padding: 3.8em;
+            padding: 3.0em;
         }
         /* Individual item */
         .bm-item {
             display: inline-block;
             margin-top: 15px;
-        }
-        /* Styling of overlay */
-        .bm-overlay {
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .checkout_renderMobile {
-            display: none;
         }
     }
 }
