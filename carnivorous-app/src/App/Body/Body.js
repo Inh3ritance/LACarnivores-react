@@ -13,6 +13,7 @@ class Body extends React.Component {
             data: [],
             cart: [],
             expansion: [{}],
+            prices: [],
             selector: 'Nepenthes',
         };
     }

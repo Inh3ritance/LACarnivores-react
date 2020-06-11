@@ -22,7 +22,7 @@
         "react-scripts": "^3.3.0",
         "react-stripe-elements": "^6.1.2",
         "react-toastify": "^6.0.5",
-        "stripe": "^8.47.0",
+        "stripe": "^8.63.0",
         "uuidv4": "^6.0.9"
     },
     "scripts": {

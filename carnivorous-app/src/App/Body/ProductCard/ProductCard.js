@@ -3,58 +3,72 @@ import './ProductCard.scss';
 
 /* Takes in information retrieved by Database/Array to render a Product Card */
 //let id = id or pass in meta, then pass to expansion, for now purchase is only available through product card
-const ProductCard = ({id, updateCart, passToExpansion, selector, name, description, metadata, images}) => {
+
+
+async function getPrice1(id) {
+    let url = "/prices?id="+id;
+    fetch(url)
+    .then((resp) => {
+        resp.json();
+    })
+    .then(function(data) {
+        console.log(data.data[0].unit_amount_decimal);
+    });
+}
+
+const ProductCard = ({ id, updateCart, passToExpansion, selector, name, description, metadata, images, price }) => {
     const meta = {
         metadata,
-        images, 
+        images,
         name,
         description
     }
+
     if (meta.metadata.type === selector && Number(meta.metadata.quantity) !== 0) {
-            return (
-                <div className="product-card">
-                    <button className="remove-button" onClick={() => passToExpansion({/* id, */ view: true, meta})}>
-                        <div className="product-header" style={{ backgroundImage:  'url(' + images[0] + ')' }}>
-                            <h4 className="product-name">{name}</h4>
-                        </div>
-                    </button>
-
-                    <div className="product-card-body">
-                        <p className="price">{"19.99"}</p>
-                        <p className="product-body-content">{description}</p>
+        return (
+            <div className="product-card">
+                <button className="remove-button" onClick={() => passToExpansion({/* id, */ view: true, meta })}>
+                    <div className="product-header" style={{ backgroundImage: 'url(' + images[0] + ')' }}>
+                        <h4 className="product-name">{name}</h4>
                     </div>
+                </button>
 
-                    <div className="product-button">
-                        <button className="btn" onClick={() => updateCart({ id, units: -1, name})}>-</button><h3> Add to Cart </h3><button className="btn" onClick={() => updateCart({ id, units: 1, name})}>+</button>
-                    </div>
-
+                <div className="product-card-body">
+                    <p className="price">{getPrice1(id)}</p>
+                    <p className="product-body-content">{description}</p>
                 </div>
-            )
-        } else if(meta.metadata.type === selector && Number(meta.metadata.quantity) === 0) {
-            return (
+
+                <div className="product-button">
+                    <button className="btn" onClick={() => updateCart({ id, units: -1, name })}>-</button><h3> Add to Cart </h3><button className="btn" onClick={() => updateCart({ id, units: 1, name })}>+</button>
+                </div>
+
+            </div>
+        )
+    } else if (meta.metadata.type === selector && Number(meta.metadata.quantity) === 0) {
+        return (
             <div className="product-card">
 
-            <button className="remove-button">
-                <div className="product-header sold" style={{ backgroundImage: 'url(' + images[0] + ')' }}>
-                    <h4 className = "product-name">{name}</h4>
+                <button className="remove-button">
+                    <div className="product-header sold" style={{ backgroundImage: 'url(' + images[0] + ')' }}>
+                        <h4 className="product-name">{name}</h4>
+                    </div>
+                    <h4 className="soldout"> <b>Sold Out </b></h4>
+                </button>
+
+                <div className="product-card-body">
+                    <p className="price">{getPrice1(id)}</p>
+                    <p className="product-body-content">{description}</p>
                 </div>
-                <h4 className = "soldout"> <b>Sold Out </b></h4>
-            </button>
 
-            <div className="product-card-body">
-                <p className="price">$10.99</p>
-                <p className="product-body-content">{description}</p>
+                <div className="product-button">
+                    <button className="btn reject">-</button><h3> Add to Cart </h3><button className="btn reject">+</button>
+                </div>
+
             </div>
-
-            <div className="product-button">
-                <button className="btn reject">-</button><h3> Add to Cart </h3><button className="btn reject">+</button>
-            </div>
-
-          </div>
-          )
-        } else {
-            return(<span></span>);
-        }
+        )
+    } else {
+        return (<span></span>);
     }
+}
 
 export default ProductCard;

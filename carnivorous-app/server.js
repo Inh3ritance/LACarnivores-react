@@ -79,16 +79,6 @@ app.get("/products", async (request, response) => {
     )
 });
 
-//Get Price of Object
-app.post("/prices", async (req,res) => {
-    stripe.prices.retrieve(
-        req.body.id,
-        (err, price) => {
-           res.send(price);
-        }
-    );
-});
-
 app.post("/charge", async (req, res) => {
     let data = {
         personal_info: {
@@ -115,6 +105,17 @@ app.post("/charge", async (req, res) => {
 // Just Testing out API with this GET method.
 app.get("/charge", (req, res) => {
     res.send("Hello The GET request worked if u see this");
+});
+
+app.get("/prices", async (req, res) => {
+    stripe.prices.list(
+        {product: req.query.id},
+        function(err, price) {
+          // asynchronously called
+          console.log(price.data[0].unit_amount);
+          res.json(price);
+        }
+      );
 });
 
 const port = process.env.PORT || 9000;
