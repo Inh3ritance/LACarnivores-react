@@ -11,7 +11,7 @@ class Body extends React.Component {
         super(props);
         this.state = {
             data: [],
-            selector: 'Default',
+            selector: 'Nepenthes',
             cart: [
                 {
                     id: -1,
@@ -22,8 +22,8 @@ class Body extends React.Component {
             expansion: [
                 {
                     id: -1,
+                    meta: [],
                     view: false,
-                    meta: []
                 }
             ]
         };
@@ -46,7 +46,7 @@ class Body extends React.Component {
     /**Passes infromartion from ProductCard->ProductCardExpansion*/
     passToExpansion(product) {
         this.setState({
-            expansion: [{ view: product.view, meta: product.meta}]
+            expansion: [{ view: product.view, meta: product.meta,}]
         });
     }
 

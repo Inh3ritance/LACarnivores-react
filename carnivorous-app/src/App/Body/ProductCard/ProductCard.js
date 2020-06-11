@@ -2,7 +2,8 @@ import React from 'react';
 import './ProductCard.scss';
 
 /* Takes in information retrieved by Database/Array to render a Product Card */
-const ProductCard = ({id, updateCart, passToExpansion, selector, view, name, description, metadata, images}) => {
+//let id = id or pass in meta, then pass to expansion, for now purchase is only available through product card
+const ProductCard = ({id, updateCart, passToExpansion, selector, name, description, metadata, images}) => {
     const meta = {
         metadata,
         images, 
@@ -12,7 +13,7 @@ const ProductCard = ({id, updateCart, passToExpansion, selector, view, name, des
     if (meta.metadata.type === selector && Number(meta.metadata.quantity) !== 0) {
             return (
                 <div className="product-card">
-                    <button className="remove-button" onClick={() => passToExpansion({ id, view: true, meta})}>
+                    <button className="remove-button" onClick={() => passToExpansion({/* id, */ view: true, meta})}>
                         <div className="product-header" style={{ backgroundImage:  'url(' + images[0] + ')' }}>
                             <h4 className="product-name">{name}</h4>
                         </div>

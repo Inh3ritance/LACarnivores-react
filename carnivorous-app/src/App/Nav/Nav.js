@@ -23,10 +23,6 @@ class Nav extends React.Component {
     this.handleScroll = this.handleScroll.bind(this);
   }
 
-  showSettings(event) {
-    event.preventDefault();
-  }
-
   /* Function handling/setting scroll state*/
   handleScroll() {
     this.setState({ scroll: window.scrollY });
@@ -51,6 +47,7 @@ class Nav extends React.Component {
       <div>
         <Router>
           <nav className={this.state.scroll > this.state.top ? "fixed-nav" : ""}>
+            <Link to='/'><img id= "logo" src={require('./Logo.png')} alt="Logo"/></Link>
             <Link to='/'><h1 id="Company_Name">LA Carnivores</h1></Link>
             <BrowserView viewClassName="Right_Buttons">
               <NavLink to='/Checkout' activeClassName="checkout_render">

@@ -24,20 +24,19 @@ fieldset{
     border-radius: 10px !important;
 }
 
+#chlbl{
+    margin-left:1%;
+    display: inline !important;
+}
+
 label{
     font-size: 120%;
     font-weight: bold;
     display: block;
 }
 
-#chlbl{
-    margin-left:1%;
-    display: inline !important;
-}
-
 select{
-    font-size: 150%;
-    width: 210px;
+    font-size: 100%;
 }
 
 .inner{
@@ -46,6 +45,7 @@ select{
     padding:1%;
     width:95%;
     font-size: 160%;
+    display: block;
 }
 
 input{
@@ -53,12 +53,8 @@ input{
     -moz-box-shadow-bottom: 4px 4px 4px gray;
     -webkit-box-shadow-bottom: 4px 4px 4px gray;
     box-shadow: 1px 1px 1px gray;
-    display: block !important;
-    transition: 0.25s !important;
-}
-
-select {
     display: block;
+    transition: 0.25s !important;
 }
 
 .Checkout_Button{

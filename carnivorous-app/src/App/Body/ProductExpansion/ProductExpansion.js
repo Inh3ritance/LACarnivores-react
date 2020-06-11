@@ -4,7 +4,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 /* Takes information from ProductCard To expand into an individual box model */
-const ProductExpansion = ({ id, view, closeView, meta}) => {
+const ProductExpansion = ({/* id, */ view, closeView, meta}) => {
     //console.log(meta);
     if (view) {
         return (
@@ -15,7 +15,7 @@ const ProductExpansion = ({ id, view, closeView, meta}) => {
                         <img
                             alt="IMG_01"
                             className="d-block w-100"
-                            src={meta.images[1]}//should be [1][2][3] 
+                            src={meta.images[0]}//should be [1][2][3] 
                         />
                     </Carousel.Item>
                     <Carousel.Item>
@@ -38,9 +38,9 @@ const ProductExpansion = ({ id, view, closeView, meta}) => {
 
                 <h1 className="product-name">{meta.name}</h1>
                 <p><b>Description: </b></p>
-                <p className="pad">{meta.quantity}</p>
+                <p className="pad">{meta.id}</p>
                 <p><b>What you will recieve: </b></p>
-                <p className="pad">{""}</p>
+                <p className="pad">{}</p>
                 <p><b>Zones: </b></p>
                 <p className="pad">{""}</p>
                 <p><b>Water: </b></p>
