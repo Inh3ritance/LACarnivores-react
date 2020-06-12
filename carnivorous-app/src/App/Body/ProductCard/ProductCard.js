@@ -25,7 +25,7 @@ const ProductCard = ({id, updateCart, passToExpansion, selector, name, descripti
                     </div>
 
                     <div className="product-button">
-                        <button className="btn" onClick={() => updateCart({ id, units: -1})}>-</button><h3> Add to Cart </h3><button className="btn" onClick={() => updateCart({ id, units: 1 })}>+</button>
+                        <button className="btn" onClick={() => updateCart({ id, units: -1, name})}>-</button><h3> Add to Cart </h3><button className="btn" onClick={() => updateCart({ id, units: 1, name})}>+</button>
                     </div>
 
                 </div>

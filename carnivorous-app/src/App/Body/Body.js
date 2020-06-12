@@ -11,25 +11,13 @@ class Body extends React.Component {
         super(props);
         this.state = {
             data: [],
+            cart: [],
+            expansion: [{}],
             selector: 'Nepenthes',
-            cart: [
-                {
-                    id: -1,
-                    units: 0,
-                    metadata: [],
-                }
-            ],
-            expansion: [
-                {
-                    id: -1,
-                    meta: [],
-                    view: false,
-                }
-            ]
         };
     }
 
-    /**Onload Products from Backend , Write conde that protexts when FAIL*/
+    /**Onload Products from Backend , Write code that protects when FAIL*/
     componentDidMount() {
         fetch('/products')
           .then(response => response.json())
@@ -50,19 +38,19 @@ class Body extends React.Component {
         });
     }
 
-    /**Update cart... Needs to validate by pressing ADD TO CART! FIX THIS*/
+    /**Updates Cart value, checks to make sure is greater than 0*/
     updateCart(product) {
         const existingProduct = this.state.cart.filter(p => p.id === product.id)
         if (existingProduct.length > 0) {
             const withoutExistingProduct = this.state.cart.filter(p => p.id !== product.id);
-            const updateUnitsProduct = {
-                ...existingProduct[0],
-                units: existingProduct[0].units + product.units
-            };
-
-            this.setState({
-                cart: [...withoutExistingProduct, updateUnitsProduct]
-            });
+                const updateUnitsProduct = {
+                    ...existingProduct[0],
+                    units: existingProduct[0].units + product.units
+                };
+                if(updateUnitsProduct.units + product.units >= -1)
+                this.setState({
+                    cart: [...withoutExistingProduct, updateUnitsProduct]
+                });
         } else {
             this.setState({
                 cart: [...this.state.cart, product]
@@ -95,7 +83,8 @@ class Body extends React.Component {
                     <p>{this.state.selector === "Default" ? "We are a new starting nursery with a wide variety of carnivorous plants and great service. Since we are new, our selections may have limited quanties,but as we grow together we will grow in product availabilty and hopefully soon a storefront. Here at LA Carnivores we raise and purchase carnivorous plants from quality vendors to make sure you get the most reliable plants in the country." : ""}</p>
                     <ul>
                         {
-                            //this.state.cart.map(c => <li>{c.plant_info[0]} | units {c.units}</li>)
+                            //When we want to display the cart to Customer
+                            this.state.cart.map(c => c.units > 0 ? <li>{c.name} | units {c.units}</li> : "")
                         }
                     </ul>
 
