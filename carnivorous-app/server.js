@@ -69,6 +69,12 @@ async function createCharge(customerID, data) {
         })
 };
 
+function getPrices() {
+    stripe.prices.list(
+        function(err, list) {
+        }
+    )
+}
 // Get all products
 app.get("/products", async (request, response) => {
     stripe.products.list(
@@ -112,8 +118,8 @@ app.get("/prices", async (req, res) => {
         {product: req.query.id},
         function(err, price) {
           // asynchronously called
-          console.log(price.data[0].unit_amount);
-          res.json(price);
+          console.log(price.data);
+          res.send(price.data);
         }
       );
 });

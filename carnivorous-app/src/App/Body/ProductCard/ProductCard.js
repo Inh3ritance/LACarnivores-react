@@ -4,24 +4,13 @@ import './ProductCard.scss';
 /* Takes in information retrieved by Database/Array to render a Product Card */
 //let id = id or pass in meta, then pass to expansion, for now purchase is only available through product card
 
-
-async function getPrice1(id) {
-    let url = "/prices?id="+id;
-    fetch(url)
-    .then((resp) => {
-        resp.json();
-    })
-    .then(function(data) {
-        console.log(data.data[0].unit_amount_decimal);
-    });
-}
-
 const ProductCard = ({ id, updateCart, passToExpansion, selector, name, description, metadata, images, price }) => {
     const meta = {
         metadata,
         images,
         name,
-        description
+        description,
+        price
     }
 
     if (meta.metadata.type === selector && Number(meta.metadata.quantity) !== 0) {
@@ -34,14 +23,13 @@ const ProductCard = ({ id, updateCart, passToExpansion, selector, name, descript
                 </button>
 
                 <div className="product-card-body">
-                    <p className="price">{getPrice1(id)}</p>
+                <p className="price">{"$" + (meta.metadata.price/100).toFixed(2)}</p>
                     <p className="product-body-content">{description}</p>
                 </div>
 
                 <div className="product-button">
                     <button className="btn" onClick={() => updateCart({ id, units: -1, name })}>-</button><h3> Add to Cart </h3><button className="btn" onClick={() => updateCart({ id, units: 1, name })}>+</button>
-                </div>
-
+                </div>``
             </div>
         )
     } else if (meta.metadata.type === selector && Number(meta.metadata.quantity) === 0) {
@@ -56,7 +44,7 @@ const ProductCard = ({ id, updateCart, passToExpansion, selector, name, descript
                 </button>
 
                 <div className="product-card-body">
-                    <p className="price">{getPrice1(id)}</p>
+                <p className="price">{"$" + (meta.metadata.price/100).toFixed(2)}</p>
                     <p className="product-body-content">{description}</p>
                 </div>
 

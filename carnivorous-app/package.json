@@ -2,7 +2,7 @@
     "name": "carnivorous-app",
     "version": "0.1.0",
     "private": true,
-    "proxy": "http://localhost:9000",
+    "proxy": "http://localhost:9000/",
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",
         "@stripe/react-stripe-js": "^1.1.2",
@@ -11,6 +11,7 @@
         "bootstrap": "^4.4.1",
         "cors": "^2.8.5",
         "express": "^4.17.1",
+        "jquery": "^1.9.1",
         "node-sass": "^4.14.1",
         "nodemon": "^2.0.4",
         "react": "^16.12.0",
