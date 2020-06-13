@@ -11,10 +11,8 @@ class Body extends React.Component {
         super(props);
         this.state = {
             data: [],
-            id: [],
             cart: [],
             expansion: [{}],
-            prices: [],
             selector: 'Nepenthes',
         };
     }
@@ -27,6 +25,12 @@ class Body extends React.Component {
                 let dataArray = Array.from(data.data);
                 this.setState({ data: dataArray });                
             });
+       
+        var result = [];
+        var data = JSON.parse(localStorage.getItem('cart'))
+        for(var i in data) 
+          result.push([i, data[i]]);
+        this.setState({ cart: result });
     }
 
     /**Closes model*/
@@ -56,10 +60,12 @@ class Body extends React.Component {
                 this.setState({
                     cart: [...withoutExistingProduct, updateUnitsProduct]
                 });
+                localStorage.setItem('cart', JSON.stringify(updateUnitsProduct));
         } else {
             this.setState({
                 cart: [...this.state.cart, product]
             });
+            localStorage.setItem('cart', JSON.stringify(product));
         }
 
     }
@@ -72,6 +78,7 @@ class Body extends React.Component {
     }
 
     render() {
+        console.log(this.state.cart);
         return (
             <div className="Body">
                 <ProductExpansion view={this.state.expansion[0].view} meta={this.state.expansion[0].meta} closeView={this.closeView.bind(this)} />
@@ -97,7 +104,7 @@ class Body extends React.Component {
 
                         <div className="Product-Cards">
                             {
-                                this.state.data.map(p => <ProductCard key={p.id} {...p} price={this.state.prices} selector={this.state.selector} updateCart={this.updateCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} />)
+                                this.state.data.map(p => <ProductCard key={p.id} {...p} selector={this.state.selector} updateCart={this.updateCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} />)
                             }
                         </div>
                         <div id="bottom-space"></div>

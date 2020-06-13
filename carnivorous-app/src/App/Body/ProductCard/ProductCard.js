@@ -23,13 +23,13 @@ const ProductCard = ({ id, updateCart, passToExpansion, selector, name, descript
                 </button>
 
                 <div className="product-card-body">
-                <p className="price">{"$" + (meta.metadata.price/100).toFixed(2)}</p>
+                    <p className="price">{"$" + (meta.metadata.price/100).toFixed(2)}</p>
                     <p className="product-body-content">{description}</p>
                 </div>
 
                 <div className="product-button">
                     <button className="btn" onClick={() => updateCart({ id, units: -1, name })}>-</button><h3> Add to Cart </h3><button className="btn" onClick={() => updateCart({ id, units: 1, name })}>+</button>
-                </div>``
+                </div>
             </div>
         )
     } else if (meta.metadata.type === selector && Number(meta.metadata.quantity) === 0) {
@@ -44,7 +44,7 @@ const ProductCard = ({ id, updateCart, passToExpansion, selector, name, descript
                 </button>
 
                 <div className="product-card-body">
-                <p className="price">{"$" + (meta.metadata.price/100).toFixed(2)}</p>
+                    <p className="price">{"$" + (meta.metadata.price/100).toFixed(2)}</p>
                     <p className="product-body-content">{description}</p>
                 </div>
 

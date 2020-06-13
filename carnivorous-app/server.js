@@ -69,12 +69,6 @@ async function createCharge(customerID, data) {
         })
 };
 
-function getPrices() {
-    stripe.prices.list(
-        function(err, list) {
-        }
-    )
-}
 // Get all products
 app.get("/products", async (request, response) => {
     stripe.products.list(
@@ -116,7 +110,7 @@ app.get("/charge", (req, res) => {
 app.get("/prices", async (req, res) => {
     stripe.prices.list(
         {product: req.query.id},
-        function(err, price) {
+        (err, price) => {
           // asynchronously called
           console.log(price.data);
           res.send(price.data);
