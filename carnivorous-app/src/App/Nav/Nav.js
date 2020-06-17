@@ -13,14 +13,26 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import ToggleSwitch from '../Body/ToggleSwitch/ToggleSwitch.js';
 
 class Nav extends React.Component {
 
   /* Constructor */
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {selector:'Tropical', menuOpen: false};
     this.handleScroll = this.handleScroll.bind(this);
+  }
+
+  onSelector(selector) {
+    this.props.Selector(selector.target.value);
+  }
+
+  /**Changes type navigation tab, FIX THIS!*/
+  onChangeSelector(selected) {
+    this.setState({
+        selector: selected
+    });
   }
 
   /* Function handling/setting scroll state*/
@@ -42,6 +54,16 @@ class Nav extends React.Component {
       document.body.style.paddingTop = 0;
   }
 
+  /* Closes window when Link is clicked */
+  closeMenu () {
+    this.setState({menuOpen: false})
+  }
+
+  /* Handles change whenever it is open or closed */
+  handleStateChange (state) {
+    this.setState({menuOpen: state.isOpen})  
+  }
+
   render() {
     return (
       <div>
@@ -57,9 +79,9 @@ class Nav extends React.Component {
               </NavLink>
             </BrowserView>
             <MobileView viewClassName="Right_Buttons_mobile" activeClassName="checkout_render">
-              <Menu right className="checkout_render_mobile">
-                <Link id="home" className="menu-item" to="/">Home</Link>
-                <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout">
+              <Menu right className="checkout_render_mobile" isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)}>
+                <Link id="home" className="menu-item" to="/" onClick={() => this.closeMenu()}><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
+                <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout" onClick={() => this.closeMenu()}>
                 <button className="btn btn-info btn-lg" id="cart-overlay">
                   <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart 0</span></h2>
                 </button>
@@ -68,7 +90,7 @@ class Nav extends React.Component {
             </MobileView>
           </nav>
           <Switch>
-            <Route exact path='/'><div><Body /><Footer /></div></Route>
+            <Route exact path='/'><div><Body selector={this.state.selector} /><Footer /></div></Route>
             <Route path='/Checkout'>
               <div>
                 <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
