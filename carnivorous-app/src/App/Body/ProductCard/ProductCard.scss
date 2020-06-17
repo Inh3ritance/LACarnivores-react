@@ -5,7 +5,6 @@
 }
 
 .product-card {
-    max-width:300px;
     position: relative;
     text-align: center;
     margin-left: 2%;
@@ -14,17 +13,11 @@
     overflow-wrap: break-word;
     display: inline-block;
     transition: transform .2s;
-    width:27%;
-}
-
-@media only screen and (max-width: 600px) {
-    .product-card {
-      width: 85%;
-    }
+    min-width:300px;
 }
 
 .product-card:hover{
-	transform: scale(1.1);
+	transform: scale(1.05);
 	.product-header{
        opacity:0.8;
 	 }
