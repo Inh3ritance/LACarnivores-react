@@ -3,7 +3,6 @@ import Body from '../Body/Body.js';
 import Footer from '../Footer/Footer.js';
 import './Nav.scss';
 import { slide as Menu } from 'react-burger-menu';
-import { BrowserView, MobileView } from 'react-device-detect';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import CheckoutForm from '../Body/Checkout/CheckoutForm.js';
 import {
@@ -71,14 +70,14 @@ class Nav extends React.Component {
           <nav className={this.state.scroll > this.state.top ? "fixed-nav" : ""}>
             <Link to='/'><img id= "logo" src={require('./Logo.png')} alt="Logo"/></Link>
             <Link to='/'><h1 id="Company_Name">LA Carnivores</h1></Link>
-            <BrowserView viewClassName="Right_Buttons">
+            <div className="Right_Buttons mobile">
               <NavLink to='/Checkout' activeClassName="checkout_render">
                 <button className="btn btn-info btn-lg" id="cart-overlay">
                   <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart 0</span></h2>
                 </button>
               </NavLink>
-            </BrowserView>
-            <MobileView viewClassName="Right_Buttons_mobile" activeClassName="checkout_render">
+            </div>
+            <div className="Right_Buttons_mobile notMobile" activeClassName="checkout_render">
               <Menu right className="checkout_render_mobile" isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)}>
                 <Link id="home" className="menu-item" to="/" onClick={() => this.closeMenu()}><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
                 <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout" onClick={() => this.closeMenu()}>
@@ -87,7 +86,7 @@ class Nav extends React.Component {
                 </button>
                 </NavLink>
               </Menu>
-            </MobileView>
+            </div>
           </nav>
           <Switch>
             <Route exact path='/'><div><Body selector={this.state.selector} /><Footer /></div></Route>

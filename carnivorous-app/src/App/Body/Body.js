@@ -3,7 +3,6 @@ import './Body.scss';
 import ProductCard from './ProductCard/ProductCard.js';
 import ToggleSwitch from './ToggleSwitch/ToggleSwitch.js';
 import ProductExpansion from './ProductExpansion/ProductExpansion.js';
-import { BrowserView } from 'react-device-detect';
 
 class Body extends React.Component {
 
@@ -87,9 +86,9 @@ class Body extends React.Component {
                 </div>
                 {this.renderContent}
                 <div className="Container">
-                    <BrowserView viewClassName="Left-Nav">
+                    <div className="Left-Nav mobile">
                         <ToggleSwitch Selector={this.onChangeSelector.bind(this)} />
-                    </BrowserView>
+                    </div>
                     <div className="Content">
                         <h1>{this.state.selector === "Default" ? "Welcome" : ""}</h1>
                         <p>{this.state.selector === "Default" ? "We are a new starting nursery with a wide variety of carnivorous plants and great service. Since we are new, our selections may have limited quanties,but as we grow together we will grow in product availabilty and hopefully soon a storefront. Here at LA Carnivores we raise and purchase carnivorous plants from quality vendors to make sure you get the most reliable plants in the country." : ""}</p>
