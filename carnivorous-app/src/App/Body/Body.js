@@ -66,7 +66,6 @@ class Body extends React.Component {
             });
             localStorage.setItem('cart', JSON.stringify(product));
         }
-
     }
 
     /**Changes type navigation tab, FIX THIS!*/
@@ -77,7 +76,6 @@ class Body extends React.Component {
     }
 
     render() {
-        console.log(this.state.cart);
         return (
             <div className="Body">
                 <ProductExpansion view={this.state.expansion[0].view} meta={this.state.expansion[0].meta} closeView={this.closeView.bind(this)} />

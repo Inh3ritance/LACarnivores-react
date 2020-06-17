@@ -71,13 +71,13 @@ class Nav extends React.Component {
             <Link to='/'><img id= "logo" src={require('./Logo.png')} alt="Logo"/></Link>
             <Link to='/'><h1 id="Company_Name">LA Carnivores</h1></Link>
             <div className="Right_Buttons mobile">
-              <NavLink to='/Checkout' activeClassName="checkout_render">
+              <NavLink to='/Checkout' activeclassname="checkout_render">
                 <button className="btn btn-info btn-lg" id="cart-overlay">
                   <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart 0</span></h2>
                 </button>
               </NavLink>
             </div>
-            <div className="Right_Buttons_mobile notMobile" activeClassName="checkout_render">
+            <div className="Right_Buttons_mobile notMobile" activeclassname="checkout_render">
               <Menu right className="checkout_render_mobile" isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)}>
                 <Link id="home" className="menu-item" to="/" onClick={() => this.closeMenu()}><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
                 <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout" onClick={() => this.closeMenu()}>
@@ -89,7 +89,7 @@ class Nav extends React.Component {
             </div>
           </nav>
           <Switch>
-            <Route exact path='/'><div><Body selector={this.state.selector} /><Footer /></div></Route>
+            <Route exact path='/'><div><Body /><Footer /></div></Route>
             <Route path='/Checkout'>
               <div>
                 <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
