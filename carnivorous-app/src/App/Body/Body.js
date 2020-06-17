@@ -12,24 +12,38 @@ class Body extends React.Component {
             data: [],
             cart: [],
             expansion: [{}],
-            selector: 'Nepenthes',
+            selector: 'Default',
         };
     }
 
     /**Onload Products from Backend , Write code that protects when FAIL*/
     componentDidMount() {
+        //Retrieve Product API
         fetch('/products')
             .then(response => response.json())
             .then(data => {
                 let dataArray = Array.from(data.data);
                 this.setState({ data: dataArray });                
             });
-       
+            
+        //Initialize Props
+        this.setState({selector: this.props.Selector});
+
+        //Initialize Cart from local storage
         var result = [];
         var data = JSON.parse(localStorage.getItem('cart'))
         for(var i in data) 
           result.push([i, data[i]]);
         this.setState({ cart: result });
+    }
+
+    /**Update will check if props had updated to prevent NESTED STATES isssues */
+    componentDidUpdate(oldProps) {
+        console.log(oldProps);
+        const newProps = this.props
+        if(oldProps.Selector !== newProps.Selector) {
+          this.setState({selector: newProps.Selector});
+        }
     }
 
     /**Closes model*/
@@ -68,7 +82,7 @@ class Body extends React.Component {
         }
     }
 
-    /**Changes type navigation tab, FIX THIS!*/
+    /**Changes type navigation tab */
     onChangeSelector(selected) {
         this.setState({
             selector: selected

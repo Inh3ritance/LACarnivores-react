@@ -119,3 +119,19 @@ input[type=text]:focus {
           width:30px !important;
       }
 }
+
+@media only screen and (max-width: 600px) {
+    .checkout{
+        padding:3%;
+    }
+    form{
+        button{
+            margin-top: 2% !important;
+            width:80% !important;
+            text-align: center;
+            padding:2% !important;
+            margin-left:10% !important;
+            margin-bottom:2% !important;
+        }
+    }
+}

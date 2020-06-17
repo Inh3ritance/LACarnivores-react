@@ -19,7 +19,7 @@ class Nav extends React.Component {
   /* Constructor */
   constructor(props) {
     super(props);
-    this.state = {selector:'Tropical', menuOpen: false};
+    this.state = { menuOpen: false, selector:'Default'};
     this.handleScroll = this.handleScroll.bind(this);
   }
 
@@ -64,6 +64,7 @@ class Nav extends React.Component {
   }
 
   render() {
+    console.log(this.state.selector);
     return (
       <div>
         <Router>
@@ -89,7 +90,7 @@ class Nav extends React.Component {
             </div>
           </nav>
           <Switch>
-            <Route exact path='/'><div><Body /><Footer /></div></Route>
+            <Route exact path='/'><div><Body Selector={this.state.selector}/><Footer /></div></Route>
             <Route path='/Checkout'>
               <div>
                 <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
