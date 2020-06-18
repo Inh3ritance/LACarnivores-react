@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { add, total, quantity, list, get, exists } from 'cart-localstorage';
 class CheckoutForm extends Component {
     
     constructor(props) {
@@ -103,8 +104,19 @@ class CheckoutForm extends Component {
 
     render() {
         if (this.state.complete) return <h1>Purchase Complete!</h1>;
+        let data = list();
+        console.log(data);
         return (
             <div>
+                <h1>Cart</h1>
+                <h1> {list()[0].name}</h1>
+                <h1> {list()[0].quantity}</h1>
+                <h1> Total Price: ${total()}</h1>
+                <ul>
+                    {data.map(item => {
+                        return <li>{item[0]}</li>;
+                    })}
+                </ul>
                 <form method="post" onSubmit={(ev: React.ChangeEvent<HTMLFormElement>) => this.submit(ev)}>
                     <fieldset>
                         <legend><b>Shipping & Billing</b></legend>

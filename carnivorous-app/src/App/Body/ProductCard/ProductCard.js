@@ -9,6 +9,7 @@ const ProductCard = ({ id, addToCart, deleteFromCart , passToExpansion, selector
         name,
         description
     }
+    const quantityAvail = metadata.quantity;
     const price = metadata.price;
     if (meta.metadata.type === selector && Number(meta.metadata.quantity) !== 0) {
         return (
@@ -25,7 +26,7 @@ const ProductCard = ({ id, addToCart, deleteFromCart , passToExpansion, selector
                 </div>
 
                 <div className="product-button">
-                    <button className="btn" onClick={() => deleteFromCart({id})}>-</button><h3> Add to Cart </h3><button className="btn" onClick={() => addToCart({id, name, price})}>+</button>
+                    <button className="btn" onClick={() => deleteFromCart({id})}>-</button><h3> Add to Cart </h3><button className="btn" onClick={() => addToCart({id, name, price, quantityAvail})}>+</button>
                 </div>
             </div>
         )

@@ -3,7 +3,9 @@ import './Body.scss';
 import ProductCard from './ProductCard/ProductCard.js';
 import ToggleSwitch from './ToggleSwitch/ToggleSwitch.js';
 import ProductExpansion from './ProductExpansion/ProductExpansion.js';
-import { add, quantity} from 'cart-localstorage';
+import { add, total, quantity, list, get, exists } from 'cart-localstorage';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Body extends React.Component {
 
@@ -11,7 +13,6 @@ class Body extends React.Component {
         super(props);
         this.state = {
             data: [],
-            cart: [],
             expansion: [{}],
             selector: 'Default',
         };
@@ -33,7 +34,7 @@ class Body extends React.Component {
 
     /**Update will check if props had updated to prevent NESTED STATES isssues */
     componentDidUpdate(oldProps) {
-        console.log(oldProps);
+        //console.log(oldProps);
         const newProps = this.props
         if (oldProps.Selector !== newProps.Selector) {
             this.setState({ selector: newProps.Selector });
@@ -55,15 +56,33 @@ class Body extends React.Component {
     }
 
     /**Add product to local storage */
-    addToCart(product) {
-        const productDetails = ({ id: product.id, name: product.name, price: (product.price/100).toFixed(2) });
-        add(productDetails, 1);
-        this.props.rerenderParentCallback();
-    }
 
+    addToCart(product) {
+        const productDetails = ({ id: product.id, name: product.name, price: (product.price/100).toFixed(2), quantity: product.quantityAvail });
+        this.props.rerenderParentCallback();
+        if( exists(product.id) ) {
+            if(get(product.id).quantity >= parseInt(productDetails.quantity)){
+                //dont add to cart
+                toast("No more in stock")                
+            }
+            else{
+                add(productDetails, 1);
+                console.log("Cart: ", list());
+                toast("Added to cart");
+            }
+        }
+        else {
+                add(productDetails, 1);
+                console.log("Cart: ", list());
+                toast("Added to cart");
+        }
+    }
+    
     /**Remove Product from local Storage */
+    
     deleteFromCart(product) {
         quantity(product.id, -1);
+        console.log("Cart: ", list());
         this.props.rerenderParentCallback();
     }
 
@@ -77,6 +96,7 @@ class Body extends React.Component {
     render() {
         return (
             <div className="Body">
+                <ToastContainer />
                 <ProductExpansion view={this.state.expansion[0].view} meta={this.state.expansion[0].meta} closeView={this.closeView.bind(this)} />
                 <div className="Carousel-Container parrallax">
                     <h1>Preservation Through Cultivation</h1>
