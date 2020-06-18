@@ -65,7 +65,8 @@ class Body extends React.Component {
             id: product.id, 
             name: product.name, 
             price: (product.meta.metadata.price/100).toFixed(2), 
-            quantity: product.meta.metadata.quantity
+            quantity: product.meta.metadata.quantity,
+            image: product.meta.images,
         }
         const productDetails = (data);
         if(exists(product.id) ) {

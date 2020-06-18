@@ -4,6 +4,7 @@
     "private": true,
     "proxy": "http://localhost:9000/",
     "dependencies": {
+        "3d-react-carousal": "^3.1.0",
         "@fortawesome/fontawesome-free": "^5.13.0",
         "@stripe/react-stripe-js": "^1.1.2",
         "@stripe/stripe-js": "^1.4.0",

@@ -2,10 +2,37 @@ import './CheckoutForm.scss';
 import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { ToastContainer, toast } from 'react-toastify';
+import {Carousel} from '3d-react-carousal';
 import 'react-toastify/dist/ReactToastify.css';
 import { total, quantity, list, get, exists } from 'cart-localstorage';
+
+
+function DisplayCart() {
+    const data = list();
+    let cartItem = [];
+    {data.map(item => (
+        cartItem.push(<img src={item.image} />),
+        console.log("pushed")
+    ))}
+    console.log("CARTITEM", cartItem);
+    return (
+    <div className="displayCart">
+        <h1>Shopping Cart</h1>
+        <Carousel slides={cartItem} autoplay={false} interval={1000}/>
+        {data.map(item => (
+            <div key={"key" + Math.random(10) + 5} className="CartItems">
+                
+                <h2>{item.quantity} x {item.name}</h2>
+                <h2>Price: ${item.price * item.quantity}</h2>         
+            </div>
+        ))}
+        <h4>Subtotal: ${total().toFixed(2)}</h4>
+    </div>
+    )
+}
+
 class CheckoutForm extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = this.initialState();
@@ -13,8 +40,10 @@ class CheckoutForm extends Component {
     }
 
     componentDidMount() {
-        if(this.getNumberOfItemsinCart() === 0) this.setState({disable: true});
-      }
+        if (this.getNumberOfItemsinCart() === 0) this.setState({ disable: true });
+        if (this.state.total != total())
+            this.setState({ total: total() });
+    }
 
     /**Returns total number of products in cart */
     getNumberOfItemsinCart() {
@@ -30,7 +59,7 @@ class CheckoutForm extends Component {
     }
 
     initialState() {
-        
+
         return {
             disable: false,
             complete: false,
@@ -71,11 +100,11 @@ class CheckoutForm extends Component {
         let shippingCity = this.state.Shipping_City;
         let shippingAddy = this.state.Shipping_Address;
         let shippingState = this.state.Shipping_State;
-    
+
         console.log(result);
         // Data that gets sent to the backend
         let data = {};
-        if(this.state.check){
+        if (this.state.check) {
             data = {
                 name: name,
                 email: email,
@@ -121,15 +150,17 @@ class CheckoutForm extends Component {
     }
 
     render() {
+        const data = list();
         if (this.state.complete) return <h1>Purchase Complete!</h1>;
-        console.log(this.state.total);
+        console.log("$", this.state.total);
         return (
             <div>
+                <DisplayCart />
                 <form method="post" onSubmit={(ev: React.ChangeEvent<HTMLFormElement>) => this.submit(ev)}>
                     <fieldset disabled={this.state.disable}>
                         <legend><b>Shipping & Billing</b></legend>
                         <div className="inner">
-                            <label id="chlbl">Shipping & Billing The Same? </label><input id="chlbl" type="checkbox" defaultChecked="true" onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ check: !this.state.check })}/>
+                            <label id="chlbl">Shipping & Billing The Same? </label><input id="chlbl" type="checkbox" defaultChecked="true" onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ check: !this.state.check })} />
                             <hr />
                             <h1><b>Billing</b></h1>
                             <label htmlFor="name">Full Name</label><input className="glow" required placeholder="John Smith" autoComplete="name" name="name" type="text" value={this.state.fullName}
@@ -196,67 +227,67 @@ class CheckoutForm extends Component {
                                 onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Billing_Address: ev.target.value })} />
                             <hr />
                             {
-                            !this.state.check &&
-                            <div>
-                            <h1><b>Shipping</b></h1>
-                            <label>State</label>
-                            <select required="required" value={this.state.Shipping_State} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_State: ev.target.value })}>
-                                <option value="AL">Alabama</option>
-                                <option value="AK">Alaska</option>
-                                <option value="AZ">Arizona</option>
-                                <option value="AR">Arkansas</option>
-                                <option value="CA">California</option>
-                                <option value="CO">Colorado</option>
-                                <option value="CT">Connecticut</option>
-                                <option value="DE">Delaware</option>
-                                <option value="DC">District Of Columbia</option>
-                                <option value="FL">Florida</option>
-                                <option value="GA">Georgia</option>
-                                <option value="HI">Hawaii</option>
-                                <option value="ID">Idaho</option>
-                                <option value="IL">Illinois</option>
-                                <option value="IN">Indiana</option>
-                                <option value="IA">Iowa</option>
-                                <option value="KS">Kansas</option>
-                                <option value="KY">Kentucky</option>
-                                <option value="LA">Louisiana</option>
-                                <option value="ME">Maine</option>
-                                <option value="MD">Maryland</option>
-                                <option value="MA">Massachusetts</option>
-                                <option value="MI">Michigan</option>
-                                <option value="MN">Minnesota</option>
-                                <option value="MS">Mississippi</option>
-                                <option value="MO">Missouri</option>
-                                <option value="MT">Montana</option>
-                                <option value="NE">Nebraska</option>
-                                <option value="NV">Nevada</option>
-                                <option value="NH">New Hampshire</option>
-                                <option value="NJ">New Jersey</option>
-                                <option value="NM">New Mexico</option>
-                                <option value="NY">New York</option>
-                                <option value="NC">North Carolina</option>
-                                <option value="ND">North Dakota</option>
-                                <option value="OH">Ohio</option>
-                                <option value="OK">Oklahoma</option>
-                                <option value="OR">Oregon</option>
-                                <option value="PA">Pennsylvania</option>
-                                <option value="RI">Rhode Island</option>
-                                <option value="SC">South Carolina</option>
-                                <option value="SD">South Dakota</option>
-                                <option value="TN">Tennessee</option>
-                                <option value="TX">Texas</option>
-                                <option value="UT">Utah</option>
-                                <option value="VT">Vermont</option>
-                                <option value="VA">Virginia</option>
-                                <option value="WA">Washington</option>
-                                <option value="WV">West Virginia</option>
-                                <option value="WI">Wisconsin</option>
-                                <option value="WY">Wyoming</option>
-                            </select>
-                            <label htmlFor="city">City</label><input required placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.Shipping_City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_City: ev.target.value})}/>
-                            <label htmlFor="street-address">Address</label><input required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Shipping_Address} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_Address: ev.target.value })}/>
-                            <hr/>
-                            </div>
+                                !this.state.check &&
+                                <div>
+                                    <h1><b>Shipping</b></h1>
+                                    <label>State</label>
+                                    <select required="required" value={this.state.Shipping_State} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_State: ev.target.value })}>
+                                        <option value="AL">Alabama</option>
+                                        <option value="AK">Alaska</option>
+                                        <option value="AZ">Arizona</option>
+                                        <option value="AR">Arkansas</option>
+                                        <option value="CA">California</option>
+                                        <option value="CO">Colorado</option>
+                                        <option value="CT">Connecticut</option>
+                                        <option value="DE">Delaware</option>
+                                        <option value="DC">District Of Columbia</option>
+                                        <option value="FL">Florida</option>
+                                        <option value="GA">Georgia</option>
+                                        <option value="HI">Hawaii</option>
+                                        <option value="ID">Idaho</option>
+                                        <option value="IL">Illinois</option>
+                                        <option value="IN">Indiana</option>
+                                        <option value="IA">Iowa</option>
+                                        <option value="KS">Kansas</option>
+                                        <option value="KY">Kentucky</option>
+                                        <option value="LA">Louisiana</option>
+                                        <option value="ME">Maine</option>
+                                        <option value="MD">Maryland</option>
+                                        <option value="MA">Massachusetts</option>
+                                        <option value="MI">Michigan</option>
+                                        <option value="MN">Minnesota</option>
+                                        <option value="MS">Mississippi</option>
+                                        <option value="MO">Missouri</option>
+                                        <option value="MT">Montana</option>
+                                        <option value="NE">Nebraska</option>
+                                        <option value="NV">Nevada</option>
+                                        <option value="NH">New Hampshire</option>
+                                        <option value="NJ">New Jersey</option>
+                                        <option value="NM">New Mexico</option>
+                                        <option value="NY">New York</option>
+                                        <option value="NC">North Carolina</option>
+                                        <option value="ND">North Dakota</option>
+                                        <option value="OH">Ohio</option>
+                                        <option value="OK">Oklahoma</option>
+                                        <option value="OR">Oregon</option>
+                                        <option value="PA">Pennsylvania</option>
+                                        <option value="RI">Rhode Island</option>
+                                        <option value="SC">South Carolina</option>
+                                        <option value="SD">South Dakota</option>
+                                        <option value="TN">Tennessee</option>
+                                        <option value="TX">Texas</option>
+                                        <option value="UT">Utah</option>
+                                        <option value="VT">Vermont</option>
+                                        <option value="VA">Virginia</option>
+                                        <option value="WA">Washington</option>
+                                        <option value="WV">West Virginia</option>
+                                        <option value="WI">Wisconsin</option>
+                                        <option value="WY">Wyoming</option>
+                                    </select>
+                                    <label htmlFor="city">City</label><input required placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.Shipping_City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_City: ev.target.value })} />
+                                    <label htmlFor="street-address">Address</label><input required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Shipping_Address} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_Address: ev.target.value })} />
+                                    <hr />
+                                </div>
                             }
                             <label className="NoMargin">Card Details: </label>
                             <CardElement className="checkout" />

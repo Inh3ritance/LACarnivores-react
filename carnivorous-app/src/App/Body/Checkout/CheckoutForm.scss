@@ -120,6 +120,32 @@ input[type=text]:focus {
       }
 }
 
+.displayCart{
+    font-size: 30px;
+    h1{
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    h2{
+        text-align: center;
+    }
+    h4{
+        text-align: center;
+        font-weight: bold;
+    }
+    img{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 171px;
+        height: 128px;
+    }
+    .CartItems{
+        display: inline !important;
+    }
+}
+
 @media only screen and (max-width: 600px) {
     .checkout{
         padding:3%;
