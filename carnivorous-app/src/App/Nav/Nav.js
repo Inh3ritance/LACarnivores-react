@@ -1,6 +1,5 @@
 import React from 'react';
 import Body from '../Body/Body.js';
-import Footer from '../Footer/Footer.js';
 import CheckoutForm from '../Body/Checkout/CheckoutForm.js';
 import ToggleSwitch from '../Body/ToggleSwitch/ToggleSwitch.js';
 import './Nav.scss';
@@ -35,11 +34,12 @@ class Nav extends React.Component {
     this.props.Selector(selector.target.value);
   }
 
-  /**Changes type navigation tab, FIX THIS!*/
+  /**Changes type navigation tab */
   onChangeSelector(selected) {
     this.setState({
         selector: selected
     });
+    sessionStorage.setItem('select', selected); //Saves selection when user reloads tab
   }
 
   /* Function handling/setting scroll state*/
@@ -81,12 +81,12 @@ class Nav extends React.Component {
     var cartQuantity = 0;
     var i = 0;
 
-    // Calculate Number oF items in cart
+    // Calculate number of items in cart
     for (i; i < shopCart.length; i++) {
         cartQuantity = cartQuantity + list()[i].quantity;
     }
     return cartQuantity;
-}
+  }
 
   render() {
     return (
@@ -103,7 +103,7 @@ class Nav extends React.Component {
               </NavLink>
             </div>
             <div className="Right_Buttons_mobile notMobile" activeclassname="checkout_render">
-              <Menu right className="checkout_render_mobile" isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)}>
+              <Menu right isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)}>
                 <Link id="home" className="menu-item" to="/" onClick={() => this.closeMenu()}><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
                 <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout" onClick={() => this.closeMenu()}>
                 <button className="btn btn-info btn-lg" id="cart-overlay">
@@ -114,7 +114,7 @@ class Nav extends React.Component {
             </div>
           </nav>
           <Switch>
-            <Route exact path='/'><div><Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} /><Footer /></div></Route>
+            <Route exact path='/'><div><Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} /></div></Route>
             <Route path='/Checkout'>
               <div>
                 <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
@@ -122,7 +122,6 @@ class Nav extends React.Component {
                     <CheckoutForm />
                   </Elements>
                 </StripeProvider>
-                <Footer />
               </div>
             </Route>
           </Switch>

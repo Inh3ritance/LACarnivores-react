@@ -12,9 +12,27 @@ class CheckoutForm extends Component {
         this.submit = this.submit.bind(this);
     }
 
+    componentDidMount() {
+        if(this.getNumberOfItemsinCart() === 0) this.setState({disable: true});
+      }
+
+    /**Returns total number of products in cart */
+    getNumberOfItemsinCart() {
+        const shopCart = list();
+        var cartQuantity = 0;
+        var i = 0;
+
+        // Calculate number of items in cart
+        for (i; i < shopCart.length; i++) {
+            cartQuantity = cartQuantity + list()[i].quantity;
+        }
+        return cartQuantity;
+    }
+
     initialState() {
         
         return {
+            disable: false,
             complete: false,
             check: true,
             fullName: '',
@@ -104,21 +122,11 @@ class CheckoutForm extends Component {
 
     render() {
         if (this.state.complete) return <h1>Purchase Complete!</h1>;
-        let data = list();
-        console.log(data);
+        console.log(this.state.total);
         return (
             <div>
-                <h1>Cart</h1>
-                <h1> {list()[0].name}</h1>
-                <h1> {list()[0].quantity}</h1>
-                <h1> Total Price: ${total()}</h1>
-                <ul>
-                    {data.map(item => {
-                        return <li>{item[0]}</li>;
-                    })}
-                </ul>
                 <form method="post" onSubmit={(ev: React.ChangeEvent<HTMLFormElement>) => this.submit(ev)}>
-                    <fieldset>
+                    <fieldset disabled={this.state.disable}>
                         <legend><b>Shipping & Billing</b></legend>
                         <div className="inner">
                             <label id="chlbl">Shipping & Billing The Same? </label><input id="chlbl" type="checkbox" defaultChecked="true" onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ check: !this.state.check })}/>

@@ -30,6 +30,11 @@ class Body extends React.Component {
 
         //Initialize Props
         this.setState({ selector: this.props.Selector });
+
+        //Reloads session selection preventing default HomeScreen on reload
+        if(sessionStorage.getItem('select')){
+            this.setState({selector: sessionStorage.getItem('select')});
+        }
     }
 
     /**Update will check if props had updated to prevent NESTED STATE issues */
@@ -69,13 +74,13 @@ class Body extends React.Component {
             } else {
                 add(productDetails, 1);
                 console.log("Cart: ", list());
-                toast("Added to cart");
+                toast(data.name + " Added to cart");
                 this.props.rerenderParentCallback();
             }
         } else {
             add(productDetails, 1);
             console.log("Cart: ", list());
-            toast("Added to cart");
+            toast(data.name + " Added to cart");
             this.props.rerenderParentCallback();
         }
     }
@@ -92,12 +97,13 @@ class Body extends React.Component {
         this.setState({
             selector: selected
         });
+        sessionStorage.setItem('select', selected); //Saves selection when user reloads tab
     }
 
     render() {
         return (
             <div className="Body">
-                <ToastContainer />
+                <ToastContainer limit = "5"/>
                 <ProductExpansion view={this.state.expansion[0].view} meta={this.state.expansion[0].meta} closeView={this.closeView.bind(this)} />
                 <div className="Carousel-Container parrallax">
                     <h1>Preservation Through Cultivation</h1>
