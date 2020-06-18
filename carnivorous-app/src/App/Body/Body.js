@@ -3,6 +3,7 @@ import './Body.scss';
 import ProductCard from './ProductCard/ProductCard.js';
 import ToggleSwitch from './ToggleSwitch/ToggleSwitch.js';
 import ProductExpansion from './ProductExpansion/ProductExpansion.js';
+import { add, total, quantity, list } from 'cart-localstorage';
 
 class Body extends React.Component {
 
@@ -11,6 +12,8 @@ class Body extends React.Component {
         this.state = {
             data: [],
             cart: [],
+            NumberOfItemsInCart: [],
+            subtotal: [],
             expansion: [{}],
             selector: 'Default',
         };
@@ -23,26 +26,26 @@ class Body extends React.Component {
             .then(response => response.json())
             .then(data => {
                 let dataArray = Array.from(data.data);
-                this.setState({ data: dataArray });                
+                this.setState({ data: dataArray });
             });
-            
+
         //Initialize Props
-        this.setState({selector: this.props.Selector});
+        this.setState({ selector: this.props.Selector });
 
         //Initialize Cart from local storage
-        var result = [];
+        /*var result = [];
         var data = JSON.parse(localStorage.getItem('cart'))
-        for(var i in data) 
-          result.push([i, data[i]]);
-        this.setState({ cart: result });
+        for (var i in data)
+            result.push([i, data[i]]);
+        this.setState({ cart: result });*/
     }
 
     /**Update will check if props had updated to prevent NESTED STATES isssues */
     componentDidUpdate(oldProps) {
         console.log(oldProps);
         const newProps = this.props
-        if(oldProps.Selector !== newProps.Selector) {
-          this.setState({selector: newProps.Selector});
+        if (oldProps.Selector !== newProps.Selector) {
+            this.setState({ selector: newProps.Selector });
         }
     }
 
@@ -61,6 +64,7 @@ class Body extends React.Component {
     }
 
     /**Updates Cart value, checks to make sure is greater than 0*/
+    /*
     updateCart(product) {
         const existingProduct = this.state.cart.filter(p => p.id === product.id)
         if (existingProduct.length > 0) {
@@ -80,8 +84,34 @@ class Body extends React.Component {
             });
             localStorage.setItem('cart', JSON.stringify(product));
         }
+    }*/
+
+    addToCart(product) {
+        const productDetails = ({ id: product.id, name: product.name, price: (product.price/100).toFixed(2) });
+        add(productDetails, 1);
+        console.log("Cart: ", list());
+        //this.setState({ subtotal: total().toFixed(2)});
+        //this.setState({ NumberOfItemsInCart: this.getNumberOfItemsinCart()});
     }
 
+    deleteFromCart(product) {
+        quantity(product.id, -1);
+        console.log("Cart: ", list());
+        //this.setState({ subtotal: total().toFixed(2)});
+        //this.setState({ NumberOfItemsInCart: this.getNumberOfItemsinCart()});
+    }
+
+    getNumberOfItemsinCart() {
+        const shopCart = list();
+        var cartQuantity = 0;
+        var i = 0;
+
+        // Calculate Number oF items in cart
+        for (i; i < shopCart.length; i++) {
+            cartQuantity = cartQuantity + list()[i].quantity;
+        }
+        return cartQuantity;
+    }
     /**Changes type navigation tab */
     onChangeSelector(selected) {
         this.setState({
@@ -90,6 +120,9 @@ class Body extends React.Component {
     }
 
     render() {
+        this.getNumberOfItemsinCart();
+        console.log("Cart: ", list());
+        console.log("Total: $", total().toFixed(2));
         return (
             <div className="Body">
                 <ProductExpansion view={this.state.expansion[0].view} meta={this.state.expansion[0].meta} closeView={this.closeView.bind(this)} />
@@ -104,18 +137,18 @@ class Body extends React.Component {
                     <div className="Content">
                         <h1>{this.state.selector === "Default" ? "Welcome" : ""}</h1>
                         <p>{this.state.selector === "Default" ? "We are a new starting nursery with a wide variety of carnivorous plants and great service. Since we are new, our selections may have limited quanties,but as we grow together we will grow in product availabilty and hopefully soon a storefront. Here at LA Carnivores we raise and purchase carnivorous plants from quality vendors to make sure you get the most reliable plants in the country." : ""}</p>
+                        
                         <ul>
                             {
                                 //When we want to display the cart to Customer
-                                this.state.cart.map(c => c.units > 0 ? <li>{c.name} | units {c.units}</li> : "")
+                                //this.state.cart.map(c => c.units > 0 ? <li>{c.name} | units {c.units}</li> : "")
                             }
                         </ul>
-
                         <h2>{this.state.selector === "Default" ? "" : this.state.selector}</h2>
 
                         <div className="Product-Cards">
                             {
-                                this.state.data.map(p => <ProductCard key={p.id} {...p} selector={this.state.selector} updateCart={this.updateCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} />)
+                                this.state.data.map(p => <ProductCard key={p.id} {...p} selector={this.state.selector} addToCart={this.addToCart.bind(this)} deleteFromCart={this.deleteFromCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} />)
                             }
                         </div>
                         <div id="bottom-space"></div>

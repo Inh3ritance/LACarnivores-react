@@ -4,15 +4,15 @@ import './ProductCard.scss';
 /* Takes in information retrieved by Database/Array to render a Product Card */
 //let id = id or pass in meta, then pass to expansion, for now purchase is only available through product card
 
-const ProductCard = ({ id, updateCart, passToExpansion, selector, name, description, metadata, images, price }) => {
+const ProductCard = ({ id, addToCart, deleteFromCart , passToExpansion, selector, name, description, metadata, images }) => {
     const meta = {
         metadata,
         images,
         name,
         description,
-        price
+        
     }
-
+    const price = metadata.price;
     if (meta.metadata.type === selector && Number(meta.metadata.quantity) !== 0) {
         return (
             <div className="product-card">
@@ -28,7 +28,7 @@ const ProductCard = ({ id, updateCart, passToExpansion, selector, name, descript
                 </div>
 
                 <div className="product-button">
-                    <button className="btn" onClick={() => updateCart({ id, units: -1, name })}>-</button><h3> Add to Cart </h3><button className="btn" onClick={() => updateCart({ id, units: 1, name })}>+</button>
+                    <button className="btn" onClick={() => deleteFromCart({id})}>-</button><h3> Add to Cart </h3><button className="btn" onClick={() => addToCart({id, name, price})}>+</button>
                 </div>
             </div>
         )

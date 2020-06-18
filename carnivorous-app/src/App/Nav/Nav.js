@@ -13,6 +13,7 @@ import {
   Link
 } from "react-router-dom";
 import ToggleSwitch from '../Body/ToggleSwitch/ToggleSwitch.js';
+import { list, total } from 'cart-localstorage';
 
 class Nav extends React.Component {
 
@@ -48,9 +49,13 @@ class Nav extends React.Component {
 
   /* Update scroll position after mounting */
   componentDidUpdate() {
+    if(this.state.total !== this.getNumberOfItemsinCart()) {
+      this.setState({ total: this.getNumberOfItemsinCart()});
+    }
     this.state.scroll > this.state.top ?
       document.body.style.paddingTop = `${this.state.height}px` :
       document.body.style.paddingTop = 0;
+    
   }
 
   /* Closes window when Link is clicked */
@@ -63,8 +68,20 @@ class Nav extends React.Component {
     this.setState({menuOpen: state.isOpen})  
   }
 
+  getNumberOfItemsinCart() {
+    const shopCart = list();
+    var cartQuantity = 0;
+    var i = 0;
+
+    // Calculate Number oF items in cart
+    for (i; i < shopCart.length; i++) {
+        cartQuantity = cartQuantity + list()[i].quantity;
+    }
+    return cartQuantity;
+}
+
   render() {
-    console.log(this.state.selector);
+    console.log("THIS STATE TOAL", this.state.total);
     return (
       <div>
         <Router>
@@ -74,7 +91,7 @@ class Nav extends React.Component {
             <div className="Right_Buttons mobile">
               <NavLink to='/Checkout' activeclassname="checkout_render">
                 <button className="btn btn-info btn-lg" id="cart-overlay">
-                  <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart 0</span></h2>
+                  <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart {this.state.total}</span></h2>
                 </button>
               </NavLink>
             </div>
@@ -83,7 +100,7 @@ class Nav extends React.Component {
                 <Link id="home" className="menu-item" to="/" onClick={() => this.closeMenu()}><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
                 <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout" onClick={() => this.closeMenu()}>
                 <button className="btn btn-info btn-lg" id="cart-overlay">
-                  <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart 0</span></h2>
+                  <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart  {this.state.total}</span></h2>
                 </button>
                 </NavLink>
               </Menu>
