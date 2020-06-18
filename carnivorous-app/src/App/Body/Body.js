@@ -3,7 +3,7 @@ import './Body.scss';
 import ProductCard from './ProductCard/ProductCard.js';
 import ToggleSwitch from './ToggleSwitch/ToggleSwitch.js';
 import ProductExpansion from './ProductExpansion/ProductExpansion.js';
-import { add, total, quantity, list, get, exists } from 'cart-localstorage';
+import { add, quantity, list, get, exists } from 'cart-localstorage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,7 +14,7 @@ class Body extends React.Component {
         this.state = {
             data: [],
             expansion: [{}],
-            selector: 'Default',
+            selector: 'Default'
         };
     }
 
@@ -32,9 +32,8 @@ class Body extends React.Component {
         this.setState({ selector: this.props.Selector });
     }
 
-    /**Update will check if props had updated to prevent NESTED STATES isssues */
+    /**Update will check if props had updated to prevent NESTED STATE issues */
     componentDidUpdate(oldProps) {
-        //console.log(oldProps);
         const newProps = this.props
         if (oldProps.Selector !== newProps.Selector) {
             this.setState({ selector: newProps.Selector });
@@ -56,30 +55,32 @@ class Body extends React.Component {
     }
 
     /**Add product to local storage */
-
     addToCart(product) {
-        const productDetails = ({ id: product.id, name: product.name, price: (product.price/100).toFixed(2), quantity: product.quantityAvail });
-        this.props.rerenderParentCallback();
-        if( exists(product.id) ) {
-            if(get(product.id).quantity >= parseInt(productDetails.quantity)){
-                //dont add to cart
-                toast("No more in stock")                
-            }
-            else{
-                add(productDetails, 1);
-                console.log("Cart: ", list());
-                toast("Added to cart");
-            }
+        let data = {
+            id: product.id, 
+            name: product.name, 
+            price: (product.meta.metadata.price/100).toFixed(2), 
+            quantity: product.meta.metadata.quantity
         }
-        else {
+        const productDetails = (data);
+        if(exists(product.id) ) {
+            if(get(product.id).quantity >= parseInt(productDetails.quantity)){
+                toast("No more in stock") //dont add to cart
+            } else {
                 add(productDetails, 1);
                 console.log("Cart: ", list());
                 toast("Added to cart");
+                this.props.rerenderParentCallback();
+            }
+        } else {
+            add(productDetails, 1);
+            console.log("Cart: ", list());
+            toast("Added to cart");
+            this.props.rerenderParentCallback();
         }
     }
     
     /**Remove Product from local Storage */
-    
     deleteFromCart(product) {
         quantity(product.id, -1);
         console.log("Cart: ", list());

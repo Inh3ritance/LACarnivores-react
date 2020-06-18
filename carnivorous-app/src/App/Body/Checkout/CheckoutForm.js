@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { add, total, quantity, list, get, exists } from 'cart-localstorage';
+import { total, quantity, list, get, exists } from 'cart-localstorage';
 class CheckoutForm extends Component {
     
     constructor(props) {
