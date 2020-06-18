@@ -2,15 +2,12 @@ import React from 'react';
 import './ProductCard.scss';
 
 /* Takes in information retrieved by Database/Array to render a Product Card */
-//let id = id or pass in meta, then pass to expansion, for now purchase is only available through product card
-
-const ProductCard = ({ id, addToCart, deleteFromCart , passToExpansion, selector, name, description, metadata, images }) => {
+const ProductCard = ({ id, addToCart, deleteFromCart , passToExpansion, selector, name, description, metadata, images}) => {
     const meta = {
         metadata,
         images,
         name,
-        description,
-        
+        description
     }
     const price = metadata.price;
     if (meta.metadata.type === selector && Number(meta.metadata.quantity) !== 0) {

@@ -1,10 +1,12 @@
 import React from 'react';
 import Body from '../Body/Body.js';
 import Footer from '../Footer/Footer.js';
+import CheckoutForm from '../Body/Checkout/CheckoutForm.js';
+import ToggleSwitch from '../Body/ToggleSwitch/ToggleSwitch.js';
 import './Nav.scss';
 import { slide as Menu } from 'react-burger-menu';
+import { list } from 'cart-localstorage';
 import { Elements, StripeProvider } from 'react-stripe-elements';
-import CheckoutForm from '../Body/Checkout/CheckoutForm.js';
 import {
   BrowserRouter as Router,
   NavLink,
@@ -12,8 +14,6 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import ToggleSwitch from '../Body/ToggleSwitch/ToggleSwitch.js';
-import { list, total } from 'cart-localstorage';
 
 class Nav extends React.Component {
 
@@ -22,8 +22,15 @@ class Nav extends React.Component {
     super(props);
     this.state = { menuOpen: false, selector:'Default'};
     this.handleScroll = this.handleScroll.bind(this);
+    this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
   }
 
+  /**Force update when Body incriments products count from ProductCard */
+  rerenderParentCallback() {
+    this.forceUpdate();
+  }
+
+  /**Selects the Navigation/ similair to Body onSelector */
   onSelector(selector) {
     this.props.Selector(selector.target.value);
   }
@@ -43,19 +50,19 @@ class Nav extends React.Component {
   /* Immediatly set the state for scroll */
   componentDidMount() {
     const move = document.querySelector('nav');
-    this.setState({ top: move.offsetTop, height: move.offsetHeight });
+    this.setState({ top: move.offsetTop, height: move.offsetHeight});
     window.addEventListener('scroll', this.handleScroll);
   }
 
   /* Update scroll position after mounting */
   componentDidUpdate() {
-    if(this.state.total !== this.getNumberOfItemsinCart()) {
-      this.setState({ total: this.getNumberOfItemsinCart()});
-    }
     this.state.scroll > this.state.top ?
       document.body.style.paddingTop = `${this.state.height}px` :
       document.body.style.paddingTop = 0;
-    
+
+      if(this.state.total !== this.getNumberOfItemsinCart()) {
+        this.setState({ total: this.getNumberOfItemsinCart()});
+      } 
   }
 
   /* Closes window when Link is clicked */
@@ -68,6 +75,7 @@ class Nav extends React.Component {
     this.setState({menuOpen: state.isOpen})  
   }
 
+  /**Returns total number of products in cart */
   getNumberOfItemsinCart() {
     const shopCart = list();
     var cartQuantity = 0;
@@ -81,7 +89,6 @@ class Nav extends React.Component {
 }
 
   render() {
-    console.log("THIS STATE TOAL", this.state.total);
     return (
       <div>
         <Router>
@@ -107,7 +114,7 @@ class Nav extends React.Component {
             </div>
           </nav>
           <Switch>
-            <Route exact path='/'><div><Body Selector={this.state.selector}/><Footer /></div></Route>
+            <Route exact path='/'><div><Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} /><Footer /></div></Route>
             <Route path='/Checkout'>
               <div>
                 <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
