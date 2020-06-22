@@ -71,7 +71,7 @@ class Body extends React.Component {
         const productDetails = (data);
         if(exists(product.id) ) {
             if(get(product.id).quantity >= parseInt(productDetails.quantity)){
-                toast("No more in stock") //dont add to cart
+                toast("No more in stock"); //dont add to cart
             } else {
                 add(productDetails, 1);
                 console.log("Cart: ", list());
@@ -104,7 +104,7 @@ class Body extends React.Component {
     render() {
         return (
             <div className="Body">
-                <ToastContainer limit = "5"/>
+                <ToastContainer limit = "5" pauseOnHover={false}/>
                 <ProductExpansion view={this.state.expansion[0].view} meta={this.state.expansion[0].meta} closeView={this.closeView.bind(this)} />
                 <div className="Carousel-Container parrallax">
                     <h1>Preservation Through Cultivation</h1>

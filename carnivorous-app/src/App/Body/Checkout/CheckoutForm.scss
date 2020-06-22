@@ -43,9 +43,9 @@ select{
     float:left;
     margin-left:3%;
     padding:1%;
-    width:95%;
+    width:50%;
     font-size: 160%;
-    display: block;
+    display: inline-block;
 }
 
 input{
@@ -121,7 +121,11 @@ input[type=text]:focus {
 }
 
 .displayCart{
-    font-size: 30px;
+    display:inline-block !important;
+    font-size: 25px;
+    width:45%;
+    left:50%;
+
     h1{
         font-weight: bold;
         text-align: center;
@@ -135,16 +139,28 @@ input[type=text]:focus {
         font-weight: bold;
     }
     img{
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+        display: inline-block;
         width: 171px;
         height: 128px;
+        margin-left: auto;
+        margin-right: auto;
     }
     .CartItems{
         display: inline !important;
     }
+    .Cart-Carousel{
+        width:171px;
+        height: 128px;
+    }
+
+    .slider-single-content{
+        box-shadow: none !important;
+    }
+    .slider-right, .slider-left{
+        display:none !important;
+    }
 }
+
 
 @media only screen and (max-width: 600px) {
     .checkout{
@@ -158,6 +174,26 @@ input[type=text]:focus {
             padding:2% !important;
             margin-left:10% !important;
             margin-bottom:2% !important;
+        }
+    }
+}
+
+.TopForm{
+    display:none;
+}
+
+@media only screen and (max-width: 800px) {
+    .inner{
+        width:95%;
+    }
+    .RightForm{
+        display:none;
+    }
+    .TopForm{
+        width:100%;
+        display:inline-block;
+        .displayCart{
+            width:100%;
         }
     }
 }

@@ -7,28 +7,29 @@ import 'react-toastify/dist/ReactToastify.css';
 import { total, quantity, list, get, exists } from 'cart-localstorage';
 
 
-function DisplayCart() {
-    const data = list();
-    let cartItem = [];
-    {data.map(item => (
-        cartItem.push(<img src={item.image} />),
-        console.log("pushed")
-    ))}
-    console.log("CARTITEM", cartItem);
-    return (
-    <div className="displayCart">
-        <h1>Shopping Cart</h1>
-        <Carousel slides={cartItem} autoplay={false} interval={1000}/>
-        {data.map(item => (
-            <div key={"key" + Math.random(10) + 5} className="CartItems">
-                
-                <h2>{item.quantity} x {item.name}</h2>
-                <h2>Price: ${item.price * item.quantity}</h2>         
-            </div>
-        ))}
-        <h4>Subtotal: ${total().toFixed(2)}</h4>
-    </div>
-    )
+function DisplayCart({data}) {
+    if(data.length !== 0){
+        let cartItem = [];
+        data.map(item => ( cartItem.push(<img src={item.image} alt={"product"} />)))
+        return (
+        <div className="displayCart">
+            <h1>Shopping Cart: </h1>
+            
+            {
+            data.map(item => (
+                <div key={item.id} className="CartItems">
+                      
+                    <h2><b>{item.quantity}</b> X {item.name}</h2>
+                    <h2>Price: ${item.price * item.quantity}</h2>         
+                </div>
+            ))
+            }
+            <h4>Subtotal: ${total().toFixed(2)}</h4>
+        </div>
+        )
+    } else {
+        return(<div className="displayCart"><h1>Shopping Cart: Empty</h1></div>)
+    }
 }
 
 class CheckoutForm extends Component {
@@ -40,30 +41,18 @@ class CheckoutForm extends Component {
     }
 
     componentDidMount() {
-        if (this.getNumberOfItemsinCart() === 0) this.setState({ disable: true });
-        if (this.state.total != total())
-            this.setState({ total: total() });
-    }
-
-    /**Returns total number of products in cart */
-    getNumberOfItemsinCart() {
-        const shopCart = list();
-        var cartQuantity = 0;
-        var i = 0;
-
-        // Calculate number of items in cart
-        for (i; i < shopCart.length; i++) {
-            cartQuantity = cartQuantity + list()[i].quantity;
-        }
-        return cartQuantity;
+        if (list().length === 0) this.setState({ disable: true });
+        if (this.state.total !== total()) this.setState({ total: total() });
+        this.setState({data:list()})
     }
 
     initialState() {
-
         return {
             disable: false,
             complete: false,
             check: true,
+            data: [],
+            //
             fullName: '',
             Email: '',
             Phone: '',
@@ -150,12 +139,10 @@ class CheckoutForm extends Component {
     }
 
     render() {
-        const data = list();
         if (this.state.complete) return <h1>Purchase Complete!</h1>;
-        console.log("$", this.state.total);
         return (
             <div>
-                <DisplayCart />
+                <div className="TopForm"><DisplayCart data = {this.state.data} /></div>
                 <form method="post" onSubmit={(ev: React.ChangeEvent<HTMLFormElement>) => this.submit(ev)}>
                     <fieldset disabled={this.state.disable}>
                         <legend><b>Shipping & Billing</b></legend>
@@ -294,6 +281,7 @@ class CheckoutForm extends Component {
                             <button className="Checkout_Button"><b>Submit Payment</b></button>
                             <ToastContainer className="toasty" limit="1" />
                         </div>
+                        <div className="RightForm"><DisplayCart data = {this.state.data} /></div>
                     </fieldset>
                 </form>
             </div>
