@@ -121,7 +121,7 @@ input[type=text]:focus {
 }
 
 .displayCart{
-    display:inline-block !important;
+    display: inline-block !important;
     font-size: 25px;
     width:45%;
     left:50%;
@@ -147,10 +147,18 @@ input[type=text]:focus {
     }
     .CartItems{
         display: inline !important;
+        .itemNameQuant{
+            width: 50%;
+            margin-left: 25%;
+            display: inline-block !important;
+        }
+        .bi-trash:hover{
+            cursor: pointer;
+            color: red;
+        }
     }
-    .Cart-Carousel{
-        width:171px;
-        height: 128px;
+    .cartCarousel{
+        z-index: 0 !important;
     }
 
     .slider-single-content{
@@ -158,6 +166,50 @@ input[type=text]:focus {
     }
     .slider-right, .slider-left{
         display:none !important;
+    }
+    .cartCarousel {      
+        width: 60%;
+        text-align: center;
+        margin-left: 20%;
+    }
+    
+    .carousel-control-next{
+        height: 100%;
+        margin-top: 0px !important;
+        filter: invert(100%);
+    }
+    
+    .carousel-control-prev{
+        height: 100%;
+        margin-top: 0px !important;
+        filter: invert(100%);
+    }
+
+    .carousel-indicators .active{
+        background-color: rgb(24, 65, 202);
+    }
+
+    .carousel-control-next-icon:after{
+        font-size: 55px;
+        color: black;
+    }
+
+    .carousel-control-prev-icon:after {
+        font-size: 55px;
+        color: black;
+    }
+
+    .removeItem{
+        float: right !important;
+        margin-right: 10% !important;
+        width: 0px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+        border-bottom: 0px;
+    }
+
+    .removeItem:hover {
+        color: red;
     }
 }
 
@@ -197,3 +249,5 @@ input[type=text]:focus {
         }
     }
 }
+
+

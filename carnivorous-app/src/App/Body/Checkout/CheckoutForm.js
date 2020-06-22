@@ -2,35 +2,9 @@ import './CheckoutForm.scss';
 import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { ToastContainer, toast } from 'react-toastify';
-import {Carousel} from '3d-react-carousal';
+import DisplayCart from './DisplayCart';
 import 'react-toastify/dist/ReactToastify.css';
-import { total, quantity, list, get, exists } from 'cart-localstorage';
-
-
-function DisplayCart({data}) {
-    if(data.length !== 0){
-        let cartItem = [];
-        data.map(item => ( cartItem.push(<img src={item.image} alt={"product"} />)))
-        return (
-        <div className="displayCart">
-            <h1>Shopping Cart: </h1>
-            
-            {
-            data.map(item => (
-                <div key={item.id} className="CartItems">
-                      
-                    <h2><b>{item.quantity}</b> X {item.name}</h2>
-                    <h2>Price: ${item.price * item.quantity}</h2>         
-                </div>
-            ))
-            }
-            <h4>Subtotal: ${total().toFixed(2)}</h4>
-        </div>
-        )
-    } else {
-        return(<div className="displayCart"><h1>Shopping Cart: Empty</h1></div>)
-    }
-}
+import { total, quantity, list, get, exists, remove } from 'cart-localstorage';
 
 class CheckoutForm extends Component {
 
@@ -38,13 +12,25 @@ class CheckoutForm extends Component {
         super(props);
         this.state = this.initialState();
         this.submit = this.submit.bind(this);
+        this.rerenderCheckout = this.rerenderCheckout.bind(this);
     }
 
+    rerenderCheckout() {
+        this.forceUpdate();
+        this.props.rerenderParentCallback();
+    }
+    
     componentDidMount() {
         if (list().length === 0) this.setState({ disable: true });
         if (this.state.total !== total()) this.setState({ total: total() });
-        this.setState({data:list()})
+        this.setState({ data: list() })
     }
+
+    componentDidUpdate() {
+          if(this.state.data.length !== list().length && this.state.data.length !== 0 ){
+            this.setState({ data: list()});
+          } 
+      }
 
     initialState() {
         return {
@@ -68,6 +54,7 @@ class CheckoutForm extends Component {
     }
 
     async submit(ev) {
+        console.log("THE CART", this.state.data);
         ev.preventDefault();
 
         // Get Card Token
@@ -127,6 +114,7 @@ class CheckoutForm extends Component {
         }).then(response => {
             if (response.ok) this.setState({ complete: true });
             console.log("Success");
+            
             //Clear Cart + Form
             toast("Purchase Succesfull!",
                 { type: 'success' })
@@ -142,7 +130,7 @@ class CheckoutForm extends Component {
         if (this.state.complete) return <h1>Purchase Complete!</h1>;
         return (
             <div>
-                <div className="TopForm"><DisplayCart data = {this.state.data} /></div>
+                <div className="TopForm"><DisplayCart rerenderCheckout={this.rerenderCheckout}/></div>
                 <form method="post" onSubmit={(ev: React.ChangeEvent<HTMLFormElement>) => this.submit(ev)}>
                     <fieldset disabled={this.state.disable}>
                         <legend><b>Shipping & Billing</b></legend>
@@ -281,7 +269,9 @@ class CheckoutForm extends Component {
                             <button className="Checkout_Button"><b>Submit Payment</b></button>
                             <ToastContainer className="toasty" limit="1" />
                         </div>
-                        <div className="RightForm"><DisplayCart data = {this.state.data} /></div>
+                        <div className="RightForm">
+                            <DisplayCart rerenderCheckout={this.rerenderCheckout}/>
+                        </div>
                     </fieldset>
                 </form>
             </div>

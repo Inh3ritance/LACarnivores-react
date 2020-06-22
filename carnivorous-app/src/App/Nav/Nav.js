@@ -119,7 +119,7 @@ class Nav extends React.Component {
               <div>
                 <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
                   <Elements>
-                    <CheckoutForm />
+                    <CheckoutForm rerenderParentCallback={this.rerenderParentCallback}/>
                   </Elements>
                 </StripeProvider>
               </div>
