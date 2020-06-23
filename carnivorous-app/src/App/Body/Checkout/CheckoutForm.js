@@ -4,7 +4,7 @@ import { CardElement, injectStripe } from 'react-stripe-elements';
 import { ToastContainer, toast } from 'react-toastify';
 import DisplayCart from './DisplayCart/DisplayCart.jsx';
 import 'react-toastify/dist/ReactToastify.css';
-import { total, list} from 'cart-localstorage';
+import { total, list } from 'cart-localstorage';
 
 class CheckoutForm extends Component {
 
@@ -21,7 +21,7 @@ class CheckoutForm extends Component {
         this.forceUpdate();
         this.props.rerenderParentCallback();
     }
-    
+
     /*Update state when localStorage changes*/
     componentDidMount() {
         let count = this.getNumberOfItemsinCart();
@@ -33,9 +33,9 @@ class CheckoutForm extends Component {
     /*Update State onClick when localStorage changes */
     componentDidUpdate() {
         let count = this.getNumberOfItemsinCart();
-        if(this.state.total !== count){
-            this.setState({ data: list(), total: count});
-          if (count === 0) this.setState({ disable: true });
+        if (this.state.total !== count) {
+            this.setState({ data: list(), total: count });
+            if (count === 0) this.setState({ disable: true });
         }
     }
 
@@ -123,7 +123,7 @@ class CheckoutForm extends Component {
         }).then(response => {
             if (response.ok) this.setState({ complete: true });
             console.log("Success");
-            
+
             //Clear Cart + Form
             toast("Purchase Succesfull!",
                 { type: 'success' })
@@ -152,7 +152,7 @@ class CheckoutForm extends Component {
         if (this.state.complete) return <h1>Purchase Complete!</h1>;
         return (
             <div>
-                <div className="TopForm"><DisplayCart rerenderCheckout={this.rerenderCheckout}/></div>
+                <div className="TopForm"><DisplayCart rerenderCheckout={this.rerenderCheckout} /></div>
                 <form method="post" onSubmit={(ev: React.ChangeEvent<HTMLFormElement>) => this.submit(ev)}>
                     <fieldset disabled={this.state.disable}>
                         <legend><b>Shipping & Billing</b></legend>
@@ -292,7 +292,7 @@ class CheckoutForm extends Component {
                             <ToastContainer className="toasty" limit="1" />
                         </div>
                         <div className="RightForm">
-                            <DisplayCart rerenderCheckout={this.rerenderCheckout}/>
+                            <DisplayCart rerenderCheckout={this.rerenderCheckout} />
                         </div>
                     </fieldset>
                 </form>
