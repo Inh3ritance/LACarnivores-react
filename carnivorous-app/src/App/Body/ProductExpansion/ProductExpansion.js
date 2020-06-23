@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 /* Takes information from ProductCard To expand into an individual box model */
 const ProductExpansion = ({/* id, */ view, closeView, meta}) => {
-    //console.log(meta);
     if (view) {
         return (
             <div className="model">

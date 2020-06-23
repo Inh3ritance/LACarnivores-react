@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 class Body extends React.Component {
 
+    /**Initialize State */
     constructor(props) {
         super(props);
         this.state = {

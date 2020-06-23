@@ -2,12 +2,13 @@ import './CheckoutForm.scss';
 import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { ToastContainer, toast } from 'react-toastify';
-import DisplayCart from './DisplayCart';
+import DisplayCart from './DisplayCart/DisplayCart.jsx';
 import 'react-toastify/dist/ReactToastify.css';
-import { total, quantity, list, get, exists, remove } from 'cart-localstorage';
+import { total, list} from 'cart-localstorage';
 
 class CheckoutForm extends Component {
 
+    /*Initialize State for CheckoutForm */
     constructor(props) {
         super(props);
         this.state = this.initialState();
@@ -15,23 +16,30 @@ class CheckoutForm extends Component {
         this.rerenderCheckout = this.rerenderCheckout.bind(this);
     }
 
+    /*Force Update onClick when cart updates*/
     rerenderCheckout() {
         this.forceUpdate();
         this.props.rerenderParentCallback();
     }
     
+    /*Update state when localStorage changes*/
     componentDidMount() {
-        if (list().length === 0) this.setState({ disable: true });
-        if (this.state.total !== total()) this.setState({ total: total() });
+        let count = this.getNumberOfItemsinCart();
+        if (count === 0) this.setState({ disable: true });
+        if (this.state.total !== count) this.setState({ total: count });
         this.setState({ data: list() })
     }
 
+    /*Update State onClick when localStorage changes */
     componentDidUpdate() {
-          if(this.state.data.length !== list().length && this.state.data.length !== 0 ){
-            this.setState({ data: list()});
-          } 
-      }
+        let count = this.getNumberOfItemsinCart();
+        if(this.state.total !== count){
+            this.setState({ data: list(), total: count});
+          if (count === 0) this.setState({ disable: true });
+        }
+    }
 
+    /*Initialize State First Frame */
     initialState() {
         return {
             disable: false,
@@ -53,6 +61,7 @@ class CheckoutForm extends Component {
         }
     }
 
+    /*Submit Form details and proceed to Backend Code */
     async submit(ev) {
         console.log("THE CART", this.state.data);
         ev.preventDefault();
@@ -124,6 +133,19 @@ class CheckoutForm extends Component {
                 { type: 'error' })
             throw (e);
         })
+    }
+
+    /**Returns total number of products in cart */
+    getNumberOfItemsinCart() {
+        const shopCart = list();
+        var cartQuantity = 0;
+        var i = 0;
+
+        // Calculate number of items in cart
+        for (i; i < shopCart.length; i++) {
+            cartQuantity = cartQuantity + list()[i].quantity;
+        }
+        return cartQuantity;
     }
 
     render() {

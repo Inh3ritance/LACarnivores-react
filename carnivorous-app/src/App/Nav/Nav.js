@@ -16,7 +16,7 @@ import {
 
 class Nav extends React.Component {
 
-  /* Constructor */
+  /**Constructor */
   constructor(props) {
     super(props);
     this.state = { menuOpen: false, selector:'Default'};
