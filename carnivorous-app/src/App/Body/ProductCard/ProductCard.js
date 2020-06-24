@@ -2,12 +2,18 @@ import React from 'react';
 import './ProductCard.scss';
 
 /* Takes in information retrieved by Database/Array to render a Product Card */
-const ProductCard = ({ id, addToCart, deleteFromCart , passToExpansion, selector, name, description, metadata, images}) => {
+const ProductCard = ({ id, addToCart, deleteFromCart , passToExpansion, selector, name, description, metadata, images, soil,
+    light,recieve, water, zones,}) => {
     const meta = {
         metadata,
         images,
         name,
-        description
+        description,
+        soil,
+        light,
+        recieve,
+        water,
+        zones,
     }
     if (meta.metadata.type === selector && Number(meta.metadata.quantity) !== 0) {
         return (

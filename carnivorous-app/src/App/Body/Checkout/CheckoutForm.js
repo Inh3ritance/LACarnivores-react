@@ -100,6 +100,7 @@ class CheckoutForm extends Component {
                 shippingAddy: address,
                 shippingState: state,
                 card: result,
+                cart: this.state.data,
             }
         } else {
             data = {
@@ -112,6 +113,7 @@ class CheckoutForm extends Component {
                 shippingAddy: shippingAddy,
                 shippingState: shippingState,
                 card: result,
+                cart: this.state.data,
             }
         }
 
@@ -149,6 +151,7 @@ class CheckoutForm extends Component {
     }
 
     render() {
+        console.log("THIS STATE DATA", this.state.data);
         if (this.state.complete) return <h1>Purchase Complete!</h1>;
         return (
             <div>

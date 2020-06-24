@@ -80,9 +80,14 @@ async function createOrder(data, customerID) {
         items: [
             {
                 type: 'sku',
-                parent: 'sku_HWLoYYQh0wGeSR',
+                parent: 'sku_HWinpXIoE0oUtz',
                 quantity: 1,
             },
+            {
+                type: "sku",
+                parent: "sku_HWiZbWxMEpuOJ5",
+                quantity: 2
+            }
         ],
         shipping: {
             name: data.personal_info.name,
@@ -95,60 +100,38 @@ async function createOrder(data, customerID) {
             },
         },
     }).then(function (result) {
-        console.log(result);
-        payOrder(result.id, customerID);
+        //console.log(result);
+        payOrder(result.id, customerID, data);
     });
 
 }
 
-function payOrder(orderID, customerID) {
+function payOrder(orderID, customerID, data) {
     stripe.orders.pay(orderID,
         { customer: customerID, }
         , function (err, order) {
-            console.log(err);
+            //console.log(order);
+            //console.log(order.items);
+            updateOrder(order.charge, data.cart);
         });
 }
 
-async function createSKU() {
-    stripe.skus.create(
-        {
-            attributes: {
-                name: "Venus Fly Trap Test"
-            },
-            price: 1499,
-            currency: 'usd',
-            inventory: { type: 'finite', quantity: 5 },
-            product: 'prod_HWLn9VclyOyL0O'
-        },
-        function (err, sku) {
-            console.log(sku);
-        }
-    )
-};
+function updateOrder(chargeID, cartInfo) {
+    //loop thru and add to reciept description
+    let reciept = '';
+    for (var key in cartInfo) {
+        var item = cartInfo[key];
+        reciept += item.name + " " + item.quantity + "x $" + item.price + "\n";
+    }
 
-function getSKU() {
-    stripe.skus.retrieve(
-        'sku_HWLoYYQh0wGeSR',
-        function (err, sku) {
+    stripe.charges.update(
+        chargeID,
+        { description: reciept },
+        function (err, charge) {
             // asynchronously called
-            console.log(sku);
         }
     );
 }
-
-function createProduct() {
-    stripe.products.create(
-        {
-            name: 'Venus Fly Trap Test',
-            type: "good",
-            attributes: ["name"],
-        },
-        function (err, product) {
-            console.log(err);
-        }
-    );
-}
-
 
 // Get all products
 app.get("/products", async (request, response) => {
@@ -176,9 +159,10 @@ app.post("/charge", async (req, res) => {
             city: req.body.shippingCity,
             line1: req.body.shippingAddy,
             state: req.body.shippingState,
-        }
+        },
+        cart: req.body.cart,
     }
-    console.log(data);
+    console.log("DATATATATA", data.cart);
     // Check if the customer email already in our Stripe customer database, Create Customer if no email is linked
     CreateCustomer(data);
 });
