@@ -56,7 +56,7 @@ class Body extends React.Component {
     /**Passes infromartion from ProductCard->ProductCardExpansion*/
     passToExpansion(product) {
         this.setState({
-            expansion: [{ view: product.view, meta: product.meta, }]
+            expansion: [{ view: product.view, meta: product.meta }]
         });
     }
 

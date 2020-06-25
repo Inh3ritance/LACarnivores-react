@@ -32,7 +32,7 @@ async function CreateCustomer(data) {
 
 async function createSource(data, customerID) {
     await stripe.customers.createSource(
-        customerID,{ source: 'tok_visa' },
+        customerID, { default_source: data.card.token.id },
         (err, card) => {
             createOrder(data, customerID);
         }).catch(e => {
@@ -66,14 +66,25 @@ async function createCharge(customerID, data) {
         })
 };
 
+function getSku(productID) {
+    return stripe.skus.list({
+        product: productID 
+        }).then((result) => {
+            //console.log(result.data);
+            return Promise.resolve(result.data[0].id);
+        });
+    };
+
 async function createOrder(data, customerID) {
+    // in parent put the sku number
     let cart = [];
-    for(var key in data.cart){
+    for (var key in data.cart) {
         var item = data.cart[key];
-        cart.push({type: 'sku', parent:"", quantity: item.quantity, currency: 'usd', description: item.name});
+        cart.push({ type: 'sku', parent: await getSku(item.id), quantity: item.quantity, currency: 'usd', description: item.name });
     }
 
     console.log("Customer ID", customerID);
+    console.log("CART", cart);
     stripe.orders.create({
         currency: 'usd',
         customer: customerID,
@@ -99,8 +110,8 @@ async function createOrder(data, customerID) {
 function payOrder(orderID, customerID, data) {
     stripe.orders.pay(orderID,
         { customer: customerID },
-         (err, order) => {
-            //console.log(order);
+        (err, order) => {
+            console.log(err);
             updateOrder(order.charge, data.cart);
         });
 }
@@ -132,14 +143,14 @@ app.get("/products", async (request, response) => {
     )
 });
 
-app.get("/skus", async(request, response) => {
+app.get("/skus", async (request, response) => {
     stripe.skus.list(
-        {active: true },
+        { active: true },
         (err, skus) => {
             response.json(skus);
             console.log(skus);
         }
-      );
+    );
 });
 
 app.post("/charge", async (req, res) => {
@@ -160,7 +171,13 @@ app.post("/charge", async (req, res) => {
             state: req.body.shippingState,
         },
         cart: req.body.cart,
+        card: req.body.card,
     }
+    data.card.token.card.address_city = req.body.city,
+    data.card.token.card.address_line1 = req.body.line1,
+    data.card.token.card.address_state = req.body.state,
+    data.card.token.card.name = req.body.name,
+    console.log("DATA", data);
     // Check if the customer email already in our Stripe customer database, Create Customer if no email is linked
     CreateCustomer(data);
 });

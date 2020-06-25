@@ -2,8 +2,9 @@ import React from 'react';
 import './ProductCard.scss';
 
 /* Takes in information retrieved by Database/Array to render a Product Card */
-const ProductCard = ({ id, addToCart, deleteFromCart, passToExpansion, selector, attributes, description, metadata, images, price}) => {
+const ProductCard = ({ id, name, addToCart, deleteFromCart, passToExpansion, selector, attributes, description, metadata, images }) => {
     const meta = {
+        name,
         metadata,
         images,
         attributes,
@@ -15,7 +16,7 @@ const ProductCard = ({ id, addToCart, deleteFromCart, passToExpansion, selector,
             <div className="product-card">
                 <button className="remove-button" onClick={() => passToExpansion({/* id, */ view: true, meta })}>
                     <div className="product-header" style={{ backgroundImage: 'url(' + images[0] + ')' }}>
-                        <h4 className="product-name">{""}</h4>
+                        <h4 className="product-name">{name}</h4>
                     </div>
                 </button>
 
@@ -25,7 +26,7 @@ const ProductCard = ({ id, addToCart, deleteFromCart, passToExpansion, selector,
                 </div>
 
                 <div className="product-button">
-                    <button className="btn" onClick={() => deleteFromCart({id})}>-</button><h3> Add to Cart </h3><button className="btn" onClick={() => addToCart({id, meta})}>+</button>
+                    <button className="btn" onClick={() => deleteFromCart({id})}>-</button><h3> Add to Cart </h3><button className="btn" onClick={() => addToCart({name, id, meta})}>+</button>
                 </div>
             </div>
         )
@@ -35,7 +36,7 @@ const ProductCard = ({ id, addToCart, deleteFromCart, passToExpansion, selector,
 
                 <button className="remove-button">
                     <div className="product-header sold" style={{ backgroundImage: 'url(' + images[0] + ')' }}>
-                        <h4 className="product-name">{""}</h4>
+                        <h4 className="product-name">{name}</h4>
                     </div>
                     <h4 className="soldout"> <b>Sold Out </b></h4>
                 </button>
