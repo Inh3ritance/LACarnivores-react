@@ -15,7 +15,6 @@ async function CreateCustomer(data) {
         /*Use existing customerUID and pass in rest of data to create charge*/
         console.log(existingCustomers.data[0].id);
         createSource(data, existingCustomers.data[0].id);
-        //createOrder(data, existingCustomers.data[0].id);
     } else {
         stripe.customers.create({
             name: data.personal_info.name,
@@ -24,7 +23,6 @@ async function CreateCustomer(data) {
             phone: data.personal_info.phone,
         }, (err, customer) => {
             createSource(data, customer.id);
-            //createOrder(data, customer.id);
         }).catch(e => {
             console.log(e);
         });
@@ -34,10 +32,7 @@ async function CreateCustomer(data) {
 
 async function createSource(data, customerID) {
     await stripe.customers.createSource(
-        customerID,
-        {
-            source: 'tok_visa',
-        },
+        customerID,{ source: 'tok_visa' },
         (err, card) => {
             createOrder(data, customerID);
         }).catch(e => {
@@ -72,23 +67,18 @@ async function createCharge(customerID, data) {
 };
 
 async function createOrder(data, customerID) {
+    let cart = [];
+    for(var key in data.cart){
+        var item = data.cart[key];
+        cart.push({type: 'sku', parent:"", quantity: item.quantity, currency: 'usd', description: item.name});
+    }
+
     console.log("Customer ID", customerID);
     stripe.orders.create({
         currency: 'usd',
         customer: customerID,
         email: data.personal_info.email,
-        items: [
-            {
-                type: 'sku',
-                parent: 'sku_HWinpXIoE0oUtz',
-                quantity: 1,
-            },
-            {
-                type: "sku",
-                parent: "sku_HWiZbWxMEpuOJ5",
-                quantity: 2
-            }
-        ],
+        items: cart,
         shipping: {
             name: data.personal_info.name,
             address: {
@@ -99,7 +89,7 @@ async function createOrder(data, customerID) {
                 country: 'US',
             },
         },
-    }).then(function (result) {
+    }).then((result) => {
         //console.log(result);
         payOrder(result.id, customerID, data);
     });
@@ -108,10 +98,9 @@ async function createOrder(data, customerID) {
 
 function payOrder(orderID, customerID, data) {
     stripe.orders.pay(orderID,
-        { customer: customerID, }
-        , function (err, order) {
+        { customer: customerID },
+         (err, order) => {
             //console.log(order);
-            //console.log(order.items);
             updateOrder(order.charge, data.cart);
         });
 }
@@ -127,7 +116,7 @@ function updateOrder(chargeID, cartInfo) {
     stripe.charges.update(
         chargeID,
         { description: reciept },
-        function (err, charge) {
+        (err, charge) => {
             // asynchronously called
         }
     );
@@ -141,6 +130,16 @@ app.get("/products", async (request, response) => {
             response.json(list);
         }
     )
+});
+
+app.get("/skus", async(request, response) => {
+    stripe.skus.list(
+        {active: true },
+        (err, skus) => {
+            response.json(skus);
+            console.log(skus);
+        }
+      );
 });
 
 app.post("/charge", async (req, res) => {
@@ -162,7 +161,6 @@ app.post("/charge", async (req, res) => {
         },
         cart: req.body.cart,
     }
-    console.log("DATATATATA", data.cart);
     // Check if the customer email already in our Stripe customer database, Create Customer if no email is linked
     CreateCustomer(data);
 });

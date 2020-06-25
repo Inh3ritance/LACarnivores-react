@@ -23,11 +23,11 @@ class Body extends React.Component {
     componentDidMount() {
         //Retrieve Product API
         fetch('/products')
-            .then(response => response.json())
-            .then(data => {
-                let dataArray = Array.from(data.data);
-                this.setState({ data: dataArray });
-            });
+        .then(response => response.json())
+        .then(data => {
+            let dataArray = Array.from(data.data);
+            this.setState({ data: dataArray });
+        });
 
         //Initialize Props
         this.setState({ selector: this.props.Selector });
@@ -67,7 +67,7 @@ class Body extends React.Component {
             name: product.name, 
             price: (product.meta.metadata.price/100).toFixed(2), 
             quantity: product.meta.metadata.quantity,
-            image: product.meta.images,
+            image: product.meta.images
         }
         const productDetails = (data);
         if(exists(product.id) ) {

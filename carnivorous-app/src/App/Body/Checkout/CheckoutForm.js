@@ -165,7 +165,7 @@ class CheckoutForm extends Component {
                             <h1><b>Billing</b></h1>
                             <label htmlFor="name">Full Name</label><input className="glow" required placeholder="John Smith" autoComplete="name" name="name" type="text" value={this.state.fullName}
                                 onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ fullName: ev.target.value })} />
-                            <label htmlFor="email">Email</label><input required placeholder="email@example.com" autoComplete="email" name="email" type="text" value={this.state.Email}
+                            <label htmlFor="email">Email</label><input required placeholder="email@example.com" autoComplete="email" name="email" type="email" value={this.state.Email}
                                 onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Email: ev.target.value })} />
                             <label>State</label>
                             <select required="required" value={this.state.Billing_State} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Billing_State: ev.target.value })}>

@@ -5,7 +5,7 @@ async function createSKU() {
     await stripe.skus.update(
         'sku_HWiSMoOAzZ7dkH',
         {metadata: {order_id: '6735'}},
-        function(err, sku) {
+        (err, sku)=> {
           // asynchronously called
         }
       );
@@ -13,7 +13,7 @@ async function createSKU() {
 
 async function getSKU() {
     await stripe.skus.list( 
-        function (err, sku) {
+        (err, sku) => {
             // asynchronously called
             console.log(sku);
         }
@@ -27,7 +27,7 @@ async function createProduct() {
             type: "good",
             attributes: ["name"],
         },
-        function (err, product) {
+        (err, product) => {
             console.log(err);
         }
     );
@@ -37,7 +37,7 @@ async function updateProduct(){
     await stripe.products.update(
         '',
         {images: []},
-        function(err, product) {
+        (err, product) => {
           // asynchronously called
         }
       );
