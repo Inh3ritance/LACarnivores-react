@@ -14,7 +14,7 @@ async function CreateCustomer(data) {
         console.log("Not creating new customer");
         /*Use existing customerUID and pass in rest of data to create charge*/
         console.log(existingCustomers.data[0].id);
-        createSource(data, existingCustomers.data[0].id);
+        updateSource(data, existingCustomers.data[0].id);
     } else {
         stripe.customers.create({
             name: data.personal_info.name,
@@ -32,11 +32,52 @@ async function CreateCustomer(data) {
 
 async function createSource(data, customerID) {
     await stripe.customers.createSource(
-        customerID, { default_source: data.card.token.id },
+        customerID,
+        {
+            source: data.card.token.id
+        },    
         (err, card) => {
+            console.log("UPDATE SOURCE CARD: Cust ID", card.customer);
+            console.log("UPDATE SOURCE CARD: Card ID", card.id);
+            console.log("ERROR", err);
+            updateCard(data, card.customer, card.id);
             createOrder(data, customerID);
         }).catch(e => {
             console.log(e);
+        })
+};
+
+async function updateCard(data, customerID, cardID) {
+    await stripe.customers.updateSource(
+        customerID,
+        cardID,
+        {
+            name: data.personal_info.name,
+            address_city: data.billing_address.city,
+            address_country: "United States",
+            address_line1: data.billing_address.line1,
+            address_state: data.billing_address.state,
+
+        },
+    ).then((card) => {
+        //console.log("Card", card);
+    }).catch((err) => {
+        console.log(err);
+    })
+}
+
+
+async function updateSource(data, customerID) {
+    await stripe.customers.update(
+        customerID,
+        { source: data.card.token.id },
+        (err, card) => {
+            //console.log("UPDATE SOURCE CARD: Cust ID", card.id);
+            //console.log("UPDATE SOURCE CARD: Card ID", card.default_source);
+            updateCard(data, card.id, card.default_source);
+            createOrder(data, customerID);
+        }).catch(err => {
+            console.log(err);
         })
 };
 
@@ -68,12 +109,12 @@ async function createCharge(customerID, data) {
 
 function getSku(productID) {
     return stripe.skus.list({
-        product: productID 
-        }).then((result) => {
-            //console.log(result.data);
-            return Promise.resolve(result.data[0].id);
-        });
-    };
+        product: productID
+    }).then((result) => {
+        //console.log(result.data);
+        return Promise.resolve(result.data[0].id);
+    });
+};
 
 async function createOrder(data, customerID) {
     // in parent put the sku number
@@ -83,8 +124,6 @@ async function createOrder(data, customerID) {
         cart.push({ type: 'sku', parent: await getSku(item.id), quantity: item.quantity, currency: 'usd', description: item.name });
     }
 
-    console.log("Customer ID", customerID);
-    console.log("CART", cart);
     stripe.orders.create({
         currency: 'usd',
         customer: customerID,
@@ -174,12 +213,12 @@ app.post("/charge", async (req, res) => {
         card: req.body.card,
     }
     data.card.token.card.address_city = req.body.city,
-    data.card.token.card.address_line1 = req.body.line1,
-    data.card.token.card.address_state = req.body.state,
-    data.card.token.card.name = req.body.name,
-    console.log("DATA", data);
-    // Check if the customer email already in our Stripe customer database, Create Customer if no email is linked
-    CreateCustomer(data);
+        data.card.token.card.address_line1 = req.body.line1,
+        data.card.token.card.address_state = req.body.state,
+        data.card.token.card.name = req.body.name,
+        //console.log("DATA", data.card);
+        // Check if the customer email already in our Stripe customer database, Create Customer if no email is linked
+        CreateCustomer(data);
 });
 
 // Just Testing out API with this GET method.
