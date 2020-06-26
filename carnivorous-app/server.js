@@ -35,11 +35,11 @@ async function createSource(data, customerID) {
         customerID,
         {
             source: data.card.token.id
-        },    
+        },
         (err, card) => {
-            console.log("UPDATE SOURCE CARD: Cust ID", card.customer);
-            console.log("UPDATE SOURCE CARD: Card ID", card.id);
-            console.log("ERROR", err);
+            //console.log("UPDATE SOURCE CARD: Cust ID", card.customer);
+            //console.log("UPDATE SOURCE CARD: Card ID", card.id);
+            //console.log("Errors: ", err);
             updateCard(data, card.customer, card.id);
             createOrder(data, customerID);
         }).catch(e => {
@@ -81,32 +81,6 @@ async function updateSource(data, customerID) {
         })
 };
 
-async function createCharge(customerID, data) {
-    const idempotencyKey = uuid(); // Prevent charging twice
-    await stripe.charges.create({
-        amount: 1000, // Update amount
-        currency: 'usd',
-        customer: customerID,
-        receipt_email: data.personal_info.email,
-        description: "test",
-        metadata: { integration_check: 'accept_a_payment' },
-        shipping: {
-            address: data.shipping_address,
-            name: data.personal_info.name,
-            carrier: 'USPS',
-            phone: data.personal_info.phone,
-        },
-        //Need to specify Card from data
-        payment_method_details: data.card,
-        ip: "123.128.1.25", // Figure out how to get IP adress
-    },
-        {
-            idempotencyKey
-        }).catch(e => {
-            throw (e)
-        })
-};
-
 function getSku(productID) {
     return stripe.skus.list({
         product: productID
@@ -116,11 +90,29 @@ function getSku(productID) {
     });
 };
 
+async function updateProductQuantity(itemID, cartQuantity) {
+    // update product metadata quantity when user purchases item
+    await stripe.products.retrieve(
+        itemID,
+        function (err, product) {
+            console.log("Product Quantity", product.metadata.quantity);
+            stripe.products.update(
+                itemID,
+                { metadata: { quantity: (product.metadata.quantity - cartQuantity.toString()) } },
+                function (err, product) {
+                    //console.log("ERRORS", err);
+                }
+            );
+        }
+    );
+}
+
 async function createOrder(data, customerID) {
     // in parent put the sku number
     let cart = [];
     for (var key in data.cart) {
         var item = data.cart[key];
+        updateProductQuantity(item.id,item.quantity);
         cart.push({ type: 'sku', parent: await getSku(item.id), quantity: item.quantity, currency: 'usd', description: item.name });
     }
 
@@ -150,7 +142,7 @@ function payOrder(orderID, customerID, data) {
     stripe.orders.pay(orderID,
         { customer: customerID },
         (err, order) => {
-            console.log(err);
+            //console.log(err);
             updateOrder(order.charge, data.cart);
         });
 }
@@ -212,13 +204,14 @@ app.post("/charge", async (req, res) => {
         cart: req.body.cart,
         card: req.body.card,
     }
-    data.card.token.card.address_city = req.body.city,
-        data.card.token.card.address_line1 = req.body.line1,
-        data.card.token.card.address_state = req.body.state,
-        data.card.token.card.name = req.body.name,
-        //console.log("DATA", data.card);
-        // Check if the customer email already in our Stripe customer database, Create Customer if no email is linked
-        CreateCustomer(data);
+    data.card.token.card.address_city = req.body.city;
+    data.card.token.card.address_line1 = req.body.line1;
+    data.card.token.card.address_state = req.body.state;
+    data.card.token.card.name = req.body.name;
+     //console.log("DATA", data.card);
+    // Check if the customer email already in our Stripe customer database, Create Customer if no email is linked
+    CreateCustomer(data);
+    res.send("Creating Charge");
 });
 
 // Just Testing out API with this GET method.
