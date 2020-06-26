@@ -37,9 +37,6 @@ async function createSource(data, customerID) {
             source: data.card.token.id
         },
         (err, card) => {
-            //console.log("UPDATE SOURCE CARD: Cust ID", card.customer);
-            //console.log("UPDATE SOURCE CARD: Card ID", card.id);
-            //console.log("Errors: ", err);
             updateCard(data, card.customer, card.id);
             createOrder(data, customerID);
         }).catch(e => {
@@ -87,6 +84,8 @@ function getSku(productID) {
     }).then((result) => {
         //console.log(result.data);
         return Promise.resolve(result.data[0].id);
+    }).catch(e => {
+        console.log(e);
     });
 };
 
@@ -134,6 +133,8 @@ async function createOrder(data, customerID) {
     }).then((result) => {
         //console.log(result);
         payOrder(result.id, customerID, data);
+    }).catch(e => {
+        console.log(e);
     });
 
 }
