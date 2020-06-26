@@ -42,3 +42,29 @@ async function updateProduct(){
         }
       );
 }
+
+async function createCharge(customerID, data) {
+    const idempotencyKey = uuid(); // Prevent charging twice
+    await stripe.charges.create({
+        amount: 1000, // Update amount
+        currency: 'usd',
+        customer: customerID,
+        receipt_email: data.personal_info.email,
+        description: "test",
+        metadata: { integration_check: 'accept_a_payment' },
+        shipping: {
+            address: data.shipping_address,
+            name: data.personal_info.name,
+            carrier: 'USPS',
+            phone: data.personal_info.phone,
+        },
+        //Need to specify Card from data
+        payment_method_details: data.card,
+        ip: "123.128.1.25", // Figure out how to get IP adress
+    },
+        {
+            idempotencyKey
+        }).catch(e => {
+            throw (e)
+        })
+};

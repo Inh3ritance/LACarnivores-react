@@ -4,7 +4,7 @@ import { CardElement, injectStripe } from 'react-stripe-elements';
 import { ToastContainer, toast } from 'react-toastify';
 import DisplayCart from './DisplayCart/DisplayCart.jsx';
 import 'react-toastify/dist/ReactToastify.css';
-import { total, list } from 'cart-localstorage';
+import { list, destroy } from 'cart-localstorage';
 
 class CheckoutForm extends Component {
 
@@ -61,9 +61,15 @@ class CheckoutForm extends Component {
         }
     }
 
+    reset(){
+        destroy();
+        this.setState(this.initialState());
+        document.getElementById("form1").reset();
+        this.rerenderCheckout();
+    }
+
     /*Submit Form details and proceed to Backend Code */
     async submit(ev) {
-        console.log("THE CART", this.state.data);
         ev.preventDefault();
 
         // Get Card Token
@@ -86,7 +92,6 @@ class CheckoutForm extends Component {
         let shippingAddy = this.state.Shipping_Address;
         let shippingState = this.state.Shipping_State;
 
-        console.log(result);
         // Data that gets sent to the backend
         let data = {};
         if (this.state.check) {
@@ -123,12 +128,11 @@ class CheckoutForm extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
         }).then(response => {
-            if (response.ok) this.setState({ complete: true });
-            console.log("Success");
-
-            //Clear Cart + Form
-            toast("Purchase Succesfull!",
-                { type: 'success' })
+            console.log("Runnning..");
+            if(response.ok){
+                this.reset(); //Clear Cart + Form
+                toast("Purchase Succesfull!", { type: 'success' })
+            }
         }).catch(e => {
             console.log("Failure");
             toast("Oopsie, something went wrong!",
@@ -151,12 +155,10 @@ class CheckoutForm extends Component {
     }
 
     render() {
-        console.log("THIS STATE DATA", this.state.data);
-        if (this.state.complete) return <h1>Purchase Complete!</h1>;
         return (
             <div>
                 <div className="TopForm"><DisplayCart rerenderCheckout={this.rerenderCheckout} /></div>
-                <form method="post" onSubmit={(ev: React.ChangeEvent<HTMLFormElement>) => this.submit(ev)}>
+                <form id="form1" method="post" onSubmit={(ev: React.ChangeEvent<HTMLFormElement>) => this.submit(ev)}>
                     <fieldset disabled={this.state.disable}>
                         <legend><b>Shipping & Billing</b></legend>
                         <div className="inner">

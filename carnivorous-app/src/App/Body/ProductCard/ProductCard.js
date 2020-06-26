@@ -10,7 +10,6 @@ const ProductCard = ({ id, name, addToCart, deleteFromCart, passToExpansion, sel
         attributes,
         description
     }
-    console.log(meta.metadata.price);
     if (meta.metadata.type === selector && Number(meta.metadata.quantity) !== 0) {
         return (
             <div className="product-card">
