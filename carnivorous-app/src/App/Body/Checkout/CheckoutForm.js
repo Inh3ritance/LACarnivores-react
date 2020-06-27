@@ -132,6 +132,9 @@ class CheckoutForm extends Component {
             if(response.ok){
                 this.reset(); //Clear Cart + Form
                 toast("Purchase Succesfull!", { type: 'success' })
+            } else {
+                toast("Oopsie, something went wrong!",
+                { type: 'error' })
             }
         }).catch(e => {
             console.log("Failure");
