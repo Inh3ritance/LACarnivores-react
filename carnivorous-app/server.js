@@ -124,9 +124,11 @@ async function createOrder(data, customerID, res) {
     for (var key in data.cart) {
         await timeout(1000);
         var item = data.cart[key];
-        cart.push({ type: 'sku', parent: await getSku(item.id), quantity: await getProduct(item.id) >= 0 && (getProduct(item.id) - item.quantity > 0) ? item.quantity : 0, currency: 'usd', description: item.name });
+        cart.push({ type: 'sku', parent: await getSku(item.id), quantity: await getProduct(item.id) > 0 && (await getProduct(item.id) - item.quantity >= 0) ? item.quantity : 0, currency: 'usd', description: item.name });
         await updateProductQuantity(item.id, item.quantity);
     }
+
+    console.log(cart);
 
     var flag = true;
     for (key in cart) {

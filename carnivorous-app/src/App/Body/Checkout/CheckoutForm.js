@@ -27,7 +27,7 @@ class CheckoutForm extends Component {
         let count = this.getNumberOfItemsinCart();
         if (count === 0) this.setState({ disable: true });
         if (this.state.total !== count) this.setState({ total: count });
-        this.setState({ data: list() })
+        this.setState({ data: list() });
     }
 
     /*Update State onClick when localStorage changes */
@@ -72,6 +72,8 @@ class CheckoutForm extends Component {
     async submit(ev) {
         ev.preventDefault();
 
+
+        this.setState({disable:true});
         // Get Card Token
         /* Temporary solution */
         const card = document.getElementsByTagName(CardElement);
@@ -140,6 +142,7 @@ class CheckoutForm extends Component {
             console.log("Failure");
             toast("Oopsie, something went wrong!",
                 { type: 'error' })
+                this.setState({disable:false});
             throw (e);
         })
     }

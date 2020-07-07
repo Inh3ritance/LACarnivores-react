@@ -56,6 +56,15 @@
     to {opacity: 1;}
 }
 
+.bi{
+    border:2px solid black;
+    border-radius:20px;
+}
+
+.bi:hover{
+    border:2px solid red;
+}
+
 .Close{
     z-index:7;
     position:absolute;
