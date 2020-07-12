@@ -3,9 +3,21 @@ const stripe = require("stripe")("sk_test_NEQdDYQEGCNzJ01s8oW3njZq00eNYSwGJo");
 const bodyParser = require('body-parser');
 const cors = require('cors')({ origin: true });
 const { uuid } = require('uuidv4');
+const express = require('express');
+const serverless = require("serverless-http");
+const router = express.Router();
 app.use(cors);
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());
+
+router.get('/test', (req, res) => {
+    res.json({
+        'hello': 'hi'
+    });
+    
+});
+
+app.use('/.netlify/functions/api', router);
 
 // Creates Customer => creates source => creates charge
 async function CreateCustomer(data, res) {
@@ -262,5 +274,7 @@ app.get("/prices", async (req, res) => {
 });
 
 const port = process.env.PORT || 9000;
+
+module.exports.handler = serverless(app);
 
 app.listen(port, () => console.log('Server is running...\n'));
