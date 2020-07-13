@@ -125,7 +125,7 @@ class CheckoutForm extends Component {
         }
 
         // Charge 
-        return await fetch("/charge", {
+        return await fetch("https://lacarnivoresapi.netlify.app/.netlify/functions/api/charge", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),

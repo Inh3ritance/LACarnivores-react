@@ -22,7 +22,7 @@ class Body extends React.Component {
     /**Onload Products from Backend , Write code that protects when FAIL*/
     componentDidMount() {
         //Retrieve Product API
-        fetch('/products')
+        fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/products')
         .then(response => response.json())
         .then(data => {
             let dataArray = Array.from(data.data);
