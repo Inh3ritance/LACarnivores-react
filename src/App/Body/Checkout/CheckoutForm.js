@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import DisplayCart from './DisplayCart/DisplayCart.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import { list, destroy } from 'cart-localstorage';
-import { onLoadReCaptcha, ReCaptcha } from 'react-recaptcha-google';
+import { ReCaptcha } from 'react-recaptcha-google';
 
 class CheckoutForm extends Component {
 
