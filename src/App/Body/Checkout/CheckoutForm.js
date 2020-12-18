@@ -17,6 +17,7 @@ class CheckoutForm extends Component {
         this.rerenderCheckout = this.rerenderCheckout.bind(this);
         this.onLoadRecaptcha = this.onLoadRecaptcha.bind(this);
         this.verifyCallback = this.verifyCallback.bind(this);
+        this.charge = this.charge.bind(this);
     }
 
     /**Initialize Reaptcha check */
@@ -29,7 +30,7 @@ class CheckoutForm extends Component {
 
     /**Respond with token to send to server */
     verifyCallback(recaptchaToken) {
-        console.log(recaptchaToken, "<= your recaptcha token")
+        this.setState({verifyreCaptcha: recaptchaToken});
     }
 
     /*Force Update onClick when cart updates*/
@@ -65,6 +66,7 @@ class CheckoutForm extends Component {
             disable: false,
             complete: false,
             check: true,
+            verifyreCaptcha: null,
             data: [],
             //
             fullName: '',
@@ -144,8 +146,33 @@ class CheckoutForm extends Component {
             }
         }
 
-        // Charge 
-        return await fetch("https://lacarnivoresapi.netlify.app/.netlify/functions/api/charge", {
+        // Verify this is not a bot
+        fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/verify', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              "name": data.name,
+              "email": data.email,
+              "g-recaptcha-response": this.state.verifyreCaptcha,
+            })
+          }).then(res => res.json()).then(res => {
+            console.log(res);
+            this.onLoadRecaptcha();
+            if(res.success){
+                this.charge(data);
+            } else {
+                // Notify user of bot bailure
+                console.log("Failure");
+                toast("The site believes you are a bot, try again human",
+                    { type: 'error' });
+                this.setState({ disable:false });
+            }
+          });
+    }
+
+    async charge(data){
+        // Charge
+        return await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/charge', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
@@ -161,8 +188,8 @@ class CheckoutForm extends Component {
         }).catch(e => {
             console.log("Failure");
             toast("Oopsie, something went wrong!",
-                { type: 'error' })
-                this.setState({ disable:false });
+                { type: 'error' });
+            this.setState({ disable:false });
             throw (e);
         });
     }
