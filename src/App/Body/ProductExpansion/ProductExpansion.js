@@ -4,7 +4,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 /* Takes information from ProductCard To expand into an individual box model */
-const ProductExpansion = ({/* id, */ view, closeView, meta }) => {
+const ProductExpansion = ({ view, closeView, meta }) => {
     if (view) {
         return (
             <div className="model">

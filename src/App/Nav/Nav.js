@@ -2,7 +2,9 @@ import React from 'react';
 import Body from '../Body/Body.js';
 import CheckoutForm from '../Body/Checkout/CheckoutForm.js';
 import ToggleSwitch from '../Body/ToggleSwitch/ToggleSwitch.js';
+import { loadReCaptcha } from 'react-recaptcha-google';
 import './Nav.scss';
+import Logo from './Logo.png';
 import { slide as Menu } from 'react-burger-menu';
 import { list } from 'cart-localstorage';
 import { Elements, StripeProvider } from 'react-stripe-elements';
@@ -19,7 +21,7 @@ class Nav extends React.Component {
   /**Constructor */
   constructor(props) {
     super(props);
-    this.state = { menuOpen: false, selector:'Default'};
+    this.state = { menuOpen: false, selector:'Default' };
     this.handleScroll = this.handleScroll.bind(this);
     this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
   }
@@ -36,9 +38,7 @@ class Nav extends React.Component {
 
   /**Changes type navigation tab */
   onChangeSelector(selected) {
-    this.setState({
-        selector: selected
-    });
+    this.setState({ selector: selected });
     sessionStorage.setItem('select', selected); //Saves selection when user reloads tab
   }
 
@@ -52,6 +52,7 @@ class Nav extends React.Component {
     const move = document.querySelector('nav');
     this.setState({ top: move.offsetTop, height: move.offsetHeight});
     window.addEventListener('scroll', this.handleScroll);
+    loadReCaptcha();
   }
 
   /* Update scroll position after mounting */
@@ -60,9 +61,8 @@ class Nav extends React.Component {
       document.body.style.paddingTop = `${this.state.height}px` :
       document.body.style.paddingTop = 0;
 
-      if(this.state.total !== this.getNumberOfItemsinCart()) {
+      if(this.state.total !== this.getNumberOfItemsinCart())
         this.setState({ total: this.getNumberOfItemsinCart()});
-      } 
   }
 
   /* Closes window when Link is clicked */
@@ -79,12 +79,10 @@ class Nav extends React.Component {
   getNumberOfItemsinCart() {
     const shopCart = list();
     var cartQuantity = 0;
-    var i = 0;
 
     // Calculate number of items in cart
-    for (i; i < shopCart.length; i++) {
+    for (var i = 0; i < shopCart.length; i++)
         cartQuantity = cartQuantity + list()[i].quantity;
-    }
     return cartQuantity;
   }
 
@@ -93,7 +91,7 @@ class Nav extends React.Component {
       <div>
         <Router>
           <nav className={this.state.scroll > this.state.top ? "fixed-nav" : ""}>
-            <Link to='/'><img id= "logo" src={require('./Logo.png')} alt="Logo"/></Link>
+            <Link to='/'><img id= "logo" src={Logo} alt="Logo"/></Link>
             <Link to='/'><h1 id="Company_Name">LA Carnivores</h1></Link>
             <div className="Right_Buttons mobile">
               <NavLink to='/Checkout' activeclassname="checkout_render">

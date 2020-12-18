@@ -13,7 +13,7 @@ const ProductCard = ({ id, name, addToCart, deleteFromCart, passToExpansion, sel
     if (meta.metadata.type === selector && Number(meta.metadata.quantity) !== 0) {
         return (
             <div className="product-card">
-                <button className="remove-button" onClick={() => passToExpansion({/* id, */ view: true, meta })}>
+                <button className="remove-button" onClick={() => passToExpansion({ view: true, meta })}>
                     <div className="product-header" style={{ backgroundImage: 'url(' + images[0] + ')' }}>
                         <h4 className="product-name">{name}</h4>
                     </div>

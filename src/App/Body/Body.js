@@ -15,7 +15,7 @@ class Body extends React.Component {
         this.state = {
             data: [],
             expansion: [{}],
-            selector: 'Default'
+            selector: 'Default',
         };
     }
 
@@ -25,39 +25,32 @@ class Body extends React.Component {
         fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/products')
         .then(response => response.json())
         .then(data => {
-            let dataArray = Array.from(data.data);
-            this.setState({ data: dataArray });
+            this.setState({ data: Array.from(data.data) });
         });
 
         //Initialize Props
         this.setState({ selector: this.props.Selector });
 
         //Reloads session selection preventing default HomeScreen on reload
-        if(sessionStorage.getItem('select')){
+        if(sessionStorage.getItem('select'))
             this.setState({selector: sessionStorage.getItem('select')});
-        }
     }
 
     /**Update will check if props had updated to prevent NESTED STATE issues */
     componentDidUpdate(oldProps) {
         const newProps = this.props
-        if (oldProps.Selector !== newProps.Selector) {
+        if (oldProps.Selector !== newProps.Selector)
             this.setState({ selector: newProps.Selector });
-        }
     }
 
     /**Closes model*/
     closeView(value) {
-        this.setState({
-            expansion: [{ view: value.view }]
-        });
+        this.setState({ expansion: [{ view: value.view }] });
     }
 
     /**Passes infromartion from ProductCard->ProductCardExpansion*/
     passToExpansion(product) {
-        this.setState({
-            expansion: [{ view: product.view, meta: product.meta }]
-        });
+        this.setState({ expansion: [{ view: product.view, meta: product.meta }] });
     }
 
     /**Add product to local storage */
@@ -90,15 +83,12 @@ class Body extends React.Component {
     /**Remove Product from local Storage */
     deleteFromCart(product) {
         quantity(product.id, -1);
-        console.log("Cart: ", list());
         this.props.rerenderParentCallback();
     }
 
     /**Changes type navigation tab */
     onChangeSelector(selected) {
-        this.setState({
-            selector: selected
-        });
+        this.setState({ selector: selected });
         sessionStorage.setItem('select', selected); //Saves selection when user reloads tab
     }
 
@@ -122,7 +112,15 @@ class Body extends React.Component {
 
                         <div className="Product-Cards">
                             {
-                                this.state.data.map(p => <ProductCard key={p.id} {...p} selector={this.state.selector} addToCart={this.addToCart.bind(this)} deleteFromCart={this.deleteFromCart.bind(this)} passToExpansion={this.passToExpansion.bind(this)} />)
+                                this.state.data.map( p => 
+                                    <ProductCard 
+                                    key={p.id} {...p} 
+                                    selector={this.state.selector} 
+                                    addToCart={this.addToCart.bind(this)} 
+                                    deleteFromCart={this.deleteFromCart.bind(this)} 
+                                    passToExpansion={this.passToExpansion.bind(this)} 
+                                    /> 
+                                )
                             }
                         </div>
 

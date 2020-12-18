@@ -8,16 +8,14 @@ class DisplayCart extends Component {
     /*Initialize Local Storage */
     constructor(props) {
         super(props);
-        this.state = {
-            data: list()
-        }
+        this.state = { data: list() }
     }
 
     /*Remove Item from localStorage */
     RemoveItemFromCart(productID) {
-        console.log("delete item: ", productID);
+        //console.log("delete item: ", productID);
         remove(productID);
-        this.setState({data: list() })
+        this.setState({data: list() });
         this.props.rerenderCheckout();
     }
 
@@ -28,7 +26,7 @@ class DisplayCart extends Component {
 
     /*Revalidate Initialzation in State */
     componentDidMount() {
-        this.setState({ data: list() })
+        this.setState({ data: list() });
     }
 
     render() {
@@ -61,12 +59,10 @@ class DisplayCart extends Component {
                             </div>
                         ))
                     }
-
                     <h4>Subtotal: ${total().toFixed(2)}</h4>
                 </div>
             )
-        }
-        else {
+        } else {
             return (<div className="displayCart"><h1>Shopping Cart: Empty</h1></div>)
         }
     }

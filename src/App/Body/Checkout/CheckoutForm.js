@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import DisplayCart from './DisplayCart/DisplayCart.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import { list, destroy } from 'cart-localstorage';
+import { onLoadReCaptcha, ReCaptcha } from 'react-recaptcha-google';
 
 class CheckoutForm extends Component {
 
@@ -14,6 +15,21 @@ class CheckoutForm extends Component {
         this.state = this.initialState();
         this.submit = this.submit.bind(this);
         this.rerenderCheckout = this.rerenderCheckout.bind(this);
+        this.onLoadRecaptcha = this.onLoadRecaptcha.bind(this);
+        this.verifyCallback = this.verifyCallback.bind(this);
+    }
+
+    /**Initialize Reaptcha check */
+    onLoadRecaptcha() {
+        if (this.captcharef) {
+            this.captcharef.reset();
+            this.captcharef.execute();
+        }
+    }
+
+    /**Respond with token to send to server */
+    verifyCallback(recaptchaToken) {
+        console.log(recaptchaToken, "<= your recaptcha token")
     }
 
     /*Force Update onClick when cart updates*/
@@ -27,6 +43,10 @@ class CheckoutForm extends Component {
         let count = this.getNumberOfItemsinCart();
         if (count === 0) this.setState({ disable: true });
         if (this.state.total !== count) this.setState({ total: count });
+        if(this.captcharef) {
+            this.captcharef.reset();
+            this.captcharef.execute();
+        }
         this.setState({ data: list() });
     }
 
@@ -61,6 +81,7 @@ class CheckoutForm extends Component {
         }
     }
 
+    /**Reset form when payment is complete */
     reset(){
         destroy();
         this.setState(this.initialState());
@@ -71,7 +92,6 @@ class CheckoutForm extends Component {
     /*Submit Form details and proceed to Backend Code */
     async submit(ev) {
         ev.preventDefault();
-
 
         this.setState({disable:true});
         // Get Card Token
@@ -130,7 +150,7 @@ class CheckoutForm extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
         }).then(response => {
-            console.log("Runnning..");
+            console.log("Runnning...");
             if(response.ok){
                 this.reset(); //Clear Cart + Form
                 toast("Purchase Succesfull!", { type: 'success' })
@@ -142,21 +162,19 @@ class CheckoutForm extends Component {
             console.log("Failure");
             toast("Oopsie, something went wrong!",
                 { type: 'error' })
-                this.setState({disable:false});
+                this.setState({ disable:false });
             throw (e);
-        })
+        });
     }
 
     /**Returns total number of products in cart */
     getNumberOfItemsinCart() {
         const shopCart = list();
         var cartQuantity = 0;
-        var i = 0;
 
         // Calculate number of items in cart
-        for (i; i < shopCart.length; i++) {
+        for (var i = 0; i < shopCart.length; i++)
             cartQuantity = cartQuantity + list()[i].quantity;
-        }
         return cartQuantity;
     }
 
@@ -307,6 +325,14 @@ class CheckoutForm extends Component {
                         </div>
                     </fieldset>
                 </form>
+                <ReCaptcha
+                    ref={(el) => {this.captcharef = el}}
+                    size="invisible"          
+                    render="explicit"
+                    sitekey="6Le2YAsaAAAAAHw3CVVxCOhjJV_pC-exNYyH4AHz"
+                    onloadCallback={this.onLoadRecaptcha}
+                    verifyCallback={this.verifyCallback}
+                />
             </div>
         );
     }
