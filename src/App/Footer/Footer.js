@@ -1,20 +1,20 @@
 import React from 'react';
 import './Footer.scss';
+import { Link } from "react-router-dom";
 
 /* Static DOM Footer */
 function Footer() {
   return (
     <div className="Footer">
 		<div className="Col">
-			<h2>LACarnivores@gmail.com</h2>
-			<h2>Phone:(323)-123-4567</h2>
+			<Link to='/Contact' activeclassname="contact_render"><h2>Contact Us</h2></Link>
+			<Link to='/Privacy Policy' activeclassname="privacy_policy_render"><h2></h2><h2>Privacy Policy</h2></Link>
+			<Link to='/Terms Conditions' activeclassname="terms_conditions_render"><h2></h2><h2>Terms Conditions</h2></Link>
 		</div>
 		<div className="Col">
-			<h2>Privacy Policy</h2>
 			<h2>Facebook/Twitter...</h2>
 		</div>
 		<div className="Col">
-			<h2>Terms Conditions</h2>
 			<h2>Visa Pay .....</h2>
 		</div>
     </div>

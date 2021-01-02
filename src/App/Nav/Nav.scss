@@ -24,9 +24,14 @@ nav {
         background-color: black;
         border: 0px !important;
     }
-    button{
+    button {
         color:white !important;
         border-bottom:1px solid white;
+    }
+    .FormDropdown{
+        padding: 3px;
+        width: 10%;
+        display:block;
     }
     .Right_Buttons {
         margin-right:3%;
@@ -35,11 +40,6 @@ nav {
     }
     .Right_Buttons_mobile {
 
-        a, Link {
-            font-size: 10px;
-            color: white !important;
-            text-decoration: none;
-        }
         /* Position and sizing of burger button */
         .bm-burger-button {
             position: fixed;
@@ -56,6 +56,10 @@ nav {
         /* Color/shape of burger icon bars on hover*/
         .bm-burger-bars-hover {
             background: #009225;
+        }
+
+        h2:hover {
+            color: #009225;
         }
 
         /* Color/shape of close button cross */

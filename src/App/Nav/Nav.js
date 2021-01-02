@@ -1,6 +1,9 @@
 import React from 'react';
 import Body from '../Body/Body.js';
+import Footer from '../Footer/Footer.js';
 import CheckoutForm from '../Body/Checkout/CheckoutForm.js';
+import Form from '../Forms/Form.jsx';
+import Policy from '../Privacy Policy/PrivacyPolicy.js';
 import ToggleSwitch from '../Body/ToggleSwitch/ToggleSwitch.js';
 import { loadReCaptcha } from 'react-recaptcha-google';
 import './Nav.scss';
@@ -15,7 +18,6 @@ import {
   Route,
   Link
 } from "react-router-dom";
-
 class Nav extends React.Component {
 
   /**Constructor */
@@ -105,22 +107,32 @@ class Nav extends React.Component {
                 <Link id="home" className="menu-item" to="/" onClick={() => this.closeMenu()}><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
                 <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout" onClick={() => this.closeMenu()}>
                 <button className="btn btn-info btn-lg" id="cart-overlay">
-                  <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart  {this.state.total}</span></h2>
+                  <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart {this.state.total}</span></h2>
                 </button>
                 </NavLink>
               </Menu>
             </div>
           </nav>
           <Switch>
-            <Route exact path='/'><div><Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} /></div></Route>
+            <Route exact path='/'><div><Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} /></div><Footer/></Route>
             <Route path='/Checkout'>
-              <div>
                 <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
                   <Elements>
                     <CheckoutForm rerenderParentCallback={this.rerenderParentCallback}/>
                   </Elements>
                 </StripeProvider>
-              </div>
+                <Footer/>
+            </Route>
+            <Route path='/Contact'>
+              <Form/>
+              <Footer/>
+            </Route>
+            <Route path='/Privacy Policy'>
+              <Policy/>
+              <Footer/>
+            </Route>
+            <Route path='/Terms Conditions'>
+              <Footer/>
             </Route>
           </Switch>
         </Router>
