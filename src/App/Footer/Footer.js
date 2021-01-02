@@ -8,8 +8,8 @@ function Footer() {
     <div className="Footer">
 		<div className="Col">
 			<Link to='/Contact' activeclassname="contact_render"><h2>Contact Us</h2></Link>
-			<Link to='/Privacy Policy' activeclassname="privacy_policy_render"><h2></h2><h2>Privacy Policy</h2></Link>
-			<Link to='/Terms Conditions' activeclassname="terms_conditions_render"><h2></h2><h2>Terms Conditions</h2></Link>
+			<Link to='/Privacy Policy' activeclassname="privacy_policy_render"><h2>Privacy Policy</h2></Link>
+			<Link to='/Terms Conditions' activeclassname="terms_conditions_render"><h2>Terms Conditions</h2></Link>
 		</div>
 		<div className="Col">
 			<h2>Facebook/Twitter...</h2>
