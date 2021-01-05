@@ -155,7 +155,7 @@ class CheckoutForm extends Component {
               "email": data.email,
               "g-recaptcha-response": this.state.verifyreCaptcha,
             })
-          }).then(res => res.json()).catch(err => console.log(err)).then(res => {
+          }).then(res => {
             console.log(res);
             this.onLoadRecaptcha();
             if(res.success){
