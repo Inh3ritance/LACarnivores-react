@@ -162,9 +162,8 @@ class CheckoutForm extends Component {
                 this.charge(data);
             } else {
                 // Notify user of bot bailure
-                console.log("Failure");
                 toast("The site believes you are a bot, try again human",
-                    { type: 'error' });
+                { type: 'error' });
                 this.setState({ disable:false });
             }
           });
@@ -177,7 +176,6 @@ class CheckoutForm extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
         }).then(response => {
-            console.log("Runnning...");
             if(response.ok){
                 this.reset(); //Clear Cart + Form
                 toast("Purchase Succesfull!", { type: 'success' })
@@ -186,11 +184,10 @@ class CheckoutForm extends Component {
                 { type: 'error' })
             }
         }).catch(e => {
-            console.log("Failure");
-            toast("Oopsie, something went wrong!",
+                toast("Oopsie, something went wrong!",
                 { type: 'error' });
-            this.setState({ disable:false });
-            throw (e);
+                this.setState({ disable:false });
+                throw (e);
         });
     }
 
