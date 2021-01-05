@@ -26,7 +26,7 @@ class Form extends Component {
         }).then(response => {
             console.log("Message Sent");
         }).catch(e => {
-            console.log("Something went wrong");
+            console.log(e);
         });
     }
 
