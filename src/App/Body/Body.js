@@ -19,14 +19,14 @@ class Body extends React.Component {
         };
     }
 
-    /**Onload Products from Backend , Write code that protects when FAIL*/
+    /** Onload Products from Backend , Write code that protects when FAIL */
     componentDidMount() {
         //Retrieve Product API
         fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/products')
         .then(response => response.json())
         .then(data => {
             this.setState({ data: Array.from(data.data) });
-        });
+        }).catch(err => console.log(err));
 
         //Initialize Props
         this.setState({ selector: this.props.Selector });

@@ -87,7 +87,7 @@ class CheckoutForm extends Component {
     reset(){
         destroy();
         this.setState(this.initialState());
-        document.getElementById("form1").reset();
+        document.getElementById('form1').reset();
         this.rerenderCheckout();
     }
 
@@ -151,9 +151,9 @@ class CheckoutForm extends Component {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              "name": data.name,
-              "email": data.email,
-              "g-recaptcha-response": this.state.verifyreCaptcha,
+              'name': data.name,
+              'email': data.email,
+              'g-recaptcha-response': this.state.verifyreCaptcha,
             })
           }).then(res => res.res.json()).then(res => {
             console.log(res);
@@ -162,12 +162,13 @@ class CheckoutForm extends Component {
                 this.charge(data);
             } else {
                 // Notify user of bot bailure
-                toast("The site believes you are a bot, try again human",
+                toast('The site believes you are a bot, try again human',
                 { type: 'error' });
                 this.setState({ disable:false });
             }
           }).catch(err => {
               console.log(err);
+              throw (err);
           });
     }
 
@@ -180,16 +181,14 @@ class CheckoutForm extends Component {
         }).then(response => {
             if(response.ok){
                 this.reset(); //Clear Cart + Form
-                toast("Purchase Succesfull!", { type: 'success' })
+                toast("Purchase Succesfull!", { type: 'success' });
             } else {
-                toast("Oopsie, something went wrong!",
-                { type: 'error' })
+                toast("Oopsie, something went wrong!", { type: 'error' });
             }
-        }).catch(e => {
-                toast("Oopsie, something went wrong!",
-                { type: 'error' });
+        }).catch(err => {
+                toast("Oopsie, something went wrong!", { type: 'error' });
                 this.setState({ disable:false });
-                throw (e);
+                throw (err);
         });
     }
 
@@ -197,8 +196,6 @@ class CheckoutForm extends Component {
     getNumberOfItemsinCart() {
         const shopCart = list();
         var cartQuantity = 0;
-
-        // Calculate number of items in cart
         for (var i = 0; i < shopCart.length; i++)
             cartQuantity = cartQuantity + list()[i].quantity;
         return cartQuantity;
@@ -353,9 +350,9 @@ class CheckoutForm extends Component {
                 </form>
                 <ReCaptcha
                     ref={(el) => {this.captcharef = el}}
-                    size="invisible"          
-                    render="explicit"
-                    sitekey="6Le2YAsaAAAAAHw3CVVxCOhjJV_pC-exNYyH4AHz"
+                    size='invisible'          
+                    render='explicit'
+                    sitekey='6Le2YAsaAAAAAHw3CVVxCOhjJV_pC-exNYyH4AHz'
                     onloadCallback={this.onLoadRecaptcha}
                     verifyCallback={this.verifyCallback}
                 />
