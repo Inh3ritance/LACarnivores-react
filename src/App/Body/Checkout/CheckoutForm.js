@@ -147,7 +147,8 @@ class CheckoutForm extends Component {
         }
 
         // Verify this is not a bot
-        fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/verify', {
+        this.charge(data);
+        /*fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/verify', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -169,7 +170,7 @@ class CheckoutForm extends Component {
           }).catch(err => {
               console.log(err);
               throw (err);
-          });
+          });*/
     }
 
     async charge(data){

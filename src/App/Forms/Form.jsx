@@ -17,7 +17,7 @@ class Form extends Component {
         e.preventDefault();
         await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/sendEmail', {
             method: 'POST',
-            headers: { 'Content-type': 'application/json' }, 
+            headers: { 'Content-Type': 'application/json' }, 
             body: JSON.stringify({ 
                 subject: this.state.subject,
                 email: this.state.email,
