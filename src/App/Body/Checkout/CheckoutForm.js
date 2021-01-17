@@ -147,8 +147,7 @@ class CheckoutForm extends Component {
         }
 
         // Verify this is not a bot
-        this.charge(data);
-        /*fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/verify', {
+        fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/verify', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -162,15 +161,13 @@ class CheckoutForm extends Component {
             if(res.success){
                 this.charge(data);
             } else {
-                // Notify user of bot bailure
-                toast('The site believes you are a bot, try again human',
-                { type: 'error' });
+                toast('The site believes you are a bot, try again human', { type: 'error' });
                 this.setState({ disable:false });
             }
           }).catch(err => {
               console.log(err);
               throw (err);
-          });*/
+          });
     }
 
     async charge(data){
