@@ -146,16 +146,18 @@ class CheckoutForm extends Component {
             }
         }
 
+        let recaptcha_data = {
+            name: data.name,
+            email: data.email,
+            response: this.state.verifyreCaptcha,
+        };
+
         // Verify this is not a bot
-        fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/verify', {
+        await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/verify', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              'name': data.name,
-              'email': data.email,
-              'g-recaptcha-response': this.state.verifyreCaptcha,
-            })
-          }).then(res => {
+            body: JSON.stringify(recaptcha_data)
+          }).then(res => res.json()).then(res => {
             console.log(res);
             this.onLoadRecaptcha();
             if(res.success){
