@@ -157,7 +157,7 @@ class CheckoutForm extends Component {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(recaptcha_data)
-          }).then(res => res.json()).then(res => {
+          }).then(res => {
             console.log(res);
             this.onLoadRecaptcha();
             if(res.success){
