@@ -5,7 +5,7 @@ const Form = () => {
     return(
         <div className='Contact'>
             <h1 id="contact-header"><b>Contact Form:</b></h1>
-            <form name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true" name="contact">
+            <form method="POST" data-netlify="true" data-netlify-recaptcha="true" name="contact">
                 <div className="form-outline mb-4">
                     <label className="form-label" htmlFor="form4Example1">Email</label>
                     <input type="email" name="email"  id="form4Example1" className="form-control"/>
