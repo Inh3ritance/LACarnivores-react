@@ -43,9 +43,9 @@
     -->
   </body>
   <!-- A little help for the Netlify post-processing bots -->
-	<form name="contact" netlify netlify-honeypot="bot-field" action='/' hidden>
-		<input type="text" name="name" />
+	<form name="contact" netlify data-netlify-recaptcha="true" action='/' hidden>
 		<input type="email" name="email" />
+		<input type="text" name="subject" />
 		<textarea name="message"></textarea>
 	</form>
 </html>

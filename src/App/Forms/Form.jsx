@@ -9,7 +9,7 @@ const Form = () => {
             <input type="hidden" name="form-name" value="contact" />
                 <div className="form-outline mb-4">
                     <label className="form-label" htmlFor="form4Example1">Email</label>
-                    <input type="email" name="email"  id="form4Example1" className="form-control"/>
+                    <input type="email" name="email" id="form4Example1" className="form-control"/>
                 </div>
                 <div className="form-outline mb-4">
                     <label className="form-label" htmlFor="form4Example2">Subject</label>
