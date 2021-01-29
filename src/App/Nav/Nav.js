@@ -11,6 +11,8 @@ import Logo from './Logo.png';
 import { slide as Menu } from 'react-burger-menu';
 import { list } from 'cart-localstorage';
 import { Elements, StripeProvider } from 'react-stripe-elements';
+import { logoutUser, loginUser } from '../Login/Identity.jsx';
+import netlifyIdentity from "netlify-identity-widget";
 import {
   BrowserRouter as Router,
   NavLink,
@@ -23,7 +25,7 @@ class Nav extends React.Component {
   /**Constructor */
   constructor(props) {
     super(props);
-    this.state = { menuOpen: false, selector:'Default' };
+    this.state = { menuOpen: false, selector:'Default', user: null };
     this.handleScroll = this.handleScroll.bind(this);
     this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
   }
@@ -55,6 +57,13 @@ class Nav extends React.Component {
     this.setState({ top: move.offsetTop, height: move.offsetHeight});
     window.addEventListener('scroll', this.handleScroll);
     loadReCaptcha();
+    const user = localStorage.getItem("User");
+    if (user)
+      this.setState({user: JSON.parse(user)});
+    else
+      loginUser();
+    netlifyIdentity.on("login", (user) => this.setState({user}, loginUser()));
+    netlifyIdentity.on("logout", (user) => this.setState({user: null}, logoutUser()));
   }
 
   /* Update scroll position after mounting */
@@ -88,6 +97,11 @@ class Nav extends React.Component {
     return cartQuantity;
   }
 
+  /**User signup/sign in/ log out */
+  signIn() {
+    netlifyIdentity.open();
+  }
+
   render() {
     return (
       <div>
@@ -96,6 +110,7 @@ class Nav extends React.Component {
             <Link to='/'><img id= "logo" src={Logo} alt="Logo"/></Link>
             <Link to='/'><h1 id="Company_Name">LA Carnivores</h1></Link>
             <div className="Right_Buttons mobile">
+              <button id="user" onClick={this.signIn}><i className='fas fa-user'></i></button>
               <NavLink to='/Checkout' activeclassname="checkout_render">
                 <button className="btn btn-info btn-lg" id="cart-overlay">
                   <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart {this.state.total}</span></h2>
@@ -104,8 +119,9 @@ class Nav extends React.Component {
             </div>
             <div className="Right_Buttons_mobile notMobile" activeclassname="checkout_render">
               <Menu right isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)}>
-                <Link id="home" className="menu-item" to="/" onClick={() => this.closeMenu()}><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
-                <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout" onClick={() => this.closeMenu()}>
+                <Link id="home" className="menu-item" to="/" onClick={this.closeMenu}><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
+                <button onClick={this.signIn}><h2 id="user_mobile">Users</h2></button>
+                <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout" onClick={this.closeMenu}>
                 <button className="btn btn-info btn-lg" id="cart-overlay">
                   <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart {this.state.total}</span></h2>
                 </button>

@@ -13,6 +13,7 @@ nav {
         font-size: 300%;
     }
     #cart {
+        display: block;
         color: $secondary-color;
         margin-top:10%;
         font-size: 200%;
@@ -24,6 +25,24 @@ nav {
         background-color: black;
         border: 0px !important;
     }
+    #user {
+        text-align: center;
+        font-size: 24px;
+        width:5%;
+        border-radius: 25px;
+        border-bottom: 0px !important;
+        padding-right:40%;
+        display:inline;
+    }
+    #user:hover{
+        color:green !important;
+    }
+    #user_mobile{
+        font-size: 300% !important;
+    }
+    #user_mobile:hover{
+        color:green !important;
+    }
     button {
         color:white !important;
         border-bottom:1px solid white;
@@ -34,9 +53,10 @@ nav {
         display:block;
     }
     .Right_Buttons {
-        margin-right:3%;
+        margin-right:6%;
 		float:right;	
-		text-align: center;
+        text-align: center;
+        display: flex;
     }
     .Right_Buttons_mobile {
 
@@ -79,7 +99,7 @@ nav {
             background-color: black;
             font-size: 1.15em;
             color:white;
-            margin-top: 9%;
+            margin-top: 0%;
         }
         /* Morph shape necessary with bubble or elastic */
         .bm-morph-shape {
@@ -87,14 +107,33 @@ nav {
         }
         /* Wrapper for item list */
         .bm-item-list {
-            padding: 3.0em;
+            padding: 3em;
         }
         /* Individual item */
         .bm-item {
             display: inline-block;
-            margin-top: 15px;
+            margin-top: 0px;
         }
     }
+
+    @media screen and (max-width: 600px) {
+        .mobile{
+            display:none !important;
+        }
+        .notMobile{
+            display: flex !important;
+        }
+    }
+    
+    @media screen and (min-width: 601px) {
+        .mobile{
+            display:flex !important;
+        }
+        .notMobile{
+            display:none !important;
+        }
+    }
+    
 }
 
 .fixed-nav {
@@ -102,10 +141,6 @@ nav {
     top: 0;
     position: fixed;
     width: 100%;
-}
-
-.checkout_render {
-    display: none !important;
 }
 
 #logo{
@@ -117,20 +152,6 @@ nav {
     margin-top: 0px !important;
 }
 
-@media screen and (max-width: 600px) {
-    .mobile{
-        display:none;
-    }
-    .notMobile{
-        display: inline-block;
-    }
-}
-
-@media screen and (min-width: 601px) {
-    .mobile{
-        display:inline-block;
-    }
-    .notMobile{
-        display:none;
-    }
+.checkout_render {
+    display: none !important;
 }
