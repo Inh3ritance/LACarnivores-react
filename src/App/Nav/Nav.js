@@ -25,7 +25,7 @@ class Nav extends React.Component {
   /**Constructor */
   constructor(props) {
     super(props);
-    this.state = { menuOpen: false, selector:'Default', user: null };
+    this.state = { menuOpen: false, selector:'Default', user: null, scroll: null };
     this.handleScroll = this.handleScroll.bind(this);
     this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
   }
@@ -100,6 +100,7 @@ class Nav extends React.Component {
   /**User signup/sign in/ log out */
   signIn() {
     netlifyIdentity.open();
+    this.setState({menuOpen: false});
   }
 
   render() {
@@ -110,7 +111,7 @@ class Nav extends React.Component {
             <Link to='/'><img id= "logo" src={Logo} alt="Logo"/></Link>
             <Link to='/'><h1 id="Company_Name">LA Carnivores</h1></Link>
             <div className="Right_Buttons mobile">
-              <button id="user" onClick={this.signIn}><i className='fas fa-user'></i></button>
+              <button id="user" onClick={()=>this.signIn()}><i className='fas fa-user'></i></button>
               <NavLink to='/Checkout' activeclassname="checkout_render">
                 <button className="btn btn-info btn-lg" id="cart-overlay">
                   <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart {this.state.total}</span></h2>
@@ -120,7 +121,7 @@ class Nav extends React.Component {
             <div className="Right_Buttons_mobile notMobile" activeclassname="checkout_render">
               <Menu right isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)}>
                 <Link id="home" className="menu-item" to="/" onClick={this.closeMenu}><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
-                <button onClick={this.signIn}><h2 id="user_mobile">Users</h2></button>
+                <button onClick={()=>this.signIn()}><h2 id="user_mobile">Users</h2></button>
                 <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout" onClick={this.closeMenu}>
                 <button className="btn btn-info btn-lg" id="cart-overlay">
                   <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart {this.state.total}</span></h2>
