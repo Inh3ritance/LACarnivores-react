@@ -157,7 +157,6 @@ class CheckoutForm extends Component {
             method: 'POST',
             headers: { 
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "https://www.lacarnivores.com"
             },
             body: JSON.stringify(recaptcha_data)
           }).then(res => res.json()).then(json => {
