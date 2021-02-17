@@ -155,7 +155,10 @@ class CheckoutForm extends Component {
         // Verify this is not a bot
         await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/verify', {
             method: 'POST',
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "https://www.lacarnivores.com"
+            },
             body: JSON.stringify(recaptcha_data)
           }).then(res => res.json()).then(json => {
             this.onLoadRecaptcha();
