@@ -157,10 +157,9 @@ class CheckoutForm extends Component {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(recaptcha_data)
-          }).then(res => {
-            console.log(res);
+          }).then(res => res.json()).then(json => {
             this.onLoadRecaptcha();
-            if(res.success){
+            if(json.success){
                 this.charge(data);
             } else {
                 toast('The site believes you are a bot, try again human', { type: 'error' });
