@@ -1,8 +1,8 @@
-.glyphicon glyphicon-shopping-cart{
+.glyphicon glyphicon-shopping-cart {
     display: block;
 }
 
-legend{
+legend {
     border: none;
     margin-left: 4% !important;
     padding-left:1% !important;
@@ -13,33 +13,33 @@ legend{
     font-size: 300% !important;
 }
 
-form{
+form {
     margin-left:5% !important;
     margin-right:5% !important;
     padding-bottom:5% !important;
 }
 
-fieldset{
+fieldset {
     border:2px solid black !important;
     border-radius: 10px !important;
 }
 
-#chlbl{
+#chlbl {
     margin-left:1%;
     display: inline !important;
 }
 
-label{
+label {
     font-size: 120%;
     font-weight: bold;
     display: block;
 }
 
-select{
+select {
     font-size: 100%;
 }
 
-.inner{
+.inner {
     float:left;
     margin-left:3%;
     padding:1%;
@@ -48,7 +48,7 @@ select{
     display: inline-block;
 }
 
-input{
+input {
     border-radius: 5px;
     -moz-box-shadow-bottom: 4px 4px 4px gray;
     -webkit-box-shadow-bottom: 4px 4px 4px gray;
@@ -57,7 +57,7 @@ input{
     transition: 0.25s !important;
 }
 
-.Checkout_Button{
+.Checkout_Button {
     font-size: 100% !important;
     background-color:rgb(63, 133, 226);
     border:1px solid rgb(88, 23, 163);
@@ -71,12 +71,12 @@ input{
     box-shadow: 1px 1px 1px gray;
 }
 
-.Checkout_Button:hover{
+.Checkout_Button:hover {
     background-color: rgb(39, 216, 77);
     color: white;
 }
 
-.NoMargin{
+.NoMargin {
     margin-left:0px !important;
 }
 
@@ -130,7 +130,7 @@ input[type=email]:focus {
     border: 1px solid rgba(81, 203, 238, 1);
 }
 
-.toasty{
+.toasty {
       font-weight: bold;
       font-size: 150% !important;
       button{
@@ -138,51 +138,51 @@ input[type=email]:focus {
       }
 }
 
-.displayCart{
+.displayCart {
     display: inline-block !important;
     font-size: 25px;
     width:45%;
     left:50%;
 
-    h1{
+    h1 {
         font-weight: bold;
         text-align: center;
         margin-bottom: 20px;
     }
-    h2{
+    h2 {
         text-align: center;
     }
-    h4{
+    h4 {
         text-align: center;
         font-weight: bold;
     }
-    img{
+    img {
         display: inline-block;
         width: 171px;
         height: 128px;
         margin-left: auto;
         margin-right: auto;
     }
-    .CartItems{
+    .CartItems {
         display: inline !important;
-        .itemNameQuant{
+        .itemNameQuant {
             width: 50%;
             margin-left: 25%;
             display: inline-block !important;
         }
-        .bi-trash:hover{
+        .bi-trash:hover {
             cursor: pointer;
             color: red;
         }
     }
-    .cartCarousel{
+    .cartCarousel {
         z-index: 0 !important;
     }
 
-    .slider-single-content{
+    .slider-single-content {
         box-shadow: none !important;
     }
-    .slider-right, .slider-left{
+    .slider-right, .slider-left {
         display:none !important;
     }
     .cartCarousel {      
@@ -191,23 +191,19 @@ input[type=email]:focus {
         margin-left: 20%;
     }
     
-    .carousel-control-next{
+    .carousel-control-next {
         height: 100%;
         margin-top: 0px !important;
         filter: invert(100%);
     }
     
-    .carousel-control-prev{
+    .carousel-control-prev {
         height: 100%;
         margin-top: 0px !important;
         filter: invert(100%);
     }
 
-    .carousel-indicators .active{
-        background-color: rgb(24, 65, 202);
-    }
-
-    .carousel-control-next-icon:after{
+    .carousel-control-next-icon:after {
         font-size: 55px;
         color: black;
     }
@@ -217,7 +213,7 @@ input[type=email]:focus {
         color: black;
     }
 
-    .removeItem{
+    .removeItem {
         float: right !important;
         margin-right: 10% !important;
         width: 0px;
