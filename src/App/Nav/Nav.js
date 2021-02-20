@@ -44,6 +44,7 @@ class Nav extends React.Component {
   onChangeSelector(selected) {
     this.setState({ selector: selected });
     sessionStorage.setItem('select', selected); //Saves selection when user reloads tab
+    this.closeMenu();
   }
 
   /* Function handling/setting scroll state*/
@@ -78,12 +79,12 @@ class Nav extends React.Component {
 
   /* Closes window when Link is clicked */
   closeMenu () {
-    this.setState({menuOpen: false})
+    this.setState({menuOpen: false});
   }
 
   /* Handles change whenever it is open or closed */
   handleStateChange (state) {
-    this.setState({menuOpen: state.isOpen})  
+    this.setState({menuOpen: state.isOpen});  
   }
 
   /**Returns total number of products in cart */
@@ -120,9 +121,9 @@ class Nav extends React.Component {
             </div>
             <div className="Right_Buttons_mobile notMobile" activeclassname="checkout_render">
               <Menu right isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)}>
-                <Link id="home" className="menu-item" to="/" onClick={this.closeMenu}><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
+                <Link id="home" className="menu-item" to="/"><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
                 <button onClick={()=>this.signIn()}><h2 id="user_mobile">Users</h2></button>
-                <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout" onClick={this.closeMenu}>
+                <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout" onClick={()=>this.closeMenu}>
                 <button className="btn btn-info btn-lg" id="cart-overlay">
                   <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart {this.state.total}</span></h2>
                 </button>
@@ -131,27 +132,24 @@ class Nav extends React.Component {
             </div>
           </nav>
           <Switch>
-            <Route exact path='/'><div><Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} /></div><Footer/></Route>
+            <Route exact path='/'><div><Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} /></div></Route>
             <Route path='/Checkout'>
                 <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
                   <Elements>
                     <CheckoutForm rerenderParentCallback={this.rerenderParentCallback}/>
                   </Elements>
                 </StripeProvider>
-                <Footer/>
             </Route>
             <Route path='/Contact'>
               <Form/>
-              <Footer/>
             </Route>
             <Route path='/Privacy Policy'>
               <Policy/>
-              <Footer/>
             </Route>
             <Route path='/Terms Conditions'>
-              <Footer/>
             </Route>
           </Switch>
+          <Footer/>
         </Router>
       </div>
     );

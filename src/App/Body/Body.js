@@ -20,20 +20,20 @@ class Body extends React.Component {
     }
 
     /** Onload Products from Backend , Write code that protects when FAIL */
-    componentDidMount() {
-        //Retrieve Product API
-        fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/products')
-        .then(response => response.json())
-        .then(data => {
-            this.setState({ data: Array.from(data.data) });
-        }).catch(err => console.log(err));
-
+    async componentDidMount() {
         //Initialize Props
         this.setState({ selector: this.props.Selector });
 
         //Reloads session selection preventing default HomeScreen on reload
         if(sessionStorage.getItem('select'))
             this.setState({selector: sessionStorage.getItem('select')});
+
+        //Retrieve Product API
+        await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/products')
+        .then(response => response.json())
+        .then(data => {
+            this.setState({ data: Array.from(data.data) });
+        }).catch(err => console.log(err));
     }
 
     /**Update will check if props had updated to prevent NESTED STATE issues */
