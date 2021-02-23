@@ -192,10 +192,8 @@ class MasterPage extends React.Component {
     render() {
         return(
         <div>
-            {
-                this.sendBack(),
-                this.display()
-            }
+            { this.sendBack() }
+            { this.display() }
             <ToastContainer limit="1" />
         </div>    
         );
