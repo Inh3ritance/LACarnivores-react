@@ -49,7 +49,7 @@ class MasterPage extends React.Component {
     }
 
     sendBack = () => {
-        if(this.state.permission == false)
+        if(this.state.permission === false)
             return(<Redirect to='/'/>);
         else if(this.state.permission == null)
             return(<div><h1 className="verify">Verifying Identity</h1></div>);
@@ -84,11 +84,11 @@ class MasterPage extends React.Component {
                     e.currentTarget[5].value,
                 ],
                 description: e.currentTarget[6].value,
-                active: e.currentTarget[7].value == 'true' ? true : false,
+                active: e.currentTarget[7].value === 'true' ? true : false,
                 type: e.currentTarget[8].value,
             }),
         }).then((res) => {
-            window.location.href = window.location.href;
+            window.location.reload();
             console.log(res);
         }).catch(err => {
             toast("Error", { type: 'error' });
@@ -107,7 +107,7 @@ class MasterPage extends React.Component {
                 id: id,
             }),
         }).then((res) => {
-            window.location.href = window.location.href;
+            window.location.reload();
             console.log(res);
         }).catch(err => {
             toast("Error", { type: 'error' });
@@ -132,11 +132,11 @@ class MasterPage extends React.Component {
                     e.currentTarget[4].value,
                 ],
                 description: e.currentTarget[5].value,
-                active: e.currentTarget[6].value == 'true' ? true : false,
+                active: e.currentTarget[6].value === 'true' ? true : false,
                 type: e.currentTarget[7].value,
             }),
         }).then((res) => {
-            window.location.href = window.location.href;
+            window.location.reload();
             console.log(res);
         }).catch(err => {
             toast("Error", { type: 'error' });
