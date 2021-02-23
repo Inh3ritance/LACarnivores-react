@@ -3,6 +3,7 @@ import Body from '../Body/Body.js';
 import Footer from '../Footer/Footer.js';
 import CheckoutForm from '../Body/Checkout/CheckoutForm.js';
 import Form from '../Forms/Form.jsx';
+import MasterPage from '../MasterPage/MasterPage.jsx';
 import Policy from '../Privacy Policy/PrivacyPolicy.js';
 import ToggleSwitch from '../Body/ToggleSwitch/ToggleSwitch.js';
 import { loadReCaptcha } from 'react-recaptcha-google';
@@ -147,6 +148,9 @@ class Nav extends React.Component {
               <Policy/>
             </Route>
             <Route path='/Terms Conditions'>
+            </Route>
+            <Route path='/MasterPage'>
+              <MasterPage/>
             </Route>
           </Switch>
           <Footer/>
