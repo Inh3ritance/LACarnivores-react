@@ -29,7 +29,7 @@ class Body extends React.Component {
             this.setState({selector: sessionStorage.getItem('select')});
 
         //Retrieve Product API
-        await fetch('http://localhost:9000/products')
+        await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/products')
         .then(response => response.json())
         .then(data => {
             this.setState({ data: Array.from(data.data) });
