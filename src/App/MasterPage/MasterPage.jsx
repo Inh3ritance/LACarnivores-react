@@ -16,37 +16,41 @@ class MasterPage extends React.Component {
     }
 
     componentDidMount() {
-        const token = this.getUserToken();
-        console.log(token);
-        fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/getMaster', {
-            method: "GET",
-            headers: { Authorization: `Bearer ${token}` },
-        }).then(response => {
-            console.log(response);
-            if(response.Accepted){
-                this.setState({ permission: true });
-                this.loadProducts();
-            } else {
+        this.generateHeaders().then((headers) => {
+            fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/getMaster', {
+                method: "POST",
+                headers,
+            }).then(response => {
+                console.log(response);
+                if(response.Accepted){
+                    this.setState({ permission: true });
+                    this.loadProducts();
+                } else {
+                    this.setState({ permission: false });
+                } 
+            }).catch(err => {
                 this.setState({ permission: false });
-            } 
+                console.log(err);
+            });
         }).catch(err => {
-
-            this.setState({ permission: true });
-            this.loadProducts();
-
             console.log(err);
         });
     }
 
-    async getUserToken(){
-        const currentUser = netlifyIdentity.currentUser();
-        if (!currentUser) {
-            return;
-        } else {
-          await currentUser.jwt();
-          return currentUser.token.access_token;
+    generateHeaders = () => {
+        const headers = { "Content-Type": "application/json" };
+        if (netlifyIdentity.currentUser()) {
+          return netlifyIdentity.currentUser().jwt().then((token) => {
+            return { 
+                ...headers, 
+                Authorization: `Bearer ${token}`,
+            };
+          }).catch(err => {
+            console.log(err)
+          })
         }
-    }
+        return Promise.resolve(headers);
+      }
 
     sendBack = () => {
         if(this.state.permission === false)

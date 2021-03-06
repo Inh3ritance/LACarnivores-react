@@ -28,7 +28,7 @@ class Form extends React.Component {
             }) 
         }).then(response => {
             if(response) {
-                toast("Purchase Succesfull!", { type: 'success' });
+                toast("Email Sent!", { type: 'success' });
                 this.setState({ email: '', subject: '', text: '', });
             } else {
                 toast('Error submitting email', { type: 'error' });

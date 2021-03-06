@@ -18,6 +18,7 @@ class CheckoutForm extends Component {
         this.onLoadRecaptcha = this.onLoadRecaptcha.bind(this);
         this.verifyCallback = this.verifyCallback.bind(this);
         this.charge = this.charge.bind(this);
+        this.extendvl = this.extendvl.bind(this);
     }
 
     /**Initialize Reaptcha check */
@@ -44,7 +45,7 @@ class CheckoutForm extends Component {
         let count = this.getNumberOfItemsinCart();
         if (count === 0) this.setState({ disable: true });
         if (this.state.total !== count) this.setState({ total: count });
-        if(this.captcharef) {
+        if(this.captcharef && this.state.disable === false) {
             this.captcharef.reset();
             this.captcharef.execute();
         }
@@ -202,21 +203,42 @@ class CheckoutForm extends Component {
         return cartQuantity;
     }
 
+    extendvl() {
+        var vl = document.getElementById('vl');
+        if(!this.state.check) {
+            vl.style.height = '400px';
+        } else {
+            vl.style.height = '550px';
+        }
+    }
+
     render() {
         return (
             <div>
                 <div className="TopForm"><DisplayCart rerenderCheckout={this.rerenderCheckout} /></div>
                 <form id="form1" method="post" onSubmit={(ev: React.ChangeEvent<HTMLFormElement>) => this.submit(ev)}>
                     <fieldset disabled={this.state.disable}>
-                        <legend><b>Shipping & Billing</b></legend>
+                        <legend><b>Payment Form</b></legend>
                         <div className="inner">
-                            <label id="chlbl">Shipping & Billing The Same? </label><input id="chlbl" type="checkbox" defaultChecked="true" onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ check: !this.state.check })} />
+                            <label id="chlbl">Shipping & Billing The Same? </label><input id="chlbl" type="checkbox" defaultChecked="true" onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ check: !this.state.check })} onClick={this.extendvl} />
                             <hr />
                             <h1><b>Billing</b></h1>
+                            <div className='sidebyside'>
                             <label htmlFor="name">Full Name</label><input className="glow" required placeholder="John Smith" autoComplete="name" name="name" type="text" value={this.state.fullName}
                                 onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ fullName: ev.target.value })} />
+                            </div>
+                            <div className='sidebyside'>
                             <label htmlFor="email">Email</label><input required className = "glow" placeholder="email@example.com" autoComplete="email" name="email" type="email" value={this.state.Email}
                                 onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Email: ev.target.value })} />
+                            </div>
+                            <div className='sidebyside'>
+                            <label htmlFor="city">City </label><input required className = "glow" placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.Billing_City}
+                                onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Billing_City: ev.target.value })} />
+                            </div>
+                            <div className='sidebyside'>
+                            <label htmlFor="street-address">Address </label><input className = "glow" required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Billing_Address}
+                                onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Billing_Address: ev.target.value })} />
+                            </div>
                             <label>State</label>
                             <select required="required" value={this.state.Billing_State} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Billing_State: ev.target.value })}>
                                 <option value="AL">Alabama</option>
@@ -271,15 +293,17 @@ class CheckoutForm extends Component {
                                 <option value="WI">Wisconsin</option>
                                 <option value="WY">Wyoming</option>
                             </select>
-                            <label htmlFor="city">City </label><input required placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.Billing_City}
-                                onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Billing_City: ev.target.value })} />
-                            <label htmlFor="street-address">Address </label><input required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Billing_Address}
-                                onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Billing_Address: ev.target.value })} />
                             <hr />
                             {
                                 !this.state.check &&
                                 <div>
                                     <h1><b>Shipping</b></h1>
+                                    <div className='sidebyside'>
+                                    <label htmlFor="city">City</label><input required className = "glow" placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.Shipping_City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_City: ev.target.value })} />
+                                    </div>
+                                    <div className='sidebyside'>
+                                    <label htmlFor="street-address">Address</label><input required className = "glow" placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Shipping_Address} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_Address: ev.target.value })} />
+                                    </div>
                                     <label>State</label>
                                     <select required="required" value={this.state.Shipping_State} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_State: ev.target.value })}>
                                         <option value="AL">Alabama</option>
@@ -334,8 +358,6 @@ class CheckoutForm extends Component {
                                         <option value="WI">Wisconsin</option>
                                         <option value="WY">Wyoming</option>
                                     </select>
-                                    <label htmlFor="city">City</label><input required placeholder="New Pork City" autoComplete="on" name="city" type="text" value={this.state.Shipping_City} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_City: ev.target.value })} />
-                                    <label htmlFor="street-address">Address</label><input required placeholder="123 StreetName Ave." autoComplete="on" name="street-address" type="text" value={this.state.Shipping_Address} onChange={(ev: React.ChangeEvent<HTMLInputElement>) => this.setState({ Shipping_Address: ev.target.value })} />
                                     <hr />
                                 </div>
                             }
@@ -344,6 +366,7 @@ class CheckoutForm extends Component {
                             <button className="Checkout_Button"><b>Submit Payment</b></button>
                             <ToastContainer className="toasty" limit="1" />
                         </div>
+                        <div id="vl"/>
                         <div className="RightForm">
                             <DisplayCart rerenderCheckout={this.rerenderCheckout} />
                         </div>
