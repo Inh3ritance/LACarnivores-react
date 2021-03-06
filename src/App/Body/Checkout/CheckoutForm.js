@@ -23,7 +23,7 @@ class CheckoutForm extends Component {
 
     /**Initialize Reaptcha check */
     onLoadRecaptcha() {
-        if (this.captcharef) {
+        if (this.captcharef && this.state.disable === false) {
             this.captcharef.reset();
             this.captcharef.execute();
         }
