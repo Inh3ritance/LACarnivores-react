@@ -26,7 +26,8 @@ class Form extends React.Component {
                 email: this.state.email,
                 text: this.state.text,
             }) 
-        }).then(response => {
+        }).then(response => response.json()).then(response => {
+            console.log(response);
             if(response) {
                 toast("Email Sent!", { type: 'success' });
                 this.setState({ email: '', subject: '', text: '', });

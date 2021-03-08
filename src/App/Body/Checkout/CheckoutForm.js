@@ -64,7 +64,7 @@ class CheckoutForm extends Component {
     /*Initialize State First Frame */
     initialState() {
         return {
-            disable: false,
+            disable: true,
             complete: false,
             check: true,
             verifyreCaptcha: null,
