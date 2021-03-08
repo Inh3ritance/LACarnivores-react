@@ -44,6 +44,7 @@ class CheckoutForm extends Component {
     componentDidMount() {
         let count = this.getNumberOfItemsinCart();
         if (count === 0) this.setState({ disable: true });
+        else this.setState({ disable: false });
         if (this.state.total !== count) this.setState({ total: count });
         if(this.captcharef && this.state.disable === false) {
             this.captcharef.reset();
