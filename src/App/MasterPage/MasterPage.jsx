@@ -20,7 +20,7 @@ class MasterPage extends React.Component {
             fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/getMaster', {
                 method: "POST",
                 headers,
-            }).then(response => {
+            }).then(res => res.json()).then(response => {
                 console.log(response);
                 if(response.Accepted){
                     this.setState({ permission: true });
