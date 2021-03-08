@@ -21,8 +21,7 @@ class MasterPage extends React.Component {
                 method: "POST",
                 headers,
             }).then(res => res.json()).then(response => {
-                console.log(response);
-                if(response.Accepted){
+                if(response.Approved){
                     this.setState({ permission: true });
                     this.loadProducts();
                 } else {
