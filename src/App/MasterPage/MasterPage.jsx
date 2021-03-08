@@ -32,6 +32,7 @@ class MasterPage extends React.Component {
                 console.log(err);
             });
         }).catch(err => {
+            this.setState({ permission: false });
             console.log(err);
         });
     }
@@ -156,15 +157,16 @@ class MasterPage extends React.Component {
                         return(
                         <div key = {p.id} {...p}>
                             <form onSubmit={(e)=>this.updateProduct(e)}>
-                                <input value={p.id} disabled={true} readOnly={true}/>
-                                <input type='text' defaultValue={p.name}  placeholder={'name'}/>
-                                <input type='text' defaultValue={p.images[0]} placeholder={'Image url 0'}/>
-                                <input type='text' defaultValue={p.images[1]} placeholder={'Image url 1'}/>
-                                <input type='text' defaultValue={p.images[2]} placeholder={'Image url 2'}/>
-                                <input type='text' defaultValue={p.images[3]} placeholder={'Image url 3'}/>
-                                <input type='text' defaultValue={p.description} placeholder={'description'}/>
-                                <input type='text' defaultValue={p.active} placeholder={'active:true?false'}/>
-                                <input type='text' defaultValue={p.metadata.type} placeholder={'metadata type'}/>
+                                <h1>Update existing Products</h1>
+                                <div className='cont'><label className='sidebysideF'>Product ID</label><input className='sidebysideF' value={p.id} disabled={true} readOnly={true}/></div>
+                                <div className='cont'><label className='sidebysideF'>Name</label><input  className='sidebysideF'type='text' defaultValue={p.name}  placeholder={'name'}/></div>
+                                <div className='cont'><label className='sidebysideF'>Image[0]</label><input className='sidebysideF' type='text' defaultValue={p.images[0]} placeholder={'Image url 0'}/></div>
+                                <div className='cont'><label className='sidebysideF'>Image[1]</label><input className='sidebysideF' type='text' defaultValue={p.images[1]} placeholder={'Image url 1'}/></div>
+                                <div className='cont'><label className='sidebysideF'>Image[2]</label><input className='sidebysideF' type='text' defaultValue={p.images[2]} placeholder={'Image url 2'}/></div>
+                                <div className='cont'><label className='sidebysideF'>Image[3]</label><input className='sidebysideF' type='text' defaultValue={p.images[3]} placeholder={'Image url 3'}/></div>
+                                <div className='cont'><label className='sidebysideF'>description</label><input className='sidebysideF' type='text' defaultValue={p.description} placeholder={'description'}/></div>
+                                <div className='cont'><label className='sidebysideF'>active</label><input className='sidebysideF' type='text' defaultValue={p.active} placeholder={'active:true?false'}/></div>
+                                <div className='cont'><label className='sidebysideF'>type</label><input className='sidebysideF' type='text' defaultValue={p.metadata.type} placeholder={'metadata type'}/></div>
                                 <button type='submit'className='MasterPageButton'>update</button>
                             </form>
                             <form onSubmit={(e)=>this.deleteProduct(e, p.id)}>
@@ -176,14 +178,15 @@ class MasterPage extends React.Component {
                     })
                 }
                     <form onSubmit={(e)=>this.createProduct(e)}>
-                        <input type='text' placeholder={'name'}/>
-                        <input type='text' placeholder={'Image url 0'}/>
-                        <input type='text' placeholder={'Image url 1'}/>
-                        <input type='text' placeholder={'Image url 2'}/>
-                        <input type='text' placeholder={'Image url 3'}/>
-                        <input type='text' placeholder={'description'}/>
-                        <input type='text' placeholder={'active:true?false'}/>
-                        <input type='text' placeholder={'metadata type'}/>
+                        <h1>Create a Product</h1>
+                        <div className='cont'><label className='sidebysideF'>Name</label><input className='sidebysideF' type='text' placeholder={'name'}/></div>
+                        <div className='cont'><label className='sidebysideF'>Image[0]</label><input className='sidebysideF' type='text' placeholder={'Image url 0'}/></div>
+                        <div className='cont'><label className='sidebysideF'>Image[1]</label><input className='sidebysideF' type='text' placeholder={'Image url 1'}/></div>
+                        <div className='cont'><label className='sidebysideF'>Image[2]</label><input className='sidebysideF' type='text' placeholder={'Image url 2'}/></div>
+                        <div className='cont'><label className='sidebysideF'>Image[3]</label><input className='sidebysideF' type='text' placeholder={'Image url 3'}/></div>
+                        <div className='cont'><label className='sidebysideF'>description</label><input className='sidebysideF' type='text' placeholder={'description'}/></div>
+                        <div className='cont'><label className='sidebysideF'>active</label><input className='sidebysideF' type='text' placeholder={'active:true?false'}/></div>
+                        <div className='cont'><label className='sidebysideF'>type</label><input className='sidebysideF' type='text' placeholder={'metadata type'}/></div>
                         <button type='submit' className='MasterPageButton'>create</button>
                     </form>
                 </div>
