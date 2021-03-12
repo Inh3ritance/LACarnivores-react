@@ -3,7 +3,6 @@
 	width:100%;
 	overflow: auto; 
 	margin-left:5%;
-	z-index:2;
 	position:fixed;
 	height:600px;
 	background-color: #fefefe;
@@ -32,9 +31,7 @@
 }
 
 .Carousel-Container {
-	z-index:-1;
     height: 600px;
-
     h1 {
 		margin-left:0px;
         margin-top: 0% !important;
@@ -70,12 +67,10 @@
 }
 
 .Content {
-    max-height: 800px;
     text-align: center;
     vertical-align: top;
     display: inline-block;
     width: 79%;
-    overflow-y:scroll;
     h1{
         font-size: 400% !important;
     }
@@ -94,10 +89,12 @@
 #bottom-space{
 	margin-top:2%;
 }
-
 @media screen and (max-width: 600px) {
+    .overlay-model{
+        z-index: 1 !important;
+    }
     .Content{
-        max-height: 800px;
+        min-height: 800px;
         text-align: center;
         vertical-align: top;
         display: inline-block;

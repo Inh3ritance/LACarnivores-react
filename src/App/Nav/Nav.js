@@ -26,9 +26,10 @@ class Nav extends React.Component {
   /**Constructor */
   constructor(props) {
     super(props);
-    this.state = { menuOpen: false, selector:'Default', user: null, scroll: null };
+    this.state = { menuOpen: false, selector:'Default', user: null, scroll: null, update: null };
     this.handleScroll = this.handleScroll.bind(this);
     this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
   }
 
   /**Force update when Body incriments products count from ProductCard */
@@ -46,6 +47,7 @@ class Nav extends React.Component {
     this.setState({ selector: selected });
     sessionStorage.setItem('select', selected); //Saves selection when user reloads tab
     this.closeMenu();
+    this.setState({ update: true });
   }
 
   /* Function handling/setting scroll state*/
@@ -76,6 +78,8 @@ class Nav extends React.Component {
 
       if(this.state.total !== this.getNumberOfItemsinCart())
         this.setState({ total: this.getNumberOfItemsinCart()});
+      if(this.state.update) 
+        this.setState({ update: false });
   }
 
   /* Closes window when Link is clicked */
@@ -109,7 +113,7 @@ class Nav extends React.Component {
     return (
       <div>
         <Router>
-          <nav className={this.state.scroll > this.state.top ? "fixed-nav" : ""}>
+          <nav className="fixed-nav">
             <Link to='/'><img id= "logo" src={Logo} alt="Logo"/></Link>
             <Link to='/'><h1 id="Company_Name">LA Carnivores</h1></Link>
             <div className="Right_Buttons mobile">
@@ -125,7 +129,7 @@ class Nav extends React.Component {
                 <Link id="home" className="menu-item" to="/"><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
                 <button onClick={()=>this.signIn()}><h2 id="user_mobile">Users</h2></button>
                 <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout">
-                <button className="btn btn-info btn-lg" id="cart-overlay">
+                <button className="btn btn-info btn-lg" id="cart-overlay" onClick={this.closeMenu}>
                   <h2 id="cart"><span className="glyphicon glyphicon-shopping-cart"> Cart {this.state.total}</span></h2>
                 </button>
                 </NavLink>
@@ -133,7 +137,7 @@ class Nav extends React.Component {
             </div>
           </nav>
           <Switch>
-            <Route exact path='/'><div><Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} /></div></Route>
+            <Route exact path='/'><div><Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} Update={this.state.update}/></div></Route>
             <Route path='/Checkout'>
                 <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
                   <Elements>

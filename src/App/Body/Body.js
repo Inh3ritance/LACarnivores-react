@@ -17,9 +17,10 @@ class Body extends React.Component {
             expansion: [{}],
             selector: 'Default',
         };
+        this.closeView = this.closeView.bind(this);
     }
 
-    /** Onload Products from Backend , Write code that protects when FAIL */
+    /** Onload Products from Backend */
     async componentDidMount() {
         //Initialize Props
         this.setState({ selector: this.props.Selector });
@@ -33,19 +34,27 @@ class Body extends React.Component {
         .then(response => response.json())
         .then(data => {
             this.setState({ data: Array.from(data.data) });
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            console.log(err);
+            // if product does not load, force refresh the page
+            window.location.reload();
+        });
     }
 
     /**Update will check if props had updated to prevent NESTED STATE issues */
     componentDidUpdate(oldProps) {
         const newProps = this.props
-        if (oldProps.Selector !== newProps.Selector)
-            this.setState({ selector: newProps.Selector });
+        if (oldProps.Update !== newProps.Update) {
+            if(oldProps.Selector !== newProps.Selector) {
+                this.setState({ selector: newProps.Selector });
+            }
+            this.closeView();
+        }
     }
 
     /**Closes model*/
-    closeView(value) {
-        this.setState({ expansion: [{ view: value.view }] });
+    closeView() {
+        this.setState({ expansion: [{ view: false }] });
     }
 
     /**Passes infromartion from ProductCard->ProductCardExpansion*/
@@ -89,14 +98,15 @@ class Body extends React.Component {
     /**Changes type navigation tab */
     onChangeSelector(selected) {
         this.setState({ selector: selected });
-        sessionStorage.setItem('select', selected); //Saves selection when user reloads tab
+        sessionStorage.setItem('select', selected); // Saves selection when user reloads tab
+        this.closeView();
     }
 
     render() {
         return (
             <div className="Body">
                 <ToastContainer limit = "5" pauseOnHover={false}/>
-                <ProductExpansion view={this.state.expansion[0].view} meta={this.state.expansion[0].meta} closeView={this.closeView.bind(this)} />
+                <ProductExpansion view={this.state.expansion[0].view} meta={this.state.expansion[0].meta} closeView={this.closeView} />
                 <div className="Carousel-Container parrallax">
                     <h1>Preservation Through Cultivation</h1>
                 </div>

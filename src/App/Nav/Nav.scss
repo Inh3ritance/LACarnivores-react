@@ -1,7 +1,7 @@
 $primary-color: black;
 $secondary-color: white;
 nav {
-    z-index: 1;
+    z-index: 2;
     background-color: $primary-color;
     box-shadow: 0px 0px 3px 3px black;
     font-family: Arial, Helvetica, sans-serif;
@@ -59,7 +59,6 @@ nav {
         display: flex;
     }
     .Right_Buttons_mobile {
-
         /* Position and sizing of burger button */
         .bm-burger-button {
             position: fixed;
@@ -68,7 +67,7 @@ nav {
             right: 30px;
             top: 8px;
             margin-top:2%;
-            z-index:2 !important;
+            z-index: 2 !important;
         }
         /* Color/shape of burger icon bars */
         .bm-burger-bars {
@@ -87,11 +86,15 @@ nav {
         .bm-cross {
             display: none;
         }
+        .bm-overlay{
+            z-index: 2 !important;
+        }
         /*
   Sidebar wrapper styles
   Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
   */
         .bm-menu-wrap {
+            top: 8% !important;
             position: fixed;
             height: 100%;
         }
@@ -138,7 +141,6 @@ nav {
 }
 
 .fixed-nav {
-    z-index: 1;
     top: 0;
     position: fixed;
     width: 100%;

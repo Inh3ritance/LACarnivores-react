@@ -152,12 +152,12 @@ class MasterPage extends React.Component {
         if(this.state.permission)
             return(
                 <div className='container-products'>
+                <h1>Update existing Products</h1>
                 {
                     this.state.data.map(p => {
                         return(
                         <div key = {p.id} {...p}>
                             <form onSubmit={(e)=>this.updateProduct(e)}>
-                                <h1>Update existing Products</h1>
                                 <div className='cont'><label className='sidebysideF'>Product ID</label><input className='sidebysideF' value={p.id} disabled={true} readOnly={true}/></div>
                                 <div className='cont'><label className='sidebysideF'>Name</label><input  className='sidebysideF'type='text' defaultValue={p.name}  placeholder={'name'}/></div>
                                 <div className='cont'><label className='sidebysideF'>Image[0]</label><input className='sidebysideF' type='text' defaultValue={p.images[0]} placeholder={'Image url 0'}/></div>
