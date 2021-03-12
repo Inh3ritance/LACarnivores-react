@@ -113,7 +113,7 @@ class Nav extends React.Component {
     return (
       <div>
         <Router>
-          <nav className="fixed-nav">
+          <nav className={this.state.scroll > this.state.top ? "fixed-nav" : ""}>
             <Link to='/'><img id= "logo" src={Logo} alt="Logo"/></Link>
             <Link to='/'><h1 id="Company_Name">LA Carnivores</h1></Link>
             <div className="Right_Buttons mobile">
