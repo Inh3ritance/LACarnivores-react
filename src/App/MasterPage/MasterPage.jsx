@@ -90,25 +90,8 @@ class MasterPage extends React.Component {
                 description: e.currentTarget[6].value,
                 active: e.currentTarget[7].value === 'true' ? true : false,
                 type: e.currentTarget[8].value,
-            }),
-        }).then((res) => {
-            window.location.reload();
-            console.log(res);
-        }).catch(err => {
-            toast("Error", { type: 'error' });
-            console.log(err);
-        });
-    }
-
-    deleteProduct = async (e, id) => {
-        e.preventDefault();
-        await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/deleteProduct', {
-            method: "POST",
-            headers: { 
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                id: id,
+                quantity: e.currentTarget[9].value,
+                price: e.currentTarget[10].value,
             }),
         }).then((res) => {
             window.location.reload();
@@ -138,6 +121,8 @@ class MasterPage extends React.Component {
                 description: e.currentTarget[5].value,
                 active: e.currentTarget[6].value === 'true' ? true : false,
                 type: e.currentTarget[7].value,
+                quantity: e.currentTarget[8].value,
+                price: e.currentTarget[9].value,
             }),
         }).then((res) => {
             window.location.reload();
@@ -167,10 +152,9 @@ class MasterPage extends React.Component {
                                 <div className='cont'><label className='sidebysideF'>description</label><input className='sidebysideF' type='text' defaultValue={p.description} placeholder={'description'}/></div>
                                 <div className='cont'><label className='sidebysideF'>active</label><input className='sidebysideF' type='text' defaultValue={p.active} placeholder={'active:true?false'}/></div>
                                 <div className='cont'><label className='sidebysideF'>type</label><input className='sidebysideF' type='text' defaultValue={p.metadata.type} placeholder={'metadata type'}/></div>
+                                <div className='cont'><label className='sidebysideF'>quantity</label><input className='sidebysideF' type='text' defaultValue={p.metadata.quantity} placeholder={'metadata quantity'}/></div>
+                                <div className='cont'><label className='sidebysideF'>price</label><input className='sidebysideF' type='text' defaultValue={p.metadata.price} placeholder={'sku price'}/></div>
                                 <button type='submit'className='MasterPageButton'>update</button>
-                            </form>
-                            <form onSubmit={(e)=>this.deleteProduct(e, p.id)}>
-                                <button className='MasterPageButton' type='submit'>delete</button>
                             </form>
                             <hr/>
                         </div>
@@ -187,6 +171,8 @@ class MasterPage extends React.Component {
                         <div className='cont'><label className='sidebysideF'>description</label><input className='sidebysideF' type='text' placeholder={'description'}/></div>
                         <div className='cont'><label className='sidebysideF'>active</label><input className='sidebysideF' type='text' placeholder={'active:true?false'}/></div>
                         <div className='cont'><label className='sidebysideF'>type</label><input className='sidebysideF' type='text' placeholder={'metadata type'}/></div>
+                        <div className='cont'><label className='sidebysideF'>quantity</label><input className='sidebysideF' type='text' placeholder={'metadata quantity'}/></div>
+                        <div className='cont'><label className='sidebysideF'>price</label><input className='sidebysideF' type='text' placeholder={'sku price'}/></div>
                         <button type='submit' className='MasterPageButton'>create</button>
                     </form>
                 </div>
