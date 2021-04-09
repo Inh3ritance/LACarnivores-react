@@ -42,7 +42,6 @@ class CheckoutForm extends Component {
 
     /*Update state when localStorage changes*/
     componentDidMount() {
-        this.onLoadRecaptcha();
         let count = this.getNumberOfItemsinCart();
         if (count === 0) this.setState({ disable: true });
         else this.setState({ disable: false });
@@ -154,6 +153,10 @@ class CheckoutForm extends Component {
             email: data.email,
             response: this.state.verifyreCaptcha,
         };
+
+        if(this.state.verifyreCaptcha === null) {
+            this.verifyCallback(this.captcharef);
+        }
 
         console.log(this.state.verifyreCaptcha);
 
