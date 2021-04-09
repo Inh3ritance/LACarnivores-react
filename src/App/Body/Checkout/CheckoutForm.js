@@ -21,7 +21,7 @@ class CheckoutForm extends Component {
         this.extendvl = this.extendvl.bind(this);
     }
 
-    /**Initialize Reaptcha check */
+    /**Initialize Recaptcha check */
     onLoadRecaptcha() {
         if (this.captcharef && this.state.disable === false) {
             this.captcharef.reset();
@@ -42,6 +42,7 @@ class CheckoutForm extends Component {
 
     /*Update state when localStorage changes*/
     componentDidMount() {
+        this.onLoadRecaptcha();
         let count = this.getNumberOfItemsinCart();
         if (count === 0) this.setState({ disable: true });
         else this.setState({ disable: false });
@@ -171,7 +172,6 @@ class CheckoutForm extends Component {
                 toast('The site believes you are a bot, try again human', { type: 'error' });
                 this.setState({ disable: false });
             }
-            this.onLoadRecaptcha();
           }).catch(err => {
               console.log(err);
               throw(err);
@@ -184,9 +184,9 @@ class CheckoutForm extends Component {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
-        }).then(response => {
+        }).then(res => res).then(response => {
             console.log(response);
-            if(response.ok){
+            if(response.ok) {
                 this.reset(); //Clear Cart + Form
                 toast("Purchase Succesfull!", { type: 'success' });
             } else {
