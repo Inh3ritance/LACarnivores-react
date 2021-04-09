@@ -162,13 +162,14 @@ class CheckoutForm extends Component {
             },
             body: JSON.stringify(recaptcha_data)
           }).then(res => res.json()).then(json => {
-            this.onLoadRecaptcha();
+            console.log(json);
             if(json.success){
                 this.charge(data);
             } else {
                 toast('The site believes you are a bot, try again human', { type: 'error' });
-                this.setState({ disable:false });
+                this.setState({ disable: false });
             }
+            this.onLoadRecaptcha();
           }).catch(err => {
               console.log(err);
               throw(err);
