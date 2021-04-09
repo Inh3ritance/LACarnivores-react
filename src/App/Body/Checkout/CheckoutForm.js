@@ -97,7 +97,7 @@ class CheckoutForm extends Component {
     async submit(ev) {
         ev.preventDefault();
 
-        this.setState({disable:true});
+        this.setState({ disable: true });
         // Get Card Token
         /* Temporary solution */
         const card = document.getElementsByTagName(CardElement);
@@ -154,6 +154,8 @@ class CheckoutForm extends Component {
             response: this.state.verifyreCaptcha,
         };
 
+        console.log(this.state.verifyreCaptcha);
+
         // Verify this is not a bot
         await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/verify', {
             method: 'POST',
@@ -183,6 +185,7 @@ class CheckoutForm extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
         }).then(response => {
+            console.log(response);
             if(response.ok){
                 this.reset(); //Clear Cart + Form
                 toast("Purchase Succesfull!", { type: 'success' });
