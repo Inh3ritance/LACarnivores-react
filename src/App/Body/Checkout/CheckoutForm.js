@@ -46,11 +46,8 @@ class CheckoutForm extends Component {
         if (count === 0) this.setState({ disable: true });
         else this.setState({ disable: false });
         if (this.state.total !== count) this.setState({ total: count });
-        if(this.captcharef && this.state.disable === false) {
-            this.captcharef.reset();
-            this.captcharef.execute();
-        }
         this.setState({ data: list() });
+        this.onLoadRecaptcha();
     }
 
     /*Update State onClick when localStorage changes */
@@ -154,8 +151,8 @@ class CheckoutForm extends Component {
             response: this.state.verifyreCaptcha,
         };
 
-        if(this.state.verifyreCaptcha === null) {
-            this.verifyCallback(this.captcharef);
+        if(this.state.verifyreCaptcha === null){
+            console.log("Failed!!!: " + this.captcharef);
         }
 
         console.log(this.state.verifyreCaptcha);
