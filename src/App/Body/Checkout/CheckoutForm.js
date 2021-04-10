@@ -56,6 +56,9 @@ class CheckoutForm extends Component {
             this.setState({ data: list(), total: count });
             if (count === 0) this.setState({ disable: true });
         }
+        if(this.captcharef === null){
+            this.onLoadRecaptcha();
+        }
     }
 
     /*Initialize State First Frame */
@@ -92,10 +95,6 @@ class CheckoutForm extends Component {
     /*Submit Form details and proceed to Backend Code */
     async submit(ev) {
         ev.preventDefault();
-        if(this.captcharef === null){
-            this.onLoadRecaptcha();
-            this.verifyCallback(this.captcharef);
-        }
 
         this.setState({ disable: true });
         // Get Card Token
