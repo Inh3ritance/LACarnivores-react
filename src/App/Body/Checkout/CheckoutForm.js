@@ -47,6 +47,7 @@ class CheckoutForm extends Component {
         else this.setState({ disable: false });
         if (this.state.total !== count) this.setState({ total: count });
         this.setState({ data: list() });
+        this.onLoadRecaptcha();
     }
 
     /*Update State onClick when localStorage changes */
@@ -55,9 +56,6 @@ class CheckoutForm extends Component {
         if (this.state.total !== count) {
             this.setState({ data: list(), total: count });
             if (count === 0) this.setState({ disable: true });
-        }
-        if(this.captcharef === null){
-            this.onLoadRecaptcha();
         }
     }
 
