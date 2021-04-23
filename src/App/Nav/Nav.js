@@ -138,13 +138,13 @@ class Nav extends React.Component {
           </nav>
           <Switch>
             <Route exact path='/'><div><Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} Update={this.state.update}/></div></Route>
-            <Route exact path='/Checkout' render={()=>window.location.reload()}>
+            <Route exact path='/Checkout' component = { () =>
                 <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
                   <Elements>
                     <CheckoutForm rerenderParentCallback={this.rerenderParentCallback}/>
                   </Elements>
                 </StripeProvider>
-            </Route>
+            } />
             <Route exact path='/Contact'>
               <Form/>
             </Route>
