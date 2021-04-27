@@ -7,6 +7,12 @@ import { add, quantity, list, get, exists } from 'cart-localstorage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import Default from "./Images/Main/Default.jpg";
+import Hardy from "./Images/Main/Hardy.jpg";
+import Tropical from "./Images/Main/Tropical.jpg";
+import Byblis from "./Images/Main/Byblis.jpg";
+import Nepenthes from "./Images/Main/Nepenthes.jpg";
+
 class Body extends React.Component {
 
     /**Initialize State */
@@ -20,15 +26,23 @@ class Body extends React.Component {
         this.closeView = this.closeView.bind(this);
     }
 
+    windowSelection() {
+        var select = window.location.href;
+        select = select.replace('https://www.lacarnivores.com/','');
+        if(select.length === 0) select = 'Default';
+        if(this.state.selector !== select) {
+            this.props.rerenderParentCallback();
+            this.setState({selector: select});
+            this.forceUpdate();
+        } 
+        this.updateTitle(select); // optimize this
+    }
+
     /** Onload Products from Backend */
     async componentDidMount() {
         //Initialize Props
         this.setState({ selector: this.props.Selector });
-
-        //Reloads session selection preventing default HomeScreen on reload
-        if(sessionStorage.getItem('select'))
-            this.setState({selector: sessionStorage.getItem('select')});
-
+        this.windowSelection();
         //Retrieve Product API
         await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/products')
         .then(response => response.json())
@@ -43,11 +57,13 @@ class Body extends React.Component {
 
     /**Update will check if props had updated to prevent NESTED STATE issues */
     componentDidUpdate(oldProps) {
-        const newProps = this.props
+        const newProps = this.props;
+        this.windowSelection();
         if (oldProps.Update !== newProps.Update) {
             if(oldProps.Selector !== newProps.Selector) {
                 this.setState({ selector: newProps.Selector });
             }
+            this.updateTitle(newProps.Selector);
             this.closeView();
         }
     }
@@ -55,11 +71,13 @@ class Body extends React.Component {
     /**Closes model*/
     closeView() {
         this.setState({ expansion: [{ view: false }] });
+        document.getElementsByTagName('body')[0].classList.remove('freeze');
     }
 
     /**Passes infromartion from ProductCard->ProductCardExpansion*/
     passToExpansion(product) {
         this.setState({ expansion: [{ view: product.view, meta: product.meta }] });
+        document.getElementsByTagName('body')[0].classList.add('freeze'); 
     }
 
     /**Add product to local storage */
@@ -73,17 +91,15 @@ class Body extends React.Component {
         }
         const productDetails = (data);
         if(exists(product.id) ) {
-            if(get(product.id).quantity >= parseInt(productDetails.quantity)){
+            if(get(product.id).quantity >= parseInt(productDetails.quantity)) {
                 toast("No more in stock"); //dont add to cart
             } else {
                 add(productDetails, 1);
-                console.log("Cart: ", list());
                 toast(data.name + " Added to cart");
                 this.props.rerenderParentCallback();
             }
         } else {
             add(productDetails, 1);
-            console.log("Cart: ", list());
             toast(data.name + " Added to cart");
             this.props.rerenderParentCallback();
         }
@@ -98,28 +114,68 @@ class Body extends React.Component {
     /**Changes type navigation tab */
     onChangeSelector(selected) {
         this.setState({ selector: selected });
-        sessionStorage.setItem('select', selected); // Saves selection when user reloads tab
+        this.updateTitle(selected);
         this.closeView();
+    }
+
+    /**Modify carousel and text */
+    updateTitle(selected){
+        switch(selected) {
+            case 'Default':
+                document.getElementById("parrallax").style.backgroundImage = ("url('" + Default + "')");
+                document.getElementById("parrallax-title").innerHTML = "Preservation Through Cultivation";
+                document.getElementById("Welcome").innerHTML = "Welcome";
+                document.getElementById("title-text").innerHTML = "We are a new starting nursery with a wide variety of carnivorous plants and great service. Since we are new, our selections may have limited quanties,but as we grow together we will grow in product availabilty and hopefully soon a storefront. Here at LA Carnivores we raise and purchase carnivorous plants from quality vendors to make sure you get the most reliable plants in the country.";
+                break;
+            case 'Hardy':
+                document.getElementById("parrallax").style.backgroundImage = ("url('" + Hardy + "')");
+                document.getElementById("parrallax-title").innerHTML = "Cold & Hardy";
+                document.getElementById("Welcome").innerHTML = "";
+                document.getElementById("title-text").innerHTML = "somethingg something";
+                break;
+            case 'Tropical':
+                document.getElementById("parrallax").style.backgroundImage = ("url('" + Tropical + "')");
+                document.getElementById("parrallax-title").innerHTML = "Tropical";
+                document.getElementById("Welcome").innerHTML = "";
+                document.getElementById("title-text").innerHTML = "somethingg something";
+                break;
+            case 'Byblis':
+                document.getElementById("parrallax").style.backgroundImage = ("url('" + Byblis + "')");
+                document.getElementById("parrallax-title").innerHTML = "Byblis";
+                document.getElementById("Welcome").innerHTML = "";
+                document.getElementById("title-text").innerHTML = "somethingg something";
+                break;
+            case 'Nepenthes':
+                document.getElementById("parrallax").style.backgroundImage = ("url('" + Nepenthes + "')");
+                document.getElementById("parrallax-title").innerHTML = "Nepenthes";
+                document.getElementById("Welcome").innerHTML = "";
+                document.getElementById("title-text").innerHTML = "somethingg something";
+                break;
+            default:
+                document.getElementById("parrallax").style.backgroundImage = ("url('" + null + "')");
+                document.getElementById("parrallax-title").innerHTML = "Error";
+                document.getElementById("Welcome").innerHTML = "";
+                document.getElementById("title-text").innerHTML = "somethingg something";
+                break;
+        }  
     }
 
     render() {
         return (
             <div className="Body">
-                <ToastContainer limit = "5" pauseOnHover={false}/>
+                <ToastContainer limit = "5" pauseOnHover={false} />
                 <ProductExpansion view={this.state.expansion[0].view} meta={this.state.expansion[0].meta} closeView={this.closeView} />
-                <div className="Carousel-Container parrallax">
-                    <h1>Preservation Through Cultivation</h1>
+                <div className="Carousel-Container" id="parrallax">
+                    <h1 id="parrallax-title"/>
                 </div>
-                {this.renderContent}
+
                 <div className="Container">
                     <div className="Left-Nav mobile">
                         <ToggleSwitch Selector={this.onChangeSelector.bind(this)} />
                     </div>
                     <div className="Content">
-                        <h1>{this.state.selector === "Default" ? "Welcome" : ""}</h1>
-                        <p>{this.state.selector === "Default" ? "We are a new starting nursery with a wide variety of carnivorous plants and great service. Since we are new, our selections may have limited quanties,but as we grow together we will grow in product availabilty and hopefully soon a storefront. Here at LA Carnivores we raise and purchase carnivorous plants from quality vendors to make sure you get the most reliable plants in the country." : ""}</p>
-                        <h2>{this.state.selector === "Default" ? "" : this.state.selector}</h2>
-
+                        <h1 id="Welcome" />
+                        <p id="title-text" />
                         <div className="Product-Cards">
                             {
                                 this.state.data.map( p => 
@@ -133,7 +189,6 @@ class Body extends React.Component {
                                 )
                             }
                         </div>
-
                         <div id="bottom-space"></div>
                     </div>
                 </div>

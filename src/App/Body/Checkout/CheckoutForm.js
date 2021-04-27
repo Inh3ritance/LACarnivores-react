@@ -23,6 +23,7 @@ class CheckoutForm extends Component {
 
     /**Initialize Recaptcha check */
     onLoadRecaptcha() {
+        console.log(this.captcharef);
         if (this.captcharef && this.state.disable === false) {
             this.captcharef.reset();
             this.captcharef.execute();
@@ -99,6 +100,11 @@ class CheckoutForm extends Component {
         /* Temporary solution */
         const card = document.getElementsByTagName(CardElement);
         const result = await this.props.stripe.createToken(card);
+        if(result.error.message) {
+            toast(result.error.message, { type: 'error' });
+            this.setState({ disable: false });
+            return;
+        }
         // Personal Information
         let name = this.state.fullName;
         let email = this.state.Email;

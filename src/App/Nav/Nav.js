@@ -30,6 +30,7 @@ class Nav extends React.Component {
     this.handleScroll = this.handleScroll.bind(this);
     this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
+    this.returnHome = this.returnHome.bind(this);
   }
 
   /**Force update when Body incriments products count from ProductCard */
@@ -45,7 +46,6 @@ class Nav extends React.Component {
   /**Changes type navigation tab */
   onChangeSelector(selected) {
     this.setState({ selector: selected });
-    sessionStorage.setItem('select', selected); //Saves selection when user reloads tab
     this.closeMenu();
     this.setState({ update: true });
   }
@@ -55,8 +55,20 @@ class Nav extends React.Component {
     this.setState({ scroll: window.scrollY });
   }
 
+  windowSelection() {
+    var select = window.location.href;
+    select = select.replace('https://www.lacarnivores.com/','');
+    if(select.length === 0) select = 'Default';
+    if(this.state.selector !== select) {
+      this.setState({ selector: select });
+      this.setState({ update: true });
+      this.forceUpdate();
+    }
+}
+
   /* Immediatly set the state for scroll */
   componentDidMount() {
+    this.windowSelection();
     const move = document.querySelector('nav');
     this.setState({ top: move.offsetTop, height: move.offsetHeight});
     window.addEventListener('scroll', this.handleScroll);
@@ -72,6 +84,7 @@ class Nav extends React.Component {
 
   /* Update scroll position after mounting */
   componentDidUpdate() {
+    this.windowSelection();
     this.state.scroll > this.state.top ?
       document.body.style.paddingTop = `${this.state.height}px` :
       document.body.style.paddingTop = 0;
@@ -109,13 +122,19 @@ class Nav extends React.Component {
     this.setState({menuOpen: false});
   }
 
+  returnHome() {
+    this.setState({selector: 'Default'});
+    this.closeMenu();
+    this.setState({ update: true });
+  }
+
   render() {
     return (
       <div>
         <Router>
           <nav className={this.state.scroll > this.state.top ? "fixed-nav" : ""}>
-            <Link to='/'><img id= "logo" src={Logo} alt="Logo"/></Link>
-            <Link to='/'><h1 id="Company_Name">LA Carnivores</h1></Link>
+            <Link to='/' onClick={this.returnHome}><img id= "logo" src={Logo} alt="Logo"/></Link>
+            <Link to='/' onClick={this.returnHome}><h1 id="Company_Name">LA Carnivores</h1></Link>
             <div className="Right_Buttons mobile">
               <button id="user" onClick={()=>this.signIn()}><i className='fas fa-user'></i></button>
               <NavLink to='/Checkout' activeclassname="checkout_render">
@@ -137,7 +156,7 @@ class Nav extends React.Component {
             </div>
           </nav>
           <Switch>
-            <Route exact path='/'><div><Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} Update={this.state.update}/></div></Route>
+            <Route exact path={['/','/Hardy','/Tropical','/Byblis','/Nepenthes']}><Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} Update={this.state.update}/></Route>
             <Route exact path='/Checkout'>
                 <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
                   <Elements>
@@ -145,17 +164,10 @@ class Nav extends React.Component {
                   </Elements>
                 </StripeProvider>
             </Route>
-            <Route path='/Contact'>
-              <Form/>
-            </Route>
-            <Route path='/Privacy Policy'>
-              <Policy/>
-            </Route>
-            <Route path='/Terms Conditions'>
-            </Route>
-            <Route exact path='/MasterPage'>
-              <MasterPage/>
-            </Route>
+            <Route path='/Contact' component={Form} />
+            <Route path='/Privacy Policy' component={Policy} />
+            <Route path='/Terms Conditions' />
+            <Route exact path='/MasterPage' component={MasterPage} />
           </Switch>
           <Footer/>
         </Router>

@@ -5,23 +5,27 @@
 }
 
 .container-products {
-
     font-size: 15px;
-
     input {
         margin-top: 1%;
         margin-bottom: 1%;
     }
-
     form {
         padding-bottom: 1% !important;
-    }
-    .cont {
-        width:40%;
     }
     .sidebysideF {
         display: inline-block;
         width: 45%;
+    }
+    @media screen and (max-width: 600px) {
+        .cont {
+            width:75%;
+        }
+    }
+    @media screen and (min-width: 601px) {
+        .cont {
+            width:40%;
+        }
     }
 }
 

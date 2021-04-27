@@ -8,11 +8,12 @@
 	background-color: #fefefe;
 }
 
-.parrallax{
+#parrallax{
     background-attachment:fixed;
     background-position:center;
     background-repeat:no-repeat;
-    background-image:url("Images/Main/Test.jpg");
+    background-size: cover; // new covers title completely test to see if it works out well
+    background-image:url("Images/Main/Default.jpg");
 }
 
 @keyframes bottomFadeOut {
@@ -115,4 +116,9 @@
     .mobile{
         display:none;
     }
+}
+
+.freeze{
+    height: 100%;
+    overflow-y: hidden;
 }
