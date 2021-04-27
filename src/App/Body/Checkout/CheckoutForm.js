@@ -100,7 +100,7 @@ class CheckoutForm extends Component {
         /* Temporary solution */
         const card = document.getElementsByTagName(CardElement);
         const result = await this.props.stripe.createToken(card);
-        if(result.error !== null || result.error !== undefined) {
+        if(result.error) {
             toast(result.error.message, { type: 'error' });
             this.setState({ disable: false });
             return;
