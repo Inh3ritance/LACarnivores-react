@@ -166,7 +166,7 @@ class Body extends React.Component {
                 <ToastContainer limit = "5" pauseOnHover={false} />
                 <ProductExpansion view={this.state.expansion[0].view} meta={this.state.expansion[0].meta} closeView={this.closeView} />
                 <div className="Carousel-Container" id="parrallax">
-                    <h1 id="parrallax-title"/>
+                    <h1 id="parrallax-title"></h1>
                 </div>
 
                 <div className="Container">
@@ -174,8 +174,8 @@ class Body extends React.Component {
                         <ToggleSwitch Selector={this.onChangeSelector.bind(this)} />
                     </div>
                     <div className="Content">
-                        <h1 id="Welcome" />
-                        <p id="title-text" />
+                        <h1 id="Welcome"></h1>
+                        <p id="title-text"></p>
                         <div className="Product-Cards">
                             {
                                 this.state.data.map( p => 
