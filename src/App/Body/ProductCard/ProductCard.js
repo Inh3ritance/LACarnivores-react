@@ -41,7 +41,6 @@ const ProductCard = ({ id, name, addToCart, deleteFromCart, passToExpansion, sel
                 </button>
 
                 <div className="product-card-body">
-                    <p className="price">{"$" + (meta.metadata.price/100).toFixed(2)}</p>
                     <p className="product-body-content">{description}</p>
                 </div>
 

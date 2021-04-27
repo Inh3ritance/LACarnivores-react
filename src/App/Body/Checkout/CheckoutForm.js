@@ -23,10 +23,13 @@ class CheckoutForm extends Component {
 
     /**Initialize Recaptcha check */
     onLoadRecaptcha() {
-        console.log(this.captcharef);
-        if (this.captcharef && this.state.disable === false) {
-            this.captcharef.reset();
-            this.captcharef.execute();
+        if(this.captcharef) {
+            if(this.state.disable === false) {
+                this.captcharef.reset();
+                this.captcharef.execute();
+            }
+        } else {
+            window.location.reload();
         }
     }
 
@@ -46,9 +49,9 @@ class CheckoutForm extends Component {
         let count = this.getNumberOfItemsinCart();
         if (count === 0) this.setState({ disable: true });
         else this.setState({ disable: false });
+        this.onLoadRecaptcha();
         if (this.state.total !== count) this.setState({ total: count });
         this.setState({ data: list() });
-        this.onLoadRecaptcha();
     }
 
     /*Update State onClick when localStorage changes */
