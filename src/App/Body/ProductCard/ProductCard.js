@@ -37,10 +37,11 @@ const ProductCard = ({ id, name, addToCart, deleteFromCart, passToExpansion, sel
                     <div className="product-header sold" style={{ backgroundImage: 'url(' + images[0] + ')' }}>
                         <h4 className="product-name">{name}</h4>
                     </div>
-                    <h4 className="soldout"> <b>Sold Out </b></h4>
+                    
                 </button>
 
                 <div className="product-card-body">
+                    <p className="soldout"><b>Sold Out</b></p>
                     <p className="product-body-content">{description}</p>
                 </div>
 
