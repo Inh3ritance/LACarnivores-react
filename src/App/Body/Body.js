@@ -3,7 +3,7 @@ import './Body.scss';
 import ProductCard from './ProductCard/ProductCard.js';
 import ToggleSwitch from './ToggleSwitch/ToggleSwitch.js';
 import ProductExpansion from './ProductExpansion/ProductExpansion.js';
-import { add, quantity, list, get, exists } from 'cart-localstorage';
+import { add, quantity, get, exists } from 'cart-localstorage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
