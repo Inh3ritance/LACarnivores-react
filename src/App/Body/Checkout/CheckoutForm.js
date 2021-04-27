@@ -23,13 +23,13 @@ class CheckoutForm extends Component {
 
     /**Initialize Recaptcha check */
     onLoadRecaptcha() {
-        if(this.state.disable === false) {
-            if(this.captcharef) {
+        if(this.captcharef) {
+            if(this.state.disable === false) {
                 this.captcharef.reset();
                 this.captcharef.execute();
-            } else {
-                window.location.reload();
             }
+        } else {
+            window.location.reload();
         }
     }
 
