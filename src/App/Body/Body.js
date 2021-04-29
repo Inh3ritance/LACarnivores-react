@@ -171,7 +171,7 @@ class Body extends React.Component {
         if(this.state.query.length === 0) return null;
         const arr = this.state.data.filter((prod) => {
             const name = prod.name.toLowerCase();
-            return name.includes(this.state.query);
+            return name.includes(this.state.query.toLowerCase());
         });
         return (
             <div>
