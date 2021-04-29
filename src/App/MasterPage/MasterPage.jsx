@@ -92,6 +92,7 @@ class MasterPage extends React.Component {
                 type: e.currentTarget[8].value,
                 quantity: e.currentTarget[9].value,
                 price: e.currentTarget[10].value,
+                featured: e.currentTarget[11].value,
             }),
         }).then((res) => {
             window.location.reload();
@@ -123,6 +124,7 @@ class MasterPage extends React.Component {
                 type: e.currentTarget[7].value,
                 quantity: e.currentTarget[8].value,
                 price: e.currentTarget[9].value,
+                featured: e.currentTarget[10].value,
             }),
         }).then((res) => {
             window.location.reload();
@@ -154,6 +156,7 @@ class MasterPage extends React.Component {
                                 <div className='cont'><label className='sidebysideF'>type</label><input className='sidebysideF' type='text' defaultValue={p.metadata.type} placeholder={'metadata type'}/></div>
                                 <div className='cont'><label className='sidebysideF'>quantity</label><input className='sidebysideF' type='text' defaultValue={p.metadata.quantity} placeholder={'metadata quantity'}/></div>
                                 <div className='cont'><label className='sidebysideF'>price</label><input className='sidebysideF' type='text' defaultValue={p.metadata.price} placeholder={'sku price'}/></div>
+                                <div className='cont'><label className='sidebysideF'>featured</label><input className='sidebysideF' type='text' defaultValue={p.metadata.featured} placeholder={'y/n'}/></div>
                                 <button type='submit'className='MasterPageButton'>update</button>
                             </form>
                             <hr/>
@@ -173,6 +176,7 @@ class MasterPage extends React.Component {
                         <div className='cont'><label className='sidebysideF'>type</label><input className='sidebysideF' type='text' placeholder={'metadata type'}/></div>
                         <div className='cont'><label className='sidebysideF'>quantity</label><input className='sidebysideF' type='text' placeholder={'metadata quantity'}/></div>
                         <div className='cont'><label className='sidebysideF'>price</label><input className='sidebysideF' type='text' placeholder={'sku price'}/></div>
+                        <div className='cont'><label className='sidebysideF'>featured</label><input className='sidebysideF' type='text' placeholder={'y/n'}/></div>
                         <button type='submit' className='MasterPageButton'>create</button>
                     </form>
                 </div>

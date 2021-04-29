@@ -28,6 +28,7 @@ class Body extends React.Component {
         };
         this.closeView = this.closeView.bind(this);
         this.filterProducts = this.filterProducts.bind(this);
+        this.featuredProducts = this.featuredProducts.bind(this);
     }
 
     windowSelection() {
@@ -191,6 +192,29 @@ class Body extends React.Component {
         );
     }
 
+    featuredProducts() {
+        if(this.state.selector !== 'Default') return null;
+        const arr = this.state.data.filter((prod) => {
+            return prod.metadata.featured.includes('y'); 
+        });
+        if(arr.length === 0) return null;
+        return (
+            <div>
+                <h2>Featured Products:</h2>
+                {
+                    arr.map(p =>
+                        <SearchProductCard 
+                            key={p.id} {...p}  
+                            addToCart={this.addToCart.bind(this)} 
+                            deleteFromCart={this.deleteFromCart.bind(this)} 
+                            passToExpansion={this.passToExpansion.bind(this)} 
+                        /> 
+                    )
+                }
+            </div>
+        );
+    }
+
     render() {
         return (
             <div className="Body">
@@ -222,6 +246,7 @@ class Body extends React.Component {
                             <div>
                                 <h1 id="Welcome">Welcome</h1>
                                 <p id="title-text"/>
+                                <this.featuredProducts/>
                                 <div className="Product-Cards">
                                     {
                                         this.state.data.map( p => 
