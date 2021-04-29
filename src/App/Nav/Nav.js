@@ -58,6 +58,7 @@ class Nav extends React.Component {
   windowSelection() {
     var select = window.location.href;
     select = select.replace('https://www.lacarnivores.com/','');
+    select = select.replace('#','');
     if(select.length === 0) select = 'Default';
     if(this.state.selector !== select) {
       this.setState({ selector: select });
@@ -156,7 +157,12 @@ class Nav extends React.Component {
             </div>
           </nav>
           <Switch>
-            <Route exact path={['/','/Hardy','/Tropical','/Byblis','/Nepenthes']}><Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} Update={this.state.update}/></Route>
+            <Route exact path={['/','/Hardy','/Tropical','/Byblis','/Nepenthes']}>
+            <div id="shipping-title">
+              <p>Free Shipping on all orders!</p>
+            </div>
+              <Body Selector={this.state.selector} rerenderParentCallback={this.rerenderParentCallback} Update={this.state.update}/>
+            </Route>
             <Route exact path='/Checkout'>
                 <StripeProvider apiKey="pk_test_Mg00XTISPu5dW10aHJI9IfVq00pOUm5l4g">
                   <Elements>

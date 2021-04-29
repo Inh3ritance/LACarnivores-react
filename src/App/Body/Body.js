@@ -1,6 +1,8 @@
 import React from 'react';
 import './Body.scss';
+import './SearchBar/SearchBar.scss';
 import ProductCard from './ProductCard/ProductCard.js';
+import SearchProductCard from './ProductCard/SearchProductCard.js';
 import ToggleSwitch from './ToggleSwitch/ToggleSwitch.js';
 import ProductExpansion from './ProductExpansion/ProductExpansion.js';
 import { add, quantity, get, exists } from 'cart-localstorage';
@@ -22,13 +24,16 @@ class Body extends React.Component {
             data: [],
             expansion: [{}],
             selector: 'Default',
+            query: '',
         };
         this.closeView = this.closeView.bind(this);
+        this.filterProducts = this.filterProducts.bind(this);
     }
 
     windowSelection() {
         var select = window.location.href;
         select = select.replace('https://www.lacarnivores.com/','');
+        select = select.replace('#','');
         if(select.length === 0) select = 'Default';
         if(this.state.selector !== select) {
             this.props.rerenderParentCallback();
@@ -61,7 +66,7 @@ class Body extends React.Component {
         this.windowSelection();
         if (oldProps.Update !== newProps.Update) {
             if(oldProps.Selector !== newProps.Selector) {
-                this.setState({ selector: newProps.Selector });
+                this.setState({ selector: newProps.Selector, query: '' });
             }
             this.updateTitle(newProps.Selector);
             this.closeView();
@@ -113,13 +118,14 @@ class Body extends React.Component {
 
     /**Changes type navigation tab */
     onChangeSelector(selected) {
-        this.setState({ selector: selected });
+        this.setState({ selector: selected, query: '' });
         this.updateTitle(selected);
         this.closeView();
     }
 
     /**Modify carousel and text */
-    updateTitle(selected){
+    updateTitle(selected) {
+        if(this.state.query.length === 0)
         switch(selected) {
             case 'Default':
                 document.getElementById("parrallax").style.backgroundImage = ("url('" + Default + "')");
@@ -160,6 +166,31 @@ class Body extends React.Component {
         }  
     }
 
+    // Optimize this, shouldnt need 2 maps
+    filterProducts() {
+        if(this.state.query.length === 0) return null;
+        const arr = this.state.data.filter((prod) => {
+            const name = prod.name.toLowerCase();
+            return name.includes(this.state.query);
+        });
+        return (
+            <div>
+                <h2>Search Results:</h2>
+                {
+                    arr.length === 0 ? <h2>no results</h2> :
+                    arr.map(p =>
+                        <SearchProductCard 
+                            key={p.id} {...p}  
+                            addToCart={this.addToCart.bind(this)} 
+                            deleteFromCart={this.deleteFromCart.bind(this)} 
+                            passToExpansion={this.passToExpansion.bind(this)} 
+                        /> 
+                    )
+                }
+            </div>
+        );
+    }
+
     render() {
         return (
             <div className="Body">
@@ -167,28 +198,47 @@ class Body extends React.Component {
                 <ProductExpansion view={this.state.expansion[0].view} meta={this.state.expansion[0].meta} closeView={this.closeView} />
                 <div className="Carousel-Container" id="parrallax">
                     <h1 id="parrallax-title">Preservation Through Cultivation</h1>
+                    <div id="searchbar-container">
+                        <label htmlFor="header-search">
+                            <span className="visually-hidden">Search for plants</span>
+                        </label>
+                        <input
+                            value={this.state.query}
+                            onInput={e => this.setState({query: e.currentTarget.value})}
+                            id="search-input"
+                            type="text"
+                            id="header-search"
+                            placeholder="Search for plants"
+                            name="s"
+                        />
+                    </div>
                 </div>
-
                 <div className="Container">
                     <div className="Left-Nav mobile">
                         <ToggleSwitch Selector={this.onChangeSelector.bind(this)} />
                     </div>
                     <div className="Content">
-                        <h1 id="Welcome">Welcome</h1>
-                        <p id="title-text"/>
-                        <div className="Product-Cards">
-                            {
-                                this.state.data.map( p => 
-                                    <ProductCard 
-                                    key={p.id} {...p} 
-                                    selector={this.state.selector} 
-                                    addToCart={this.addToCart.bind(this)} 
-                                    deleteFromCart={this.deleteFromCart.bind(this)} 
-                                    passToExpansion={this.passToExpansion.bind(this)} 
-                                    /> 
-                                )
-                            }
-                        </div>
+                        {
+                        this.state.query.length === 0 ? (
+                            <div>
+                                <h1 id="Welcome">Welcome</h1>
+                                <p id="title-text"/>
+                                <div className="Product-Cards">
+                                    {
+                                        this.state.data.map( p => 
+                                            <ProductCard 
+                                            key={p.id} {...p} 
+                                            selector={this.state.selector} 
+                                            addToCart={this.addToCart.bind(this)} 
+                                            deleteFromCart={this.deleteFromCart.bind(this)} 
+                                            passToExpansion={this.passToExpansion.bind(this)} 
+                                            /> 
+                                        )
+                                    }
+                                </div>
+                            </div>
+                            ) : (<this.filterProducts/>)
+                        }
                         <div id="bottom-space"></div>
                     </div>
                 </div>
