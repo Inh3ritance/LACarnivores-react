@@ -204,7 +204,7 @@ class Body extends React.Component {
                         </label>
                         <input
                             value={this.state.query}
-                            onInput={e => this.setState({query: e.currentTarget.value})}
+                            onChange={e => this.setState({query: e.currentTarget.value})}
                             type="text"
                             id="header-search"
                             placeholder="Search for plants"
