@@ -200,6 +200,7 @@ class Body extends React.Component {
         if(arr.length === 0) return null;
         return (
             <div>
+                <hr id="feature-seperator"/>
                 <h2>Featured Products:</h2>
                 {
                     arr.map(p =>

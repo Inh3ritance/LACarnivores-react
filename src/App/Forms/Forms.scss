@@ -2,8 +2,10 @@
     form {
         margin-top:3%;
         margin-bottom:7%;
-        display:inline-block;
-        position: relative;
+        margin: 0 auto !important;
+        width:75%;
+        max-width: 500px;
+        min-width: 200px;
     }
     
     label {
@@ -21,19 +23,5 @@
 
     textarea{
         font-size: 20px;
-    }
-
-    @media screen and (max-width: 600px) {
-        form {
-            width: 50%;
-            left: 20%;
-        }
-    }
-    
-    @media screen and (min-width: 601px) {
-        form {
-            width: 30%;
-            left:30%;
-        }
     }
 }
