@@ -170,7 +170,7 @@ class MasterPage extends React.Component {
                         <div key = {p.id} {...p}>
                             <form onSubmit={(e)=>this.updateProduct(e)}>
                                 <div className='cont'><label className='sidebysideF'>Product ID</label><input className='sidebysideF' value={p.id} disabled={true} readOnly={true}/></div>
-                                <div className='cont'><label className='sidebysideF'>Review ID</label><input className='sidebysideF' value={p.review_id} disabled={true} readOnly={true}/></div>
+                                <div className='cont'><label className='sidebysideF'>Review ID</label><input className='sidebysideF' value={p.metadata.review_id} disabled={true} readOnly={true}/></div>
                                 <div className='cont'><label className='sidebysideF'>Name</label><input  className='sidebysideF'type='text' defaultValue={p.name}  placeholder={'name'}/></div>
                                 <div className='cont'><label className='sidebysideF'>Image[0]</label><input className='sidebysideF' type='text' defaultValue={p.images[0]} placeholder={'Image url 0'}/></div>
                                 <div className='cont'><label className='sidebysideF'>Image[1]</label><input className='sidebysideF' type='text' defaultValue={p.images[1]} placeholder={'Image url 1'}/></div>
