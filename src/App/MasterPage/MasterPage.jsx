@@ -73,7 +73,11 @@ class MasterPage extends React.Component {
 
     updateProduct = async(e) => {
         e.preventDefault();
+        console.log(e);
+        console.log(e.currentTarget[0].value);
         this.generateHeaders().then(async (headers) => {
+            console.log("inside");
+            console.log(e.currentTarget[0].value);
             await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/updateProduct', {
                 method: "POST",
                 headers,
