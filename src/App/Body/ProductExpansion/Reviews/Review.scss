@@ -1,0 +1,34 @@
+.review {
+    .dv-star-rating-star {
+        width:20%;
+    }
+    i {
+        font-size: xx-large;
+    }
+    .dv-star-rating{
+        width:100%;
+        text-align: center;
+    }
+}
+
+.user-stars{
+    margin-left:7%;
+    width:20% !important;
+    min-width:200px;
+}
+
+.submit-review {
+    width:20%;
+    min-width:100px;
+    margin-top:2% !important;
+    padding:1%;
+    margin-left: 10% !important;
+    border: 2px solid black;
+    text-align: center;
+}
+
+#review-seperator {
+    width: 90%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}

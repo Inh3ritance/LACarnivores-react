@@ -1,10 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ProductExpansion.scss';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Review from './Reviews/Reviews.js'
 
 /* Takes information from ProductCard To expand into an individual box model */
 const ProductExpansion = ({ view, closeView, meta }) => {
+
+    const [select, Selector] = useState("Default");
+
+    const details = (meta) => {
+        return(
+            <div>
+                <p><b>Description: </b></p>
+                <p className="pad">{meta.description}</p>
+                <p><b>What you will recieve: </b></p>
+                <p className="pad">{meta.metadata.receive}</p>
+                <p><b>Zones: </b></p>
+                <p className="pad">{meta.metadata.zones}</p>
+                <p><b>Water: </b></p>
+                <p className="pad">{meta.metadata.water}</p>
+                <p><b>Soil: </b></p>
+                <p className="pad">{meta.metadata.soil}</p>
+                <p><b>Lighting: </b></p>
+                <p className="pad end">{meta.metadata.light}</p>
+            </div>
+        );
+    }
+    
+    const display = (meta, select) => {
+        if(select === "Default"){
+            return details(meta);
+        } else {
+            return <Review Info = { meta }/>
+        }
+    }
+
     if (view) {
         return (
             <div className="model">
@@ -17,7 +48,7 @@ const ProductExpansion = ({ view, closeView, meta }) => {
                         <img
                             alt="IMG_01"
                             className="d-block w-100"
-                            src={meta.images[0]}//should be [1][2][3] 
+                            src={meta.images[0]}
                         />
                     </Carousel.Item>
                     <Carousel.Item>
@@ -43,20 +74,10 @@ const ProductExpansion = ({ view, closeView, meta }) => {
                         />
                     </Carousel.Item>
                 </Carousel>
-
-                <h1 className="product-name">{meta.name}</h1>
-                <p><b>Description: </b></p>
-                <p className="pad">{meta.description}</p>
-                <p><b>What you will recieve: </b></p>
-                <p className="pad">{meta.metadata.receive}</p>
-                <p><b>Zones: </b></p>
-                <p className="pad">{meta.metadata.zones}</p>
-                <p><b>Water: </b></p>
-                <p className="pad">{meta.metadata.water}</p>
-                <p><b>Soil: </b></p>
-                <p className="pad">{meta.metadata.soil}</p>
-                <p><b>Lighting: </b></p>
-                <p className="pad" id="end">{meta.metadata.light}</p>
+                <button className="switch"onClick={()=>Selector("Default")}><h3>details</h3></button>
+                <button className="switch" onClick={()=>Selector("Review")}><h3>reviews</h3></button>
+                <h2 className="product-name">{meta.name}</h2>
+                {display(meta, select)}
             </div>
         )
     } else {

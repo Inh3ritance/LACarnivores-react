@@ -157,7 +157,7 @@ class Nav extends React.Component {
             </div>
           </nav>
           <Switch>
-            <Route exact path={['/','/Hardy','/Tropical','/Byblis','/Nepenthes']}>
+            <Route exact path={['/','/Hardy','/Tropical','/Nepenthes', '/Starter','/Bogs']}>
             <div id="shipping-title">
               <p>Free Shipping on all orders!</p>
             </div>

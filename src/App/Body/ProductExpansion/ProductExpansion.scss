@@ -22,6 +22,21 @@
         text-align:center;
         font-size: 400% !important;
     }
+
+    textarea {
+        width:80%;
+        min-height: 150px;
+        max-height:200px;
+        font-size: x-large;
+    }
+
+    .switch {
+        width:50%;
+        text-align: center;
+        font-weight: bold;
+        padding: 1% !important;
+        border: 1px solid black;
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -88,8 +103,8 @@
     margin-left:10%;
 }
 
-#end{
-    padding-bottom:5%;
+.end{
+    padding-bottom:100px;
 }
 
 p{

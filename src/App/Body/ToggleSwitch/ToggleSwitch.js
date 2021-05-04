@@ -19,9 +19,10 @@ class ToggleSwitch extends React.Component {
       return (
         <div>
           <Link to='/'><button onClick={this.onSelector} value="Default"><h2 className = "s2">Home</h2></button></Link>
+          <Link to='/Starter'><button onClick={this.onSelector} value="Starter"><h2 className = "s2">Starter</h2></button></Link>
+          <Link to='/Bogs'><button onClick={this.onSelector} value="Bogs"><h2 className = "s2">Bogs</h2></button></Link>
           <Link to='/Hardy'><button onClick={this.onSelector} value="Hardy"><h2 className = "s2">Cold & Hardy</h2></button></Link>
           <Link to='/Tropical'><button onClick={this.onSelector} value="Tropical"><h2 className = "s2">Tropical</h2></button></Link>
-          <Link to='/Byblis'><button onClick={this.onSelector} value="Byblis"><h2 className = "s2">Byblis</h2></button></Link>
           <Link to='/Nepenthes'><button onClick={this.onSelector} value="Nepenthes"><h2 className = "s2">Nepenthes</h2></button></Link>
         </div>
       );

@@ -1,22 +1,32 @@
 import React from 'react';
 import './ProductCard.scss';
+import StarRatingComponent from 'react-star-rating-component';
 
-/* Takes in information retrieved by Database/Array to render a Product Card */
-const ProductCard = ({ id, name, addToCart, deleteFromCart, passToExpansion, selector, attributes, description, metadata, images }) => {
+/* Takes in information retrieved by Database/Array to render a Product Card... improve writeability */
+const ProductCard = ({ id, name, addToCart, deleteFromCart, passToExpansion, selector, attributes, description, metadata, images, isFiltered }) => {
     const meta = {
+        id,
         name,
         metadata,
         images,
         attributes,
         description
     }
-    if (meta.metadata.type === selector && Number(meta.metadata.quantity) !== 0) {
+    if ((meta.metadata.type === selector && Number(meta.metadata.quantity) !== 0) || isFiltered && Number(meta.metadata.quantity)) {
         return (
             <div className="product-card">
                 <button className="remove-button" onClick={() => passToExpansion({ view: true, meta })}>
                     <div className="product-header" style={{ backgroundImage: 'url(' + images[0] + ')' }}>
                         <h4 className="product-name">{name}</h4>
+                        <StarRatingComponent 
+                            name="show" 
+                            className="stars"
+                            editing={false}
+                            starCount={5}
+                            value={meta.metadata.ratings}
+                        />
                     </div>
+                    
                 </button>
 
                 <div className="product-card-body">
@@ -29,7 +39,7 @@ const ProductCard = ({ id, name, addToCart, deleteFromCart, passToExpansion, sel
                 </div>
             </div>
         )
-    } else if (meta.metadata.type === selector && Number(meta.metadata.quantity) === 0) {
+    } else if (meta.metadata.type === selector && Number(meta.metadata.quantity) === 0 || isFiltered && Number(meta.metadata.quantity) === 0) {
         return (
             <div className="product-card">
 

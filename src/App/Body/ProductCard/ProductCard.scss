@@ -24,11 +24,27 @@
 }
 
 .product-header {
-    //background-image: url('https://source.unsplash.com/user/erondu/600x400');
     background-repeat: no-repeat;
     min-height:200px;
     //height:200px
-    background-size:auto;  
+    background-size:auto;
+    
+    .dv-star-rating-star{
+        max-width: 33px !important;
+        position: relative !important;
+        label{
+            max-width: 33px !important;
+        }
+        i {
+            font-size: x-large;
+        }
+        @media only screen and (max-width: 590px) {
+            margin-top: 100px;
+        }
+        @media only screen and (min-width: 601px) {
+            margin-top: 100% !important;
+        }
+    }
 }
 
 .product-header:hover{
@@ -94,3 +110,5 @@ h3{
 .reject:hover{
     background-color:red !important;
 }
+
+    

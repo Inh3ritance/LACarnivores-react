@@ -2,7 +2,6 @@ import React from 'react';
 import './Body.scss';
 import './SearchBar/SearchBar.scss';
 import ProductCard from './ProductCard/ProductCard.js';
-import SearchProductCard from './ProductCard/SearchProductCard.js';
 import ToggleSwitch from './ToggleSwitch/ToggleSwitch.js';
 import ProductExpansion from './ProductExpansion/ProductExpansion.js';
 import { add, quantity, get, exists } from 'cart-localstorage';
@@ -12,7 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Default from "./Images/Main/Default.jpg";
 import Hardy from "./Images/Main/Hardy.jpg";
 import Tropical from "./Images/Main/Tropical.jpg";
-import Byblis from "./Images/Main/Byblis.jpg";
+import Starter from "./Images/Main/Starter.jpg";
+import Bogs from "./Images/Main/Bogs.jpg";
 import Nepenthes from "./Images/Main/Nepenthes.jpg";
 
 class Body extends React.Component {
@@ -146,15 +146,21 @@ class Body extends React.Component {
                 document.getElementById("Welcome").innerHTML = "";
                 document.getElementById("title-text").innerHTML = "somethingg something";
                 break;
-            case 'Byblis':
-                document.getElementById("parrallax").style.backgroundImage = ("url('" + Byblis + "')");
-                document.getElementById("parrallax-title").innerHTML = "Byblis";
+            case 'Starter':
+                document.getElementById("parrallax").style.backgroundImage = ("url('" + Starter + "')");
+                document.getElementById("parrallax-title").innerHTML = "Starter";
                 document.getElementById("Welcome").innerHTML = "";
                 document.getElementById("title-text").innerHTML = "somethingg something";
                 break;
             case 'Nepenthes':
                 document.getElementById("parrallax").style.backgroundImage = ("url('" + Nepenthes + "')");
                 document.getElementById("parrallax-title").innerHTML = "Nepenthes";
+                document.getElementById("Welcome").innerHTML = "";
+                document.getElementById("title-text").innerHTML = "somethingg something";
+                break;
+            case 'Bogs':
+                document.getElementById("parrallax").style.backgroundImage = ("url('" + Bogs + "')");
+                document.getElementById("parrallax-title").innerHTML = "Bogs";
                 document.getElementById("Welcome").innerHTML = "";
                 document.getElementById("title-text").innerHTML = "somethingg something";
                 break;
@@ -180,11 +186,12 @@ class Body extends React.Component {
                 {
                     arr.length === 0 ? <h2>no results</h2> :
                     arr.map(p =>
-                        <SearchProductCard 
+                        <ProductCard 
                             key={p.id} {...p}  
                             addToCart={this.addToCart.bind(this)} 
                             deleteFromCart={this.deleteFromCart.bind(this)} 
                             passToExpansion={this.passToExpansion.bind(this)} 
+                            isFiltered={true}  
                         /> 
                     )
                 }
@@ -204,11 +211,12 @@ class Body extends React.Component {
                 <h2>Featured Products:</h2>
                 {
                     arr.map(p =>
-                        <SearchProductCard 
+                        <ProductCard 
                             key={p.id} {...p}  
                             addToCart={this.addToCart.bind(this)} 
                             deleteFromCart={this.deleteFromCart.bind(this)} 
-                            passToExpansion={this.passToExpansion.bind(this)} 
+                            passToExpansion={this.passToExpansion.bind(this)}
+                            isFiltered={true}
                         /> 
                     )
                 }
@@ -256,7 +264,8 @@ class Body extends React.Component {
                                             selector={this.state.selector} 
                                             addToCart={this.addToCart.bind(this)} 
                                             deleteFromCart={this.deleteFromCart.bind(this)} 
-                                            passToExpansion={this.passToExpansion.bind(this)} 
+                                            passToExpansion={this.passToExpansion.bind(this)}
+                                            isFeatured={false} 
                                             /> 
                                         )
                                     }
