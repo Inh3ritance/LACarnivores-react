@@ -48,7 +48,7 @@ class Review extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:9000/getReviews', {
+        fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/getReviews', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -64,7 +64,7 @@ class Review extends React.Component {
     async createReview(e) {
         e.preventDefault();
         if(netlifyIdentity.currentUser()) {
-            await fetch('http://localhost:9000/createReview', {
+            await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/createReview', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
