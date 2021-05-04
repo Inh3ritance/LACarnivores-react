@@ -12,7 +12,7 @@ const ProductCard = ({ id, name, addToCart, deleteFromCart, passToExpansion, sel
         attributes,
         description
     }
-    if ((meta.metadata.type === selector && Number(meta.metadata.quantity) !== 0) || isFiltered && Number(meta.metadata.quantity)) {
+    if ((meta.metadata.type === selector && Number(meta.metadata.quantity) !== 0) || (isFiltered && Number(meta.metadata.quantity) !== 0)) {
         return (
             <div className="product-card">
                 <button className="remove-button" onClick={() => passToExpansion({ view: true, meta })}>
@@ -39,7 +39,7 @@ const ProductCard = ({ id, name, addToCart, deleteFromCart, passToExpansion, sel
                 </div>
             </div>
         )
-    } else if (meta.metadata.type === selector && Number(meta.metadata.quantity) === 0 || isFiltered && Number(meta.metadata.quantity) === 0) {
+    } else if ((meta.metadata.type === selector && Number(meta.metadata.quantity) === 0) || (isFiltered && Number(meta.metadata.quantity) === 0)) {
         return (
             <div className="product-card">
 
