@@ -73,40 +73,36 @@ class MasterPage extends React.Component {
 
     updateProduct = async(e) => {
         const x = e.currentTarget;
-        console.log(x);
         e.preventDefault();
         this.generateHeaders().then(async (headers) => {
-            console.log("inside");
-            console.log(x);
-            console.log(x[0]);
             await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/updateProduct', {
                 method: "POST",
                 headers,
                 body: JSON.stringify({
-                    id: e.currentTarget[0].value,
-                    review_id: e.currentTarget[1].value,
-                    name: e.currentTarget[2].value,
+                    id: x[0].value,
+                    review_id: x[1].value,
+                    name: x[2].value,
                     images: [
-                        e.currentTarget[3].value,
-                        e.currentTarget[4].value,
-                        e.currentTarget[5].value,
-                        e.currentTarget[6].value,
+                        x[3].value,
+                        x[4].value,
+                        x[5].value,
+                        x[6].value,
                     ],
-                    description: e.currentTarget[7].value,
-                    active: e.currentTarget[8].value === 'true' ? true : false,
-                    type: e.currentTarget[9].value,
-                    quantity: e.currentTarget[10].value,
-                    price: e.currentTarget[11].value,
-                    featured: e.currentTarget[12].value,
-                    width: e.currentTarget[13].value,
-                    height: e.currentTarget[14].value,
-                    length: e.currentTarget[15].value,
-                    weight: e.currentTarget[16].value,
-                    recieve: e.currentTarget[17].value,
-                    zones: e.currentTarget[18].value,
-                    water: e.currentTarget[19].value,
-                    soil: e.currentTarget[20].value,
-                    light: e.currentTarget[21].value,
+                    description: x[7].value,
+                    active: x[8].value === 'true' ? true : false,
+                    type: x[9].value,
+                    quantity: x[10].value,
+                    price: x[11].value,
+                    featured: x[12].value,
+                    width: x[13].value,
+                    height: x[14].value,
+                    length: x[15].value,
+                    weight: x[16].value,
+                    recieve: x[17].value,
+                    zones: x[18].value,
+                    water: xt[19].value,
+                    soil: x[20].value,
+                    light: x[21].value,
                 }),
             }).then((res) => {
                 window.location.reload();
@@ -122,34 +118,35 @@ class MasterPage extends React.Component {
 
     // copy from update to save time...
     createProduct = async(e) => {
+        const x = e.currentTarget;
         e.preventDefault();
         this.generateHeaders().then(async (headers) => {
             await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/createProduct', {
                 method: "POST",
                 headers,
                 body: JSON.stringify({
-                    name: e.currentTarget[0].value,
+                    name: x[0].value,
                     images: [
-                        e.currentTarget[1].value,
-                        e.currentTarget[2].value,
-                        e.currentTarget[3].value,
-                        e.currentTarget[4].value,
+                        x[1].value,
+                        x[2].value,
+                        x[3].value,
+                        x[4].value,
                     ],
-                    description: e.currentTarget[5].value,
-                    active: e.currentTarget[6].value === 'true' ? true : false,
-                    type: e.currentTarget[7].value,
-                    quantity: e.currentTarget[8].value,
-                    price: e.currentTarget[9].value,
-                    featured: e.currentTarget[10].value,
-                    width: e.currentTarget[11].value,
-                    height: e.currentTarget[12].value,
-                    length: e.currentTarget[13].value,
-                    weight: e.currentTarget[14].value,
-                    recieve: e.currentTarget[15].value,
-                    zones: e.currentTarget[16].value,
-                    water: e.currentTarget[17].value,
-                    soil: e.currentTarget[18].value,
-                    light: e.currentTarget[19].value,
+                    description: x[5].value,
+                    active: x[6].value === 'true' ? true : false,
+                    type: x[7].value,
+                    quantity: x[8].value,
+                    price: x[9].value,
+                    featured: x[10].value,
+                    width: x[11].value,
+                    height: x[12].value,
+                    length: x[13].value,
+                    weight: x[14].value,
+                    recieve: x[15].value,
+                    zones: x[16].value,
+                    water: x[17].value,
+                    soil: x[18].value,
+                    light: x[19].value,
                 }),
             }).then((res) => {
                 window.location.reload();
