@@ -100,7 +100,7 @@ class MasterPage extends React.Component {
                     weight: x[16].value,
                     recieve: x[17].value,
                     zones: x[18].value,
-                    water: xt[19].value,
+                    water: x[19].value,
                     soil: x[20].value,
                     light: x[21].value,
                 }),
