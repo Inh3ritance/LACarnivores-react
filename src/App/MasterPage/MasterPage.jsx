@@ -71,14 +71,10 @@ class MasterPage extends React.Component {
         });
     }
 
-    updateProduct = async(e) => {
-        const x = e;
+    updateProduct = (e) => {
         e.preventDefault();
-        this.generateHeaders().then(async (headers) => {
-            console.log("inside");
-            console.log(x.currentTarget[0].value);
-            console.log(e.currentTarget[0].value);
-            await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/updateProduct', {
+        this.generateHeaders().then((headers) => {
+            fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/updateProduct', {
                 method: "POST",
                 headers,
                 body: JSON.stringify({
