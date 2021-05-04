@@ -15,7 +15,7 @@ const ProductExpansion = ({ view, closeView, meta }) => {
                 <p><b>Description: </b></p>
                 <p className="pad">{meta.description}</p>
                 <p><b>What you will recieve: </b></p>
-                <p className="pad">{meta.metadata.receive}</p>
+                <p className="pad">{meta.metadata.recieve}</p>
                 <p><b>Zones: </b></p>
                 <p className="pad">{meta.metadata.zones}</p>
                 <p><b>Water: </b></p>
