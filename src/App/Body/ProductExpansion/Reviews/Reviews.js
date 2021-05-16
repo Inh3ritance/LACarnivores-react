@@ -16,11 +16,12 @@ class Review extends React.Component {
         };
         this.createReview = this.createReview.bind(this);
         this.display = this.display.bind(this);
+        this.identityRender = this.identityRender.bind(this);
     }
 
     display() {
         if(this.state.reviews.length === 0) {
-            return (<h1 style={{textAlign:"center"}}><b>Be the first to review!</b></h1>)
+            return (<h1 style={{textAlign:"center"}}><b>Be the first to review!</b></h1>);
         } else {
             let posts = [];
             for(let i = 0; i < this.state.reviews.length; i++) {
@@ -33,10 +34,10 @@ class Review extends React.Component {
                             value={this.state.ratings[i]}
                             className="user-stars"
                         />
-                        <p>Review: {this.state.reviews[i]}</p>
+                        <p style={{wordWrap:"break-word"}}>Review: {this.state.reviews[i]}</p>
                         <hr style={{width:"90%"}}/>
                     </div>
-                )
+                );
             }
             return posts;
         }
@@ -63,18 +64,15 @@ class Review extends React.Component {
 
     async createReview(e) {
         e.preventDefault();
-        if(netlifyIdentity.currentUser()) {
+        if(!netlifyIdentity.currentUser()) { //
             await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/createReview', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 id: this.props.Info.id, 
                 review_id: this.props.Info.metadata.review_id,
-                reviews: this.state.reviews, // 
-                users: this.state.users, // 
-                ratings: this.state.ratings, // 
                 rating: this.state.review,
-                user: netlifyIdentity.currentUser().user_metadata.full_name,
+                user: "Donkey",//netlifyIdentity.currentUser().user_metadata.full_name,
                 review: this.state.text,
             }),
             }).then(response => response.json())
@@ -83,7 +81,14 @@ class Review extends React.Component {
         } else {
             console.log("need to sign up display");
         }
-        
+    }
+
+    identityRender() {
+        if(netlifyIdentity.currentUser()) {
+            return(null);
+        } else {
+            return (<p style={{ color: "red" }}>*Please sign in to write a review</p>);
+        }
     }
 
     render() {
@@ -96,7 +101,8 @@ class Review extends React.Component {
                     className="center"
                     onStarClick={this.onStarClick.bind(this)}
                 />
-                <p><b>Write a Review (max: 300 characters): </b></p>
+                { <this.identityRender /> }
+                <p><b>Write a Review (max: 300 characters) </b></p>
                 <form onSubmit={this.createReview}>
                 <textarea onKeyDown={(e)=>{if(e.key === "Enter") e.preventDefault();}} onChange={(e)=>this.setState({text: e.currentTarget.value})} type="textbox" className="pad" maxLength="300" minLength="15"></textarea>
                 <button type="submit" className="pad submit-review"><h3>Submit review</h3></button>

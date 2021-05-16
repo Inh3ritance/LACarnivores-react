@@ -19,3 +19,9 @@ button:hover{
 .s2{
 	font-size: 300% !important;
 }
+
+.active {
+	.s2 {
+		color:green;
+	}
+}

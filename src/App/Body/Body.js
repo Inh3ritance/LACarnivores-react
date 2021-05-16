@@ -113,8 +113,11 @@ class Body extends React.Component {
     
     /**Remove Product from local Storage */
     deleteFromCart(product) {
-        quantity(product.id, -1);
-        this.props.rerenderParentCallback();
+        if(exists(product.id)) {
+            quantity(product.id, -1);
+            toast("Removed 1 from cart");
+            this.props.rerenderParentCallback();
+        }
     }
 
     /**Changes type navigation tab */
