@@ -64,7 +64,7 @@ class Review extends React.Component {
 
     async createReview(e) {
         e.preventDefault();
-        if(!netlifyIdentity.currentUser()) { //
+        if(netlifyIdentity.currentUser()) { //
             await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/createReview', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
@@ -72,7 +72,7 @@ class Review extends React.Component {
                 id: this.props.Info.id, 
                 review_id: this.props.Info.metadata.review_id,
                 rating: this.state.review,
-                user: "Donkey",//netlifyIdentity.currentUser().user_metadata.full_name,
+                user: netlifyIdentity.currentUser().user_metadata.full_name,
                 review: this.state.text,
             }),
             }).then(response => response.json())
