@@ -50,10 +50,12 @@ class Review extends React.Component {
             }),
         }).then(response => response.json())
         .then(data => {
-            toast("Review Succesfull!");
-            this.getReviews();
-            document.getElementById("reviewForm").reset();
             console.log(data);
+            toast("Review Succesfull!");
+            // Form reset
+            this.setState({ text: ''});
+            this.getReviews();
+            
         }).catch(err => {
            toast("Review not succesfull!", { type: 'error' });
            console.log(err);
