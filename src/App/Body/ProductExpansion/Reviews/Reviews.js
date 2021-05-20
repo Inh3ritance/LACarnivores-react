@@ -16,7 +16,7 @@ class Review extends React.Component {
             users: [],
             reviews: [],
         };
-        this.createReview = this.createReviewFunc.bind(this);
+        this.createReviewFunc = this.createReviewFunc.bind(this);
         this.display = this.display.bind(this);
         this.identityRender = this.identityRender.bind(this);
         this.getReviews = this.getReviews.bind(this);
