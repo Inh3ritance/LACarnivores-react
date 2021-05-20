@@ -16,7 +16,7 @@ class Review extends React.Component {
             users: [],
             reviews: [],
         };
-        this.createReview = this.createReview.bind(this);
+        this.createReview = this.createReviewFunc.bind(this);
         this.display = this.display.bind(this);
         this.identityRender = this.identityRender.bind(this);
         this.getReviews = this.getReviews.bind(this);
@@ -93,7 +93,7 @@ class Review extends React.Component {
         this.getReviews();
     }
 
-    async createReview(e) {
+    async createReviewFunc(e) {
         e.preventDefault();
         if(netlifyIdentity.currentUser()) {
            this.createReview();
@@ -123,7 +123,7 @@ class Review extends React.Component {
                 />
                 { <this.identityRender /> }
                 <p><b>Write a Review (max: 300 characters) </b></p>
-                <form onSubmit={this.createReview} id="reviewForm">
+                <form onSubmit={this.createReviewFunc} id="reviewForm">
                 <textarea onKeyDown={(e)=>{if(e.key === "Enter") e.preventDefault();}} onChange={(e)=>this.setState({text: e.currentTarget.value})} type="textbox" className="pad" maxLength="300" minLength="15"></textarea>
                 <button type="submit" className="pad submit-review"><h3>Submit review</h3></button>
                 </form>
