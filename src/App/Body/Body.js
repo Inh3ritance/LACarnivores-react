@@ -135,43 +135,43 @@ class Body extends React.Component {
                 document.getElementById("parrallax").style.backgroundImage = ("url('" + Default + "')");
                 document.getElementById("parrallax-title").innerHTML = "Preservation Through Cultivation";
                 document.getElementById("Welcome").innerHTML = "Welcome";
-                document.getElementById("title-text").innerHTML = "We are a new starting nursery with a wide variety of carnivorous plants and great service. Since we are new, our selections may have limited quanties,but as we grow together we will grow in product availabilty and hopefully soon a storefront. Here at LA Carnivores we raise and purchase carnivorous plants from quality vendors to make sure you get the most reliable plants in the country.";
+                document.getElementById("title-text").innerHTML = "We are a new starting nursery with a wide variety of carnivorous plants and great service. Since we are new, our selections may have limited quanties, but as we grow together we will grow in product availabilty and hopefully soon a storefront. Here at LA Carnivores we raise and purchase carnivorous plants from quality vendors to make sure you get the most reliable plants in the country.";
                 break;
             case 'Hardy':
                 document.getElementById("parrallax").style.backgroundImage = ("url('" + Hardy + "')");
                 document.getElementById("parrallax-title").innerHTML = "Cold & Hardy";
                 document.getElementById("Welcome").innerHTML = "";
-                document.getElementById("title-text").innerHTML = "somethingg something";
+                document.getElementById("title-text").innerHTML = "Cold and Hardy Plants vary from wonderful venus flytraps to elegant sarrecinia, these plants thrive well in plenty of sunlight and can survive harsher temperatures.";
                 break;
             case 'Tropical':
                 document.getElementById("parrallax").style.backgroundImage = ("url('" + Tropical + "')");
                 document.getElementById("parrallax-title").innerHTML = "Tropical";
                 document.getElementById("Welcome").innerHTML = "";
-                document.getElementById("title-text").innerHTML = "somethingg something";
+                document.getElementById("title-text").innerHTML = "These plants can found in tropical terrains where adequate amounts of shade can be found. Pitcher plants are popular among tropical varieties due to its several hundred unique varieties and breeding designs and patterns.";
                 break;
             case 'Starter':
                 document.getElementById("parrallax").style.backgroundImage = ("url('" + Starter + "')");
                 document.getElementById("parrallax-title").innerHTML = "Starter";
                 document.getElementById("Welcome").innerHTML = "";
-                document.getElementById("title-text").innerHTML = "somethingg something";
+                document.getElementById("title-text").innerHTML = "The plants we reccomend to new buyers or expierenced carnivorous plant care takers to maintain an easy hassle free setup.";
                 break;
             case 'Nepenthes':
                 document.getElementById("parrallax").style.backgroundImage = ("url('" + Nepenthes + "')");
                 document.getElementById("parrallax-title").innerHTML = "Nepenthes";
                 document.getElementById("Welcome").innerHTML = "";
-                document.getElementById("title-text").innerHTML = "somethingg something";
+                document.getElementById("title-text").innerHTML = "Nepenthes are beuitifully varied plants that take on many shapes, sizes and forms from large terryfing vampire fangs to cute chubby little pitchers. For more experienced care takers, but surely worth the reward of watching your plant develop new wonderful pitchers.";
                 break;
             case 'Bogs':
                 document.getElementById("parrallax").style.backgroundImage = ("url('" + Bogs + "')");
                 document.getElementById("parrallax-title").innerHTML = "Bogs";
                 document.getElementById("Welcome").innerHTML = "";
-                document.getElementById("title-text").innerHTML = "somethingg something";
+                document.getElementById("title-text").innerHTML = "Bundled sets and varieties mixing your favorite plants together in a fashionable display of artwork to add to your collection or as a center piece for display at home.";
                 break;
             default:
                 document.getElementById("parrallax").style.backgroundImage = ("url('" + null + "')");
                 document.getElementById("parrallax-title").innerHTML = "Error";
                 document.getElementById("Welcome").innerHTML = "";
-                document.getElementById("title-text").innerHTML = "somethingg something";
+                document.getElementById("title-text").innerHTML = "You are seeing this because an error occured, please contact the lacarnivores.com about the issue so we can handle your problems appropriatly.";
                 break;
         }  
     }

@@ -2,6 +2,8 @@ import React from 'react';
 import './Review.scss';
 import netlifyIdentity from "netlify-identity-widget";
 import StarRatingComponent from 'react-star-rating-component';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Review extends React.Component {
 
@@ -17,6 +19,45 @@ class Review extends React.Component {
         this.createReview = this.createReview.bind(this);
         this.display = this.display.bind(this);
         this.identityRender = this.identityRender.bind(this);
+        this.getReviews = this.getReviews.bind(this);
+        this.createReview = this.createReview.bind(this);
+    }
+
+    getReviews() {
+        fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/getReviews', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                review_id: this.props.Info.metadata.review_id,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            this.setState({ reviews: data.reviews, users: data.users, ratings: data.ratings });
+        }).catch(err => console.log(err));
+    }
+
+    createReview() {
+        await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/createReview', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                id: this.props.Info.id, 
+                review_id: this.props.Info.metadata.review_id,
+                rating: this.state.review,
+                user: netlifyIdentity.currentUser().user_metadata.full_name,
+                review: this.state.text,
+            }),
+        }).then(response => response.json())
+        .then(data => {
+            toast("Review Succesfull!");
+            this.getReviews();
+            document.getElementById("reviewForm").reset();
+            console.log(data);
+        }).catch(err => {
+           toast("Review not succesfull!", { type: 'error' });
+           console.log(err);
+        });
     }
 
     display() {
@@ -49,35 +90,13 @@ class Review extends React.Component {
     }
 
     componentDidMount() {
-        fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/getReviews', {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                review_id: this.props.Info.metadata.review_id,
-            }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            this.setState({ reviews: data.reviews, users: data.users, ratings: data.ratings });
-        }).catch(err => console.log(err));
+        this.getReviews();
     }
 
     async createReview(e) {
         e.preventDefault();
-        if(netlifyIdentity.currentUser()) { //
-            await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/createReview', {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                id: this.props.Info.id, 
-                review_id: this.props.Info.metadata.review_id,
-                rating: this.state.review,
-                user: netlifyIdentity.currentUser().user_metadata.full_name,
-                review: this.state.text,
-            }),
-            }).then(response => response.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
+        if(netlifyIdentity.currentUser()) {
+           this.createReview();
         } else {
             console.log("need to sign up display");
         }
@@ -94,6 +113,7 @@ class Review extends React.Component {
     render() {
         return(
             <div className="review">
+                <ToastContainer limit = "1" pauseOnHover={false} />
                 <StarRatingComponent 
                     name="edit-stars" 
                     starCount={5}
@@ -103,7 +123,7 @@ class Review extends React.Component {
                 />
                 { <this.identityRender /> }
                 <p><b>Write a Review (max: 300 characters) </b></p>
-                <form onSubmit={this.createReview}>
+                <form onSubmit={this.createReview} id="reviewForm">
                 <textarea onKeyDown={(e)=>{if(e.key === "Enter") e.preventDefault();}} onChange={(e)=>this.setState({text: e.currentTarget.value})} type="textbox" className="pad" maxLength="300" minLength="15"></textarea>
                 <button type="submit" className="pad submit-review"><h3>Submit review</h3></button>
                 </form>
