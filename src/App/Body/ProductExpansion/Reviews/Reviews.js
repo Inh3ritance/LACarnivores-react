@@ -51,10 +51,10 @@ class Review extends React.Component {
         }).then(response => response.json())
         .then(data => {
             console.log(data);
-            // toast("Review Succesfull!");
+            toast("Review Succesfull!");
             // Form reset
-            // this.setState({ text: ''});
-            // this.getReviews();
+            this.setState({ text: ''});
+            this.getReviews();
             
         }).catch(err => {
            console.log(err);
@@ -98,7 +98,7 @@ class Review extends React.Component {
     async createReviewFunc(e) {
         e.preventDefault();
         if(netlifyIdentity.currentUser()) {
-           this.createReview();
+           await this.createReview();
         } else {
             console.log("need to sign up display");
         }
