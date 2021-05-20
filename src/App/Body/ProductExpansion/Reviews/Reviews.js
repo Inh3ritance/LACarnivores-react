@@ -37,7 +37,7 @@ class Review extends React.Component {
         }).catch(err => console.log(err));
     }
 
-    createReview() {
+    async createReview() {
         await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/createReview', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
