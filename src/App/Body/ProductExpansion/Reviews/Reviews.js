@@ -48,12 +48,11 @@ class Review extends React.Component {
                 user: netlifyIdentity.currentUser().user_metadata.full_name,
                 review: this.state.text,
             }),
-        })
-        .then(data => {
+        }).then(data => {
             console.log(data);
             toast("Review Succesfull!");
             // Form reset
-            this.setState({ text: ''});
+            document.getElementById("reviewForm").reset()
             this.getReviews();
         }).catch(err => {
            console.log(err);
