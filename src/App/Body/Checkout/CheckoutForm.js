@@ -26,7 +26,7 @@ class CheckoutForm extends Component {
         if(this.captcharef) {
             if(this.state.disable === false) {
                 this.captcharef.reset();
-                this.captcharef.execute();
+                // this.captcharef.execute();
             }
         } else {
             window.location.reload();
@@ -378,6 +378,16 @@ class CheckoutForm extends Component {
                             <label className="NoMargin">Card Details: </label>
                             <CardElement className="checkout" />
                             <button className="Checkout_Button"><b>Submit Payment</b></button>
+                            <div className="recaptcha">
+                            <ReCaptcha
+                                ref={(el) => {this.captcharef = el}}
+                                size='normal'          
+                                render='explicit'
+                                sitekey='6Le2YAsaAAAAAHw3CVVxCOhjJV_pC-exNYyH4AHz'
+                                onloadCallback={this.onLoadRecaptcha}
+                                verifyCallback={this.verifyCallback}
+                            />
+                            </div>
                             <ToastContainer className="toasty" limit="1" />
                         </div>
                         <div id="vl"/>
@@ -386,14 +396,6 @@ class CheckoutForm extends Component {
                         </div>
                     </fieldset>
                 </form>
-                <ReCaptcha
-                    ref={(el) => {this.captcharef = el}}
-                    size='invisible'          
-                    render='explicit'
-                    sitekey='6Le2YAsaAAAAAHw3CVVxCOhjJV_pC-exNYyH4AHz'
-                    onloadCallback={this.onLoadRecaptcha}
-                    verifyCallback={this.verifyCallback}
-                />
             </div>
         );
     }

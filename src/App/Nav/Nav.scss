@@ -12,6 +12,9 @@ nav {
         font-size: 300%;
         min-height:66px;
     }
+    #Company_Name:hover {
+        color: green;
+    }
     #cart {
         display: block;
         color: $secondary-color;

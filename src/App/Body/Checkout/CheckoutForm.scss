@@ -2,6 +2,10 @@
     display: block;
 }
 
+.recaptcha {
+    margin-top: 1%;
+}
+
 legend {
     border: none;
     margin-left: 4% !important;
@@ -48,7 +52,7 @@ select {
 #vl {
     float:left;
     width:1%;
-    height:400px;
+    height:460px;
     border-left: 1px solid black;
 }
 
