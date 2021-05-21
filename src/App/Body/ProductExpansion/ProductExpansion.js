@@ -74,7 +74,7 @@ const ProductExpansion = ({ view, closeView, meta }) => {
                         />
                     </Carousel.Item>
                 </Carousel>
-                <button className="switch"onClick={()=>Selector("Default")}><h3>details</h3></button>
+                <button className="switch" onClick={()=>Selector("Default")}><h3>details</h3></button>
                 <button className="switch" onClick={()=>Selector("Review")}><h3>reviews</h3></button>
                 <h2 className="product-name">{meta.name}</h2>
                 {display(meta, select)}
