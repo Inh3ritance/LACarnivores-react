@@ -146,7 +146,7 @@ class MasterPage extends React.Component {
                     zones: x[16].value,
                     water: x[17].value,
                     soil: x[18].value,
-                    light: x[19].value,
+                    light: x[19].value
                 }),
             }).then((res) => {
                 window.location.reload();
