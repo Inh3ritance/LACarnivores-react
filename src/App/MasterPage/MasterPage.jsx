@@ -157,7 +157,7 @@ class MasterPage extends React.Component {
             });
         }).catch(err => {
             console.log(err);
-        })
+        });
     }
 
     // In the future use dropdowns and checkboxes to create products rapidly
