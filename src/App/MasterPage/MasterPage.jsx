@@ -202,26 +202,26 @@ class MasterPage extends React.Component {
                 }
                     <form onSubmit={(e)=>this.createProduct(e)}>
                         <h1>Create a Product</h1>
-                        <div className='cont'><label className='sidebysideF'>Name</label><input className='sidebysideF' type='text' placeholder={'name'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>Image[0]</label><input className='sidebysideF' type='text' placeholder={'Image url 0'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>Image[1]</label><input className='sidebysideF' type='text' placeholder={'Image url 1'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>Image[2]</label><input className='sidebysideF' type='text' placeholder={'Image url 2'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>Image[3]</label><input className='sidebysideF' type='text' placeholder={'Image url 3'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>description</label><input className='sidebysideF' type='text' placeholder={'description'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>active</label><input className='sidebysideF' type='text' placeholder={'active:true?false'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>type</label><input className='sidebysideF' type='text' placeholder={'metadata type'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>quantity</label><input className='sidebysideF' type='text' placeholder={'metadata quantity'} defaultValue={0}/></div>
-                        <div className='cont'><label className='sidebysideF'>price</label><input className='sidebysideF' type='text' placeholder={'sku price'} defaultValue={0}/></div>
-                        <div className='cont'><label className='sidebysideF'>featured</label><input className='sidebysideF' type='text' placeholder={'y/n'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>width</label><input className='sidebysideF' type='text' placeholder={'1 inch.'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>height</label><input className='sidebysideF' type='text' placeholder={'1 inch.'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>length</label><input className='sidebysideF' type='text' placeholder={'1 inch.'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>weight</label><input className='sidebysideF' type='text' placeholder={'1 lb'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>recieve</label><input className='sidebysideF' type='text' placeholder={'recieve'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>Zones</label><input className='sidebysideF' type='text' placeholder={'0-9'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>Water</label><input className='sidebysideF' type='text' placeholder={'water'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>Soil</label><input className='sidebysideF' type='text' placeholder={'peatmoss'} defaultValue={""}/></div>
-                        <div className='cont'><label className='sidebysideF'>Lighting</label><input className='sidebysideF' type='text' placeholder={'lighting'} defaultValue={""}/></div>
+                        <div className='cont'><label className='sidebysideF'>Name</label><input className='sidebysideF' type='text' placeholder={'name'}/></div>
+                        <div className='cont'><label className='sidebysideF'>Image[0]</label><input className='sidebysideF' type='text' placeholder={'Image url 0'}/></div>
+                        <div className='cont'><label className='sidebysideF'>Image[1]</label><input className='sidebysideF' type='text' placeholder={'Image url 1'}/></div>
+                        <div className='cont'><label className='sidebysideF'>Image[2]</label><input className='sidebysideF' type='text' placeholder={'Image url 2'}/></div>
+                        <div className='cont'><label className='sidebysideF'>Image[3]</label><input className='sidebysideF' type='text' placeholder={'Image url 3'}/></div>
+                        <div className='cont'><label className='sidebysideF'>description</label><input className='sidebysideF' type='text' placeholder={'description'}/></div>
+                        <div className='cont'><label className='sidebysideF'>active</label><input className='sidebysideF' type='text' placeholder={'active:true?false'}/></div>
+                        <div className='cont'><label className='sidebysideF'>type</label><input className='sidebysideF' type='text' placeholder={'metadata type'}/></div>
+                        <div className='cont'><label className='sidebysideF'>quantity</label><input className='sidebysideF' type='text' placeholder={'metadata quantity'}/></div>
+                        <div className='cont'><label className='sidebysideF'>price</label><input className='sidebysideF' type='text' placeholder={'sku price'}/></div>
+                        <div className='cont'><label className='sidebysideF'>featured</label><input className='sidebysideF' type='text' placeholder={'y/n'}/></div>
+                        <div className='cont'><label className='sidebysideF'>width</label><input className='sidebysideF' type='text' placeholder={'1 inch.'}/></div>
+                        <div className='cont'><label className='sidebysideF'>height</label><input className='sidebysideF' type='text' placeholder={'1 inch.'}/></div>
+                        <div className='cont'><label className='sidebysideF'>length</label><input className='sidebysideF' type='text' placeholder={'1 inch.'}/></div>
+                        <div className='cont'><label className='sidebysideF'>weight</label><input className='sidebysideF' type='text' placeholder={'1 lb'}/></div>
+                        <div className='cont'><label className='sidebysideF'>recieve</label><input className='sidebysideF' type='text' placeholder={'recieve'}/></div>
+                        <div className='cont'><label className='sidebysideF'>Zones</label><input className='sidebysideF' type='text' placeholder={'0-9'}/></div>
+                        <div className='cont'><label className='sidebysideF'>Water</label><input className='sidebysideF' type='text' placeholder={'water'}/></div>
+                        <div className='cont'><label className='sidebysideF'>Soil</label><input className='sidebysideF' type='text' placeholder={'peatmoss'}/></div>
+                        <div className='cont'><label className='sidebysideF'>Lighting</label><input className='sidebysideF' type='text' placeholder={'lighting'}/></div>
                         <button type='submit' className='MasterPageButton'>create</button>
                     </form>
                 </div>
