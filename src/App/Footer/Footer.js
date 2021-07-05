@@ -1,6 +1,5 @@
 import React from 'react';
 import './Footer.scss';
-import Logo from '../Nav/Logo.png';
 import { NavLink } from "react-router-dom";
 
 /* Static DOM Footer */
