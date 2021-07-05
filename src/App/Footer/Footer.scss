@@ -6,8 +6,16 @@ $primary-color: #404040;
 	padding-bottom:2%;
     font-family:Arial, Helvetica, sans-serif;
 	
-	a {
+	a, .fa-facebook {
+		font-size: 125%;
 		text-decoration: none !important;
+		text-align: center !important;
+		color: white;
+	}
+
+	a:hover {
+		color: green;
+		cursor: pointer;
 	}
 
 	h2 {
@@ -16,6 +24,12 @@ $primary-color: #404040;
 		color:white;
 		margin-top:0px !important;
 		margin-bottom:0px !important;
+	}
+
+	h3 {
+		width:100%;
+		color: white;
+		text-align: center;
 	}
 
 	h2:hover {
@@ -32,5 +46,25 @@ $primary-color: #404040;
 		h2 {
 			color:green;
 		}
+	}
+
+	.social-media {
+		padding-top:1%;
+		margin-left: 2%;
+		margin-right: 2%;
+		font-size: 150%;
+	}
+
+	p {
+		text-align: center !important;
+	}
+
+	#footer-logo{
+		min-width: 64px;
+		max-width: 128px;
+		width:8%;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
 	}
 }

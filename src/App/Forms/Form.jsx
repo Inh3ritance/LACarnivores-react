@@ -42,7 +42,11 @@ class Form extends React.Component {
     render() {
         return(
             <div className='Contact'>
-                <h1 id="contact-header"><b>Contact Form</b></h1>
+                <h1 id="contact-header"><b>Contact</b></h1>
+                <div id="contact-info">
+                    <h3>(323) 999-9999</h3>
+                    <h3>1234 ab.ave, CA 90000</h3>
+                </div>
                 <form method="POST" name="contact" onSubmit={(e)=>this.sendEmail(e)}>
                     <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="form4Example1">Email</label>

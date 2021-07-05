@@ -5,6 +5,8 @@ import CheckoutForm from '../Body/Checkout/CheckoutForm.js';
 import Form from '../Forms/Form.jsx';
 import MasterPage from '../MasterPage/MasterPage.jsx';
 import Policy from '../Privacy Policy/PrivacyPolicy.js';
+import Shipping from '../Shipping and Returns/shippingReturns.js';
+import Terms from '../Terms Conditions/termsConditions.js';
 import ToggleSwitch from '../Body/ToggleSwitch/ToggleSwitch.js';
 import { loadReCaptcha } from 'react-recaptcha-google';
 import './Nav.scss';
@@ -145,7 +147,7 @@ class Nav extends React.Component {
               </NavLink>
             </div>
             <div className="Right_Buttons_mobile notMobile" activeclassname="checkout_render">
-              <Menu right isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)} className='Menu'>
+              <Menu left isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)} className='Menu'>
                 <Link id="home" className="menu-item" to="/"><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
                 <button onClick={()=>this.signIn()}><h2 id="user_mobile">Sign-in</h2></button>
                 <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout">
@@ -174,6 +176,8 @@ class Nav extends React.Component {
             <Route path='/Privacy Policy' component={Policy} />
             <Route path='/Terms Conditions' />
             <Route exact path='/MasterPage' component={MasterPage} />
+            <Route path='/Shipping+Returns' component={Shipping} />
+            <Route path='/Terms+Conditions' component={Terms} />
           </Switch>
           <Footer/>
         </Router>

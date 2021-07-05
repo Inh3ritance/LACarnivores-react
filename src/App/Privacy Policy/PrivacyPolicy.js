@@ -5,6 +5,7 @@ const PrivacyPolicy = () => {
     return(
         <div id='PrivacyPolicy'>
             <h1>Privacy Policy for LaCarnivores</h1>
+            <h3>Revision Update: 07/04/2021</h3>
             <p>At LaCarnivores, accessible from https://www.lacarnivores.com/, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by LaCarnivores and how we use it.</p>
             <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.</p>
             <h2>Log Files</h2>
