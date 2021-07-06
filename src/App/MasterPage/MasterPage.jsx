@@ -166,7 +166,7 @@ class MasterPage extends React.Component {
         const x = e.currentTarget;
         e.preventDefault();
         this.generateHeaders().then(async (headers) => {
-            await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/createProduct', {
+            await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/deleteProduct', {
                 method: "POST",
                 headers,
                 body: JSON.stringify({
