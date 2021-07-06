@@ -9,6 +9,11 @@ $primary-color: #404040;
 	a {
 		font-size: 125%;
 		text-decoration: none !important;
+
+		p {
+			font-size: 1px;
+			visibility: hidden;
+		}
 	}
 
 	span, .fa-facebook {
