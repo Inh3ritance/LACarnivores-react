@@ -21,7 +21,7 @@
         font-size: 20px;
     }
 
-    textarea{
+    textarea {
         font-size: 20px;
     }
 
@@ -34,7 +34,19 @@
         margin-top: 5%;
         margin-bottom: 1%;
         width: 25%;
-        font-size: xx-small;
+        font-size: 10px;
         display: inline-block; 
+    }
+
+    @media screen and (max-width: 600px) {
+        .checkbox-div {
+            font-size: 7.5px;
+        }
+    }
+    
+    @media screen and (min-width: 601px) {
+        .checkbox-div {
+            font-size: 10px;
+        }
     }
 }
