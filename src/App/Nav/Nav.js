@@ -148,7 +148,7 @@ class Nav extends React.Component {
             </div>
             <div className="Right_Buttons_mobile notMobile" activeclassname="checkout_render">
               <Menu left isOpen={this.state.menuOpen} onStateChange={(state) => this.handleStateChange(state)} className='Menu'>
-                <Link id="home" className="menu-item" to="/"><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></Link>
+                <div id="home" className="menu-item"><ToggleSwitch Selector={this.onChangeSelector.bind(this)} /></div>
                 <button onClick={()=>this.signIn()}><h2 id="user_mobile">Sign-in</h2></button>
                 <NavLink id="cart" className="menu-item" activeClassName="checkout_render" to="/Checkout">
                 <button className="btn btn-info btn-lg" id="cart-overlay" onClick={this.closeMenu}>

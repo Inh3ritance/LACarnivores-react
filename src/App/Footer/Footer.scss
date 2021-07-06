@@ -6,14 +6,18 @@ $primary-color: #404040;
 	padding-bottom:2%;
     font-family:Arial, Helvetica, sans-serif;
 	
-	a, .fa-facebook {
+	a {
 		font-size: 125%;
 		text-decoration: none !important;
+	}
+
+	span, .fa-facebook {
+		font-size: 125%;
 		text-align: center !important;
 		color: white;
 	}
 
-	a:hover {
+	span:hover {
 		color: green;
 		cursor: pointer;
 	}
