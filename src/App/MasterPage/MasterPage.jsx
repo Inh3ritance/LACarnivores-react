@@ -103,6 +103,7 @@ class MasterPage extends React.Component {
                     water: x[19].value,
                     soil: x[20].value,
                     light: x[21].value,
+                    password: x[22].value
                 }),
             }).then((res) => {
                 window.location.reload();
@@ -146,7 +147,32 @@ class MasterPage extends React.Component {
                     zones: x[16].value,
                     water: x[17].value,
                     soil: x[18].value,
-                    light: x[19].value
+                    light: x[19].value,
+                    password: x[20].value
+                }),
+            }).then((res) => {
+                window.location.reload();
+                console.log(res);
+            }).catch(err => {
+                toast("Error", { type: 'error' });
+                console.log(err);
+            });
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+    removeProduct = async(e, id, review_id) => {
+        const x = e.currentTarget;
+        e.preventDefault();
+        this.generateHeaders().then(async (headers) => {
+            await fetch('https://lacarnivoresapi.netlify.app/.netlify/functions/api/createProduct', {
+                method: "POST",
+                headers,
+                body: JSON.stringify({
+                    id,
+                    review_id,
+                    password: x[0].value,
                 }),
             }).then((res) => {
                 window.location.reload();
@@ -193,7 +219,12 @@ class MasterPage extends React.Component {
                                 <div className='cont'><label className='sidebysideF'>Water</label><input className='sidebysideF' type='text' defaultValue={p.metadata.water} placeholder={'water'}/></div>
                                 <div className='cont'><label className='sidebysideF'>Soil</label><input className='sidebysideF' type='text' defaultValue={p.metadata.soil} placeholder={'peatmoss'}/></div>
                                 <div className='cont'><label className='sidebysideF'>Lighting</label><input className='sidebysideF' type='text' defaultValue={p.metadata.light} placeholder={'lighting'}/></div>
+                                <div className='cont'><label className='sidebysideF'>Password</label><input className='sidebysideF' type='text' defaultValue="" placeholder={'password'} /></div>
                                 <button type='submit'className='MasterPageButton'>update</button>
+                            </form>
+                            <form onSubmit={(e)=>this.removeProduct(e, p.id, p.metadata.review_id)}>
+                                <div className='cont'><label className='sidebysideF'>Password</label><input className='sidebysideF' type='text' defaultValue="" placeholder={'password'} /></div>
+                                <button type='submit'className='MasterPageButton'>delete</button>
                             </form>
                             <hr/>
                         </div>
@@ -222,6 +253,7 @@ class MasterPage extends React.Component {
                         <div className='cont'><label className='sidebysideF'>Water</label><input className='sidebysideF' type='text' placeholder={'water'}/></div>
                         <div className='cont'><label className='sidebysideF'>Soil</label><input className='sidebysideF' type='text' placeholder={'peatmoss'}/></div>
                         <div className='cont'><label className='sidebysideF'>Lighting</label><input className='sidebysideF' type='text' placeholder={'lighting'}/></div>
+                        <div className='cont'><label className='sidebysideF'>Password</label><input className='sidebysideF' type='text' defaultValue="" placeholder={'password'} /></div>
                         <button type='submit' className='MasterPageButton'>create</button>
                     </form>
                 </div>
