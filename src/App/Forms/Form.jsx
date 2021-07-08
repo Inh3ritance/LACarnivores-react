@@ -64,6 +64,7 @@ class Form extends React.Component {
                     <h3>(323) 999-9999</h3>
                     <h3>1234 ab.ave, CA 90000</h3>
                 </div>
+                <h2><b>Please select:</b> So we may understand you better</h2>
                 <form method="POST" name="contact" onSubmit={(e)=>this.sendEmail(e)}>
                     <div className="checkbox-div"><input type="checkbox" name="website" value={this.state.web_issue}  onChange={(ev: React.ChangeEvent<HTMLInputElement>) => { if(this.state.web_issue) this.setState({ web_issue: false}); else this.setState({ web_issue: ev.target.value }); } } /><label>Website</label></div>
                     <div className="checkbox-div"><input type="checkbox" name="shipping" value={this.state.ship_issue}  onChange={(ev: React.ChangeEvent<HTMLInputElement>) => { if(this.state.ship_issue) this.setState({ ship_issue: false}); else this.setState({ ship_issue: ev.target.value }); } } /><label>Shipping</label></div>

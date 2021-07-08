@@ -1,15 +1,68 @@
 $primary-color: #404040;
 
-.Footer{
+.Footer {
 	background-color: $primary-color;
-	padding-top:2%;
 	padding-bottom:2%;
     font-family:Arial, Helvetica, sans-serif;
 	
-	a {
-		font-size: 110%;
-		text-decoration: none !important;
+	.subscribe-div {
+		background-color: rgb(36, 36, 36);
+		padding-top: 2%;
+		padding-bottom: 2%;
+		margin-top: 0px !important;
+	}
 
+	.subscriber {
+		margin: auto;
+		font-size: medium;
+		padding: 0px !important;
+		text-align: center;
+		vertical-align: middle;
+		align-content: center;
+
+		p {
+			margin: auto;
+			text-align: center;
+			min-width: 250px;
+			max-width: 300px;
+			margin-top: 1%;
+			margin-bottom: 1%;
+			color: black !important;
+			background-color: white;
+			border-radius: 5px;
+			padding: 1px;
+			font-size: large !important;
+			border: 1px solid black;
+		}
+		input {
+			font-size: medium;
+			margin: auto !important;
+		}
+
+		button {
+			margin: auto !important;
+			min-width: 250px;
+			max-width: 300px;
+			margin-top:1% !important;
+			border-radius: 5px;
+			border: 2px solid black !important;
+			padding: 0px !important;
+			font-size: x-large;
+			color: black;
+			background-color: rgb(153, 153, 153);
+			width: 30%;
+			text-decoration: none !important;
+			text-align: center;
+		}
+
+		button:hover {
+			color: green;
+		}
+	}
+
+	a {
+		font-size: 125%;
+		text-decoration: none !important;
 		p {
 			font-size: 1px;
 			visibility: hidden;
@@ -17,7 +70,7 @@ $primary-color: #404040;
 	}
 
 	span, .fa-facebook {
-		font-size: 125%;
+		font-size: 250%;
 		text-align: center !important;
 		color: white;
 	}
@@ -49,6 +102,7 @@ $primary-color: #404040;
 		max-width: 50%;
 		display:block;
 		margin: auto;
+		margin-top: 1%;
 	}
 
 	.active {
@@ -58,22 +112,12 @@ $primary-color: #404040;
 	}
 
 	.social-media {
-		padding-top:1%;
+		padding-top: 1%;
 		margin-left: 2%;
 		margin-right: 2%;
-		font-size: 150%;
 	}
 
-	p {
-		text-align: center !important;
-	}
-
-	#footer-logo{
-		min-width: 64px;
-		max-width: 128px;
-		width:8%;
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
+	.social-center {
+		text-align: center;
 	}
 }
