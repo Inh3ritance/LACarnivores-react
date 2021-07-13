@@ -78,8 +78,10 @@
 }
 
 .bi{
-    border:2px solid black;
-    background-color: rgb(199, 199, 199);
+    border:4px solid black;
+    border-radius: 5px;
+    background-color:white;
+    //background-color: rgb(199, 199, 199);
 }
 
 .bi:hover{
@@ -87,6 +89,7 @@
 }
 
 .Close{
+    transition: all 1s ease;
     z-index:2;
     position:absolute;
     width:1%;
@@ -99,6 +102,10 @@
     svg {
         vertical-align: top !important;
     }
+}
+
+.Close:hover {
+    transform: scale(1.5) translate(-10px,10px);
 }
 
 .pad{

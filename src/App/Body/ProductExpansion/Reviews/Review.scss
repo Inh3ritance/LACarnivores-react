@@ -9,6 +9,45 @@
         width:100%;
         text-align: center;
     }
+    .center {
+        margin: auto;
+    }
+
+    @media screen and (max-width: 600px) {
+        .center {
+            width: 50%;
+        }
+    }
+    
+    @media screen and (min-width: 601px) {
+        .center {
+            width: 30%;
+        }
+    }
+
+    .review-box {
+        button {
+            padding-bottom: 2px !important;
+            padding-top: 2px !important;
+            margin-bottom: 2px !important;
+            margin-left: 50%;
+            border-bottom: 0px;
+            font-size: x-large;
+            
+            p {
+                color: blue;
+                text-align: right;
+                font-size: large !important;
+            }
+    
+        }
+        button:hover {
+            p {
+                color:green;
+            }
+        }
+    }
+    
 }
 
 .user-stars{
@@ -17,13 +56,18 @@
     min-width:200px;
 }
 
+#flag {
+    width:50%;
+    margin-left: 50% !important;
+}
+
 .submit-review {
     width:20%;
     min-width:100px;
     margin-top:2% !important;
     padding:1%;
     margin-left: 10% !important;
-    border: 2px solid black;
+    border: 2px solid black !important;
     text-align: center;
 }
 

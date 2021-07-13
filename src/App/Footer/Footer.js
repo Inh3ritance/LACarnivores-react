@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.scss';
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 import Mailchimp from 'react-mailchimp-form';
 
 /* Static DOM Footer */
@@ -8,6 +8,7 @@ const Footer = () => {
   return (
     <div className="Footer">
 		<div className="subscribe-div">
+		<h3>Get exclusive news and deals, by signing up to our Newsletter!</h3>
 		<Mailchimp
 			className='subscriber'
 			action='https://lacarnivores.us7.list-manage.com/subscribe/post?u=3905aa1f6d57a28551e3731e1&amp;id=633f5175a5'
